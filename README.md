@@ -1,5 +1,7 @@
 # Slopes
 
+THE GREATEST SNOW APP EVER
+
 ## Running on local browser
 
 Run the following command on the command line interface:

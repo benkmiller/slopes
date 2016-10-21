@@ -2,6 +2,10 @@
 
 THE GREATEST SNOW APP EVER
 
+## Installing the Ionic Framework
+
+Follow this guide: http://ionicframework.com/getting-started/
+
 ## Running on local browser
 
 Run the following command on the command line interface:
@@ -38,3 +42,9 @@ Run the following command on the command line interface:
 3) `ionic run Android` to run the app on your Android device.
 
 If you do not have an Android device connected, the command `ionic run Android` will run on an emulator.
+
+## Build Errors and Resolutions
+
+1) Node Sass could not find a binding for your current environment:
+
+Run the following command on the CLI: `npm rebuild node-sass`

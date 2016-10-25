@@ -50,7 +50,7 @@
     "cordova-sqlite-storage": {
         "source": {
             "type": "git",
-            "url": "https://github.com/brodysoft/Cordova-SQLitePlugin.git",
+            "url": "https://github.com/litehelpers/Cordova-sqlite-storage.git",
             "subdir": "."
         },
         "is_top_level": true,

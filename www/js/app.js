@@ -5,9 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
+
+var mntDB = null; // Mountain database global variable
+
+.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +23,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    //------ Database code --------------
+
+    // Open the database
+    mntDB = $cordovaSQLite.openDB("db/bc_mountains.db");
+    if(mntDB == null) {
+      console.log("Error: Failed to open bc_mountains.db");
+    }
+
+
   });
 })
 

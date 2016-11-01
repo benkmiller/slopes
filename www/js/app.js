@@ -8,9 +8,7 @@
 
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-var mntDB = null; // Mountain database global variable
-
-.run(function($ionicPlatform, $cordovaSQLite) {
+.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,15 +21,6 @@ var mntDB = null; // Mountain database global variable
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    //------ Database code --------------
-
-    // Open the database
-    mntDB = $cordovaSQLite.openDB("db/bc_mountains.db");
-    if(mntDB == null) {
-      console.log("Error: Failed to open bc_mountains.db");
-    }
-
 
   });
 })
@@ -73,3 +62,37 @@ var mntDB = null; // Mountain database global variable
 
 })
 
+// Mountain Database
+var mntDB = new PouchDB('/www/db/bc_mountains.db',{adapter:'websql'});
+
+function addMountain()
+{
+  // TODO: add code for writing to database
+}
+
+function updateMountain()
+{
+  // TODO: add code for updating a mountain entry
+}
+
+function getMountain()
+{
+  // TODO: add code for retrieving a single mountain entry from the db
+}
+
+function getAllMountains()
+{
+  // TODO: add code for retrieving all mountain entries
+
+  mntDB.allDocs( {include_docs: true, descending: true},
+    function(err, doc)
+    {
+      redrawMountainList(doc.rows);
+    }
+  );
+}
+
+function redrawMountainList()
+{
+  
+}

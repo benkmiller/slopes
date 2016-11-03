@@ -4,5 +4,52 @@
     <p>Show the list of mountains based on filters set here.</p>
     <p>Create a preferences drop down menu to set the filters with this in the background.</p>
     <p><b>TODO:</b> Add a mountain icon for the tab</p>
+    <ion-list>
+
+    <!-- radius -->
+    <div class="item">
+      <div class="input label">
+        <div class="row">
+          <div class="col-50"><h2>Distance:</h2></div>
+          <div class="col-50"><h2 align="right">{{distance}}km</h2></div>
+        </div>
+      </div>
+      <!-- radius slider -->
+      <div class = "range">
+        <div class="input label">0</div>
+        <input type = "range" ng-model = "distance" min="0" max="200">
+        <div class="input label">200</div>
+      </div>
+    </div>
+
+    <!-- Difficulty -->
+    <div class="item">
+      <div class="row">
+        <div class="col-50"><h2>Difficulty:</h2></div>
+        <div class="col-50"><h2 align="right">{{difficulty}}</h2></div>
+      </div>
+    <div class= "range">
+      <div class="input label">Easy</div>
+      <input type = "range" ng-model = "difficulty" min="0" max="2" step="1" snap="true">
+      <div class="input label">Hard</div>
+    </div>
+  </div>
+
+  <!-- Difficulty -->
+  <div class="item">
+    <div class="row">
+      <div class="col-50"><h2>Difficulty:</h2></div>
+      <div class="col-50"><h2 align="right">{{difficulty}}</h2></div>
+    </div>
+  <div class= "range">
+    <div class="input label">Easy</div>
+    <input type = "range" ng-model = "difficulty" min="0" max="2" step="1" snap="true">
+    <div class="input label">Hard</div>
+  </div>
+</div>
+  <ion-toggle  ng-model="parks">
+      With parks
+  </ion-toggle>
+    </ion-list>
   </ion-content>
 </ion-view>

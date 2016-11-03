@@ -13,4 +13,7 @@ angular.module('starter.controllers', [])
 .controller('MntCtrl', function($scope) {
   $scope.title = 'Mountains';
   console.log('MntCtrl');
+  $scope.parks = true ;
+  $scope.distance = 50 ;
+  $scope.difficulty = 0 ;
 });

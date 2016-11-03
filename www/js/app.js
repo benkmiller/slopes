@@ -6,8 +6,9 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
+
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -46,6 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       views: {
         'weather-tab': {
           templateUrl: "templates/tab-weather.html",
+          controller: 'WthrCtrl'
         }
       }
     })
@@ -54,6 +56,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       views: {
         'mountains-tab': {
           templateUrl: "templates/tab-mountains.html",
+          controller: 'MntCtrl'
         }
       }
     });
@@ -62,37 +65,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 })
 
-// Mountain Database
-var mntDB = new PouchDB('/www/db/bc_mountains.db',{adapter:'websql'});
 
-function addMountain()
-{
-  // TODO: add code for writing to database
-}
-
-function updateMountain()
-{
-  // TODO: add code for updating a mountain entry
-}
-
-function getMountain()
-{
-  // TODO: add code for retrieving a single mountain entry from the db
-}
-
-function getAllMountains()
-{
-  // TODO: add code for retrieving all mountain entries
-
-  mntDB.allDocs( {include_docs: true, descending: true},
-    function(err, doc)
-    {
-      redrawMountainList(doc.rows);
-    }
-  );
-}
-
-function redrawMountainList()
-{
-  
-}

@@ -14,7 +14,13 @@ angular.module('starter.controllers', [])
   $scope.title = 'Mountains';
   console.log('MntCtrl');
 
-  $scope.select = function() {
-    var query = "SELECT * FROM mountains";
-  }
+  // Mountain Database
+  var mntDB = new PouchDB('/www/db/bc_mountains.db',{adapter:'websql'});
+
+  if(mntDB != null) {
+    mntDB.info().then(function (info) {
+      console.log(info);
+    })
+  };
+
 });

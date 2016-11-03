@@ -1,4 +1,4 @@
-<ion-view view-title="Mountains">
+<ion-view view-title="Mountains" ng-controller="MntCtrl">
   <ion-content class="padding">
     <h2>Mountains Page</h2>
     <p>Show the list of mountains based on filters set here.</p>
@@ -43,7 +43,7 @@
     </div>
   <div class= "range">
     <div class="input label">Small</div>
-    <input type = "range" ng-model = "difficulty" min="0" max="2" step="1" snap="true">
+    <input type = "range" ng-model = "size" min="0" max="2" step="1" snap="true">
     <div class="input label">Large</div>
   </div>
 </div>
@@ -51,5 +51,13 @@
       With parks
   </ion-toggle>
     </ion-list>
+    <button ng-click="submitForm()">Submit</button>
+    <h1>{{test}}</h1>
+    <h1>{{query}}</h1>
+    <h1>Size : {{size}}</h1>
+    <h1>{{querySize}}</h1>
   </ion-content>
+
+
+
 </ion-view>

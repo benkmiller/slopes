@@ -52,6 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'mountains-tab': {
           templateUrl: "templates/tab-mountains.html",
+          controller: 'MntCtrl'
         }
       }
     });
@@ -59,4 +60,3 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $urlRouterProvider.otherwise("/tab/home");
 
 })
-

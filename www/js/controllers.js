@@ -16,4 +16,5 @@ angular.module('starter.controllers', [])
   $scope.parks = true ;
   $scope.distance = 50 ;
   $scope.difficulty = 0 ;
+  $scope.size = 0 ;
 });

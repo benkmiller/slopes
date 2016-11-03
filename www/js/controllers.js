@@ -17,14 +17,9 @@ angular.module('starter.controllers', [])
   $scope.distance = 50 ;
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
-  $scope.test = false ;
-  $scope.querySize = 0 ;
   $scope.query = "empty";
   $scope.submitForm = function()
   {
-    $scope.querySize = $scope.size ;
-    $scope.query = "SELECT * FROM MOUNTAINS WHERE SIZE = " + $scope.querySize + ";" ;
-    $scope.test = !$scope.test ;
+    $scope.query = "SELECT * FROM MOUNTAINS WHERE SIZE = " + this.size + ";" ;
   }
-  $scope.submitForm() ;
 });

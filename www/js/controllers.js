@@ -10,7 +10,14 @@ angular.module('starter.controllers', [])
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl', function($scope) {
-  $scope.title = 'Mountains';
+.controller('MntCtrl', function($scope, Mountains) {
   console.log('MntCtrl');
+  $scope.mountains = Mountains.all();
+  $scope.remove = function(mountain){
+    Mountains.remove(mountain);
+  };
+})
+
+.controller('MntDetailCtrl', function($scope, $stateParams, Mountains){
+  $scope.mountain = Mountains.get($stateParams.mountainId);
 });

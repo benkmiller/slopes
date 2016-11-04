@@ -21,7 +21,7 @@ angular.module('starter.services', [])
     name: 'Grouse',
     lastText: 'no new snow',
     face: 'img/sunandclouds.jpg',
-    url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json"
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json"
   }, {
     id: 3,
     name: 'Seymour',

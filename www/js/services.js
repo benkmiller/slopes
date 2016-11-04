@@ -9,21 +9,25 @@ angular.module('starter.services', [])
     name: 'Whistler',
     lastText: 'New Snow!!!',
     face: 'img/clouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json"
   }, {
     id: 1,
     name: 'Cypress',
     lastText: 'no new snow',
-    face: 'img/sunandclouds.jpg'
+    face: 'img/sunandclouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json"
   }, {
     id: 2,
     name: 'Grouse',
     lastText: 'no new snow',
-    face: 'img/sunandclouds.jpg'
+    face: 'img/sunandclouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json"
   }, {
     id: 3,
     name: 'Seymour',
     lastText: 'no new snow',
-    face: 'img/clouds.jpg'
+    face: 'img/clouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json"
   }];
 
   return {

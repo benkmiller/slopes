@@ -13,4 +13,14 @@ angular.module('starter.controllers', [])
 .controller('MntCtrl', function($scope) {
   $scope.title = 'Mountains';
   console.log('MntCtrl');
+
+  // Mountain Database
+  var mntDB = new PouchDB('bc_mountains.db', {adapter:'websql'});
+
+  if(mntDB != null) {
+    mntDB.info().then(function (info) {
+      console.log(info);
+    })
+  };
+
 });

@@ -27,7 +27,17 @@
         },
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.ionicframework.ionicslopes915533"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ionicframework.slopes640382"
+        },
+        "cordova-plugin-sqlite-2": {
+            "PACKAGE_NAME": "com.ionicframework.slopes640382"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.slopes640382"
+        }
+    }
 }

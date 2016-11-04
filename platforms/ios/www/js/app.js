@@ -5,8 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
+
+
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,6 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
   });
 })
 
@@ -44,6 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'weather-tab': {
           templateUrl: "templates/tab-weather.html",
+          controller: 'WthrCtrl'
         }
       }
     })
@@ -52,6 +56,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'mountains-tab': {
           templateUrl: "templates/tab-mountains.html",
+          controller: 'MntCtrl'
         }
       }
     });
@@ -59,4 +64,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $urlRouterProvider.otherwise("/tab/home");
 
 })
+
 

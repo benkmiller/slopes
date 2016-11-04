@@ -10,7 +10,7 @@ angular.module('starter.controllers', [])
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl',function($scope) {
+.controller('MntCtrl',function($scope, $cordovaSQLite) {
   $scope.title = 'Mountains';
   console.log('MntCtrl');
   $scope.parks = true ;
@@ -18,8 +18,18 @@ angular.module('starter.controllers', [])
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
   $scope.query = "empty";
+  $scope.test = "empty" ;
   $scope.submitForm = function()
   {
-    $scope.query = "SELECT * FROM MOUNTAINS WHERE SIZE = " + this.size + ";" ;
+    $scope.query = "SELECT * FROM MOUNTAINS ;" ;
+    console.log($scope.query) ;
+      $cordovaSQLite.execute(db, $scope.query).then(function(res) {
+        $scope.test = "running" ;
+        console.log("Result: " + res.insertId);
+      }, function (error) {
+        console.log("error" + error.message);
+        
+  });
+
   }
 });

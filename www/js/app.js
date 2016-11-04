@@ -5,9 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+var db ;
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,6 +22,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
   });
+
+  if (window.cordova) {
+      db = $cordovaSQLite.openDB({ name: "mountains.db" }); //device
+    }else{
+      db = window.openDatabase("mountains.db", '1.0', 'my', 10000); // browser
+      db.transaction(function (tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS MOUNTAINS (id unique, log)');
+      });
+      console.log("DB" + db) ;
+    }
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 .controller('HomeCtrl', function($scope) {
   $scope.title = 'Home';
@@ -28,8 +28,9 @@ angular.module('starter.controllers', [])
         console.log("Result: " + res.insertId);
       }, function (error) {
         console.log("error" + error.message);
-        
+
   });
 
   }
+
 });

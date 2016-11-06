@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngCordova'])
 
 .controller('HomeCtrl', function($scope) {
   $scope.title = 'Home';
@@ -8,9 +8,4 @@ angular.module('starter.controllers', [])
 .controller('WthrCtrl', function($scope) {
   $scope.title = 'Weather';
   console.log('WthrCtrl');
-})
-
-.controller('MntCtrl', function($scope) {
-  $scope.title = 'Mountains';
-  console.log('MntCtrl');
 });

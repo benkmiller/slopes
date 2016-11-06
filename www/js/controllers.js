@@ -21,16 +21,23 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.test = "empty" ;
   $scope.submitForm = function()
   {
-    $scope.query = "SELECT * FROM MOUNTAINS ;" ;
-    console.log($scope.query) ;
-      $cordovaSQLite.execute(db, $scope.query).then(function(res) {
-        $scope.test = "running" ;
-        console.log("Result: " + res.insertId);
-      }, function (error) {
-        console.log("error" + error.message);
+    alert('test button');
+    if(db != null)
+   {
+     // Query the database
+     db.readTransaction(function(query){
+       query.executeSql('SELECT * FROM mountains', [], function(tx, results){
 
-  });
-
-  }
+         // Iterate through all of the results, output rows into console
+         for(var i=0; i < results.rows.length; i++)
+         {
+           console.log(JSON.stringify(results.rows.item(i)));
+         }
+       });
+     });
+   }
+   else
+     console.error("db is null!");
+ }
 
 });

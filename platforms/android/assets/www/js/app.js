@@ -8,10 +8,9 @@
 
 
 var db = null;
-
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaSQLite) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -111,6 +110,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 })
 
+
 //------------------------------------------------
 // Mountain Tab Controller
 //------------------------------------------------
@@ -140,6 +140,3 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       console.error("db is null!");
   }
 });
-
-
-

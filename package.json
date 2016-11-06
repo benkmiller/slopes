@@ -20,9 +20,9 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "cordova-plugin-sqlite-2"
   ],
-
   "cordovaPlatforms": [
     "ios",
     {
@@ -31,5 +31,4 @@
       "locator": "ios"
     }
   ]
-
 }

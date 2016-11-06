@@ -47,13 +47,13 @@
     <div class="input label">Large</div>
   </div>
 </div>
-  <ion-toggle  ng-model="parks">
+  <ion-toggle  ng-model="parks" ng-init="parks = true">
       With parks
   </ion-toggle>
     </ion-list>
-    <button ng-click="submitForm()">Submit</button>
-    <h1>{{query}}</h1>
-    <h1>{{test}}</h1>
+    <h1>Query: {{query}}</h1>
+    <h1>Test: {{test}}</h1>
+    <button class = "button" ng-click="submitForm()">Submit</button>
   </ion-content>
 
 

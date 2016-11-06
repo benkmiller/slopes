@@ -10,18 +10,14 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl',function($scope, $cordovaSQLite) {
+.controller('MntCtrl',function($scope) {
   $scope.title = 'Mountains';
-  console.log('MntCtrl');
   $scope.parks = true ;
   $scope.distance = 50 ;
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
-  $scope.query = "empty";
-  $scope.test = "empty" ;
   $scope.submitForm = function()
   {
-    alert('test button');
     if(db != null)
    {
      // Query the database

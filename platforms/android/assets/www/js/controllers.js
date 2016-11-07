@@ -12,6 +12,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
 .controller('MntCtrl',function($scope) {
   $scope.title = 'Mountains';
+  $scope.form = true ;
   $scope.parks = true ;
   $scope.distance = 50 ;
   $scope.difficulty = 0 ;
@@ -30,11 +31,14 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.addEntry = function(){
     $scope.collection.push($scope.newData) ;
     $scope.newData= '' ;
+
     console.log("Size of collection: " + $scope.collection.length) ;
   };
 
   $scope.submitForm = function()
   {
+    $scope.form = false ;
+    console.log($scope.form) ;
     var size, diff ;
     switch(this.size)
     {
@@ -92,14 +96,13 @@ angular.module('starter.controllers', ['ngCordova'])
            $scope.newData.name = results.rows.item(i)['name'] ;
 
            $scope.newData.size = results.rows.item(i)['size'] ;
-           $scope.newData.park = results.row.item(i)['park'] ;
+           $scope.newData.park = results.rows.item(i)['park'] ;
            $scope.newData.difficulty = results.rows.item(i)['difficulty'] ;
 
            $scope.newData.lifts = results.rows.item(i)['lifts'] ;
 
            $scope.newData.shuttle = results.rows.item(i)['shuttle'] ;
            $scope.addEntry() ;
-
            console.log(JSON.stringify(results.rows.item(i)));
          }
        });

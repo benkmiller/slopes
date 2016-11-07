@@ -1,9 +1,9 @@
 <ion-view view-title="Mountains" ng-controller="MntCtrl">
   <ion-content class="padding">
-    <h2>Mountains Page</h2>
+    <!-- <h2>Mountains Page</h2>
     <p>Show the list of mountains based on filters set here.</p>
     <p>Create a preferences drop down menu to set the filters with this in the background.</p>
-    <p><b>TODO:</b> Add a mountain icon for the tab</p>
+    <p><b>TODO:</b> Add a mountain icon for the tab</p> -->
     <ion-list>
 
     <!-- radius -->
@@ -43,7 +43,7 @@
     </div>
   <div class= "range">
     <div class="input label">Small</div>
-    <input type = "range" ng-model = "size" min="0" max="2" step="1" snap="true">
+    <input type = "range" ng-model = "size" min="0" max="3" step="1" snap="true">
     <div class="input label">Large</div>
   </div>
 </div>
@@ -52,7 +52,21 @@
   </ion-toggle>
     </ion-list>
     <button class = "button button-block button-positive" ng-click="submitForm()">Submit</button>
-    </table>
+
+  <table>
+    <tr>
+      <th>Mountain</th>
+      <th>Size</th>
+      <th>Difficulty</th>
+      <th># of Lifts</th>
+    </tr>
+    <tr ng-repeat="entry in collection">
+      <td>{{entry.name}}</td>
+      <td>{{entry.size}}</td>
+      <td>{{entry.difficulty}}</td>
+      <td>{{entry.lifts}}</td>
+    </tr>
+  </table>
   </ion-content>
 
 </ion-view>

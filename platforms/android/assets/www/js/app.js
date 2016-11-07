@@ -109,34 +109,3 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $urlRouterProvider.otherwise("/tab/home");
 
 })
-
-
-//------------------------------------------------
-// Mountain Tab Controller
-//------------------------------------------------
-.controller("MntCtrl", function($scope){
-  console.log('MntCtrl');
-
-  // Controls the Select All button
-  // Outputs all table entries to the console, for now
-  $scope.selectAll = function() {
-
-    // Check if database is not initialized
-    if(db != null)
-    {
-      // Query the database
-      db.readTransaction(function(query){
-        query.executeSql('SELECT * FROM mountains', [], function(tx, results){
-
-          // Iterate through all of the results, output rows into console
-          for(var i=0; i < results.rows.length; i++)
-          {
-            console.log(JSON.stringify(results.rows.item(i)));
-          }
-        });
-      });
-    }
-    else
-      console.error("db is null!");
-  }
-});

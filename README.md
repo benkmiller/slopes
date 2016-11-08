@@ -49,6 +49,17 @@ Unit testing will be done via karma/jasmine. Unit tests should go in the tests/u
 In order to run tests, navigate to /tests/ and run in command line: `karma start unit-tests.conf.js`.
 Tests will continue to run as code is changed, unless otherwise specified.
 
+Need to install the following:
+
+```
+$ npm install karma --save-dev
+$ npm install karma-jasmine --save-dev
+$ bower install angular-mocks#1.5.3 --save-dev
+$ npm install -g karma-cli
+$ npm install -g phantomjs
+$ npm install jasmine-core --save-dev
+```
+
 
 ## Build Errors and Resolutions
 

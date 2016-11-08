@@ -9,19 +9,7 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<allow-navigation href=\"cdvfile:*\" />",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
                         {
@@ -29,11 +17,23 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"io.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<allow-navigation href=\"cdvfile:*\" />",
                             "count": 1
                         }
                     ]
@@ -41,7 +41,6 @@
             },
             "AndroidManifest.xml": {
                 "parents": {
-                    "/manifest": [],
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
@@ -63,25 +62,28 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.ionicframework.slopes640382"
-        },
-        "cordova-plugin-file": {
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
-        "cordova-plugin-splashscreen": {
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.slopes640382"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
-        "cordova-plugin-statusbar": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.slopes640382"
+        },
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
         "cordova-plugin-sqlite-2": {
@@ -90,6 +92,39 @@
     },
     "dependent_plugins": {},
     "modules": [
+        {
+            "id": "cordova-plugin-device.device",
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        },
+        {
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "pluginId": "cordova-plugin-splashscreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
+        },
+        {
+            "id": "cordova-plugin-statusbar.statusbar",
+            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+            "pluginId": "cordova-plugin-statusbar",
+            "clobbers": [
+                "window.StatusBar"
+            ]
+        },
+        {
+            "id": "ionic-plugin-keyboard.keyboard",
+            "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
+            "pluginId": "ionic-plugin-keyboard",
+            "clobbers": [
+                "cordova.plugins.Keyboard"
+            ],
+            "runs": true
+        },
         {
             "id": "cordova-plugin-file.DirectoryEntry",
             "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
@@ -264,39 +299,6 @@
             "runs": true
         },
         {
-            "id": "cordova-plugin-device.device",
-            "file": "plugins/cordova-plugin-device/www/device.js",
-            "pluginId": "cordova-plugin-device",
-            "clobbers": [
-                "device"
-            ]
-        },
-        {
-            "id": "cordova-plugin-splashscreen.SplashScreen",
-            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-            "pluginId": "cordova-plugin-splashscreen",
-            "clobbers": [
-                "navigator.splashscreen"
-            ]
-        },
-        {
-            "id": "ionic-plugin-keyboard.keyboard",
-            "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
-            "pluginId": "ionic-plugin-keyboard",
-            "clobbers": [
-                "cordova.plugins.Keyboard"
-            ],
-            "runs": true
-        },
-        {
-            "id": "cordova-plugin-statusbar.statusbar",
-            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-            "pluginId": "cordova-plugin-statusbar",
-            "clobbers": [
-                "window.StatusBar"
-            ]
-        },
-        {
             "id": "cordova-plugin-sqlite-2.sqlitePlugin",
             "file": "plugins/cordova-plugin-sqlite-2/dist/sqlite-plugin.js",
             "pluginId": "cordova-plugin-sqlite-2",
@@ -306,13 +308,14 @@
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-compat": "1.0.0",
-        "cordova-plugin-file": "4.3.0",
+        "cordova-plugin-console": "1.0.4",
         "cordova-plugin-device": "1.1.3",
-        "cordova-plugin-whitelist": "1.3.0",
         "cordova-plugin-splashscreen": "4.0.0",
-        "ionic-plugin-keyboard": "2.2.1",
         "cordova-plugin-statusbar": "2.2.0",
+        "cordova-plugin-whitelist": "1.3.0",
+        "ionic-plugin-keyboard": "2.2.1",
+        "cordova-plugin-compat": "1.1.0",
+        "cordova-plugin-file": "4.3.0",
         "cordova-plugin-sqlite-2": "1.0.4"
     }
 }

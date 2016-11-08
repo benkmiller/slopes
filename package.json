@@ -21,7 +21,9 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-plugin-sqlite-2"
+    "cordova-plugin-sqlite-2",
+    "cordova-plugin-file@~4.3.0",
+    "cordova-plugin-sqlite-2@~1.0.4"
   ],
   "cordovaPlatforms": [
     "ios",

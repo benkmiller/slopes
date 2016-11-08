@@ -7,22 +7,25 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-file": {
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
-        "cordova-plugin-splashscreen": {
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.slopes640382"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
-        "cordova-plugin-statusbar": {
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
         },
         "cordova-plugin-sqlite-2": {

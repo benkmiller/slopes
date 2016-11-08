@@ -10,7 +10,6 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('WthrCtrl');
 })
 
-<<<<<<< HEAD
 .controller('MntCtrl',function($scope, Mountains) {
   // variables for reading from table
   $scope.title = 'Mountains';
@@ -29,7 +28,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
   $scope.remove = function(mountain){
     Mountains.remove(mountain);
-
+}
   //add entry to collection
   $scope.addEntry = function(newData){
     $scope.collection.push(newData) ;
@@ -41,23 +40,23 @@ angular.module('starter.controllers', ['ngCordova'])
   {
     this.form = !this.form ;
     var size, diff ;
-    switch(this.size)
-    {
-      case '0':
-        size = "S" ;
-        break ;
-      case '1':
-        size = "M" ;
-        break ;
-      case '2':
-        size = "L" ;
-        break ;
-      case '3':
-        size = "XL" ;
-        break ;
-      default:
-        size = "M";
-    }
+    // switch(this.size)
+    // {
+    //   case '0':
+    //     size = "S" ;
+    //     break ;
+    //   case '1':
+    //     size = "M" ;
+    //     break ;
+    //   case '2':
+    //     size = "L" ;
+    //     break ;
+    //   case '3':
+    //     size = "XL" ;
+    //     break ;
+    //   default:
+    //     size = "M";
+    // }
 
     switch(this.difficulty)
     {
@@ -131,8 +130,7 @@ angular.module('starter.controllers', ['ngCordova'])
    }
    else
      console.error("db is null!");
- }
-})
+
 // .controller('MntCtrl', function($scope, Mountains) {
 //   console.log('MntCtrl');
 //   $scope.mountains = Mountains.all();
@@ -140,7 +138,8 @@ angular.module('starter.controllers', ['ngCordova'])
 //     Mountains.remove(mountain);
 //   };
 // })
-
+}
+})
 .controller('MntDetailCtrl', function($scope, $stateParams, Mountains){
   $scope.mountain = Mountains.get($stateParams.mountainId);
 

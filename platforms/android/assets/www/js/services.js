@@ -51,8 +51,5 @@ angular.module('starter.services', [])
       }
       return null;
     }
-    getMountain(mountainId){
-      return mountains[mountainId - 1 ];
-    }
   };
 });

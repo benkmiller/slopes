@@ -28,7 +28,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
   $scope.remove = function(mountain){
     Mountains.remove(mountain);
-
+}
   //add entry to collection
   $scope.addEntry = function(newData){
     $scope.collection.push(newData) ;
@@ -130,7 +130,7 @@ angular.module('starter.controllers', ['ngCordova'])
    }
    else
      console.error("db is null!");
- }
+
 // .controller('MntCtrl', function($scope, Mountains) {
 //   console.log('MntCtrl');
 //   $scope.mountains = Mountains.all();
@@ -138,6 +138,7 @@ angular.module('starter.controllers', ['ngCordova'])
 //     Mountains.remove(mountain);
 //   };
 // })
+}
 })
 .controller('MntDetailCtrl', function($scope, $stateParams, Mountains){
   $scope.mountain = Mountains.get($stateParams.mountainId);

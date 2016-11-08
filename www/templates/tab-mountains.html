@@ -1,8 +1,13 @@
+
 <ion-view view-title="Mountains" ng-controller="MntCtrl">
+<!--
+<ion-view view-title="Mountains">
+>>>>>>> origin/sean
   <ion-content class="padding">
     <!-- <h2>Mountains Page</h2>
     <p>Show the list of mountains based on filters set here.</p>
     <p>Create a preferences drop down menu to set the filters with this in the background.</p>
+<<<<<<< HEAD
     <p><b>TODO:</b> Add a mountain icon for the tab</p> -->
     <!-- button to show/hide preference menu -->
     <button class="button button-light ion-gear-a" ng-click="form=!form"></button>
@@ -63,26 +68,50 @@
 
 <div class ="padding" ng-hide="form">
   <h1>Top Slopes for you ...</h1>
-<table>
-  <tr ng-repeat="entry in collection">
+  <ion-class ng-repeat="entry in collection">
     <td>
-      <div ng-click="active = !active" ng-class="{'mountain' : active, 'mountain' : !active}">
-      <div class="col col-80">
+      <!-- <div ng-click="active = !active" ng-class="{'mountain' : active, 'mountain' : !active}" href="#/tab/mountains/{{selMountain.id}}"> -->
+      <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/mountains/{{entry.id}}">
+        <img ng-src="{{mountain.face}}">
         <h2>{{entry.name}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
         <ul>Size: {{entry.size}}</ul>
         <ul>Difficulty {{entry.difficulty}}</ul>
-      </div>
+
+        <ion-option-button class="button-assertive" ng-click="remove(mountain)">
+          Delete
+        </ion-option-button>
+    </ion-item>
     </div>
-      <div class="mountain-details" ng-show= "active">
+      <!-- <div class="mountain-details" ng-show= "active">
         <ul>Has parks: {{entry.park}}</ul>
         <ul>Number of Lifts: {{entry.lifts}}</ul>
         <ul># of green runs: {{entry.green}}, # of blue runs: {{entry.blue}},  # of black runs: {{entry.black}}</ul>
-      </div>
+      </div> -->
     </td>
 
     <div="col col-25"></div>
-  </tr>
-</table>
+  </ion-class>
+  <!-- sean branch -->
+    <!-- <p><b>Todo:</b> Add a mountain icon for the tab</p>
+  </ion-content>
+</ion-view> -->
+
+<!-- <ion-view view-title="Mountains">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="mountain in mountains" type="item-text-wrap" href="#/tab/mountains/{{mountain.id}}">
+        <img ng-src="{{mountain.face}}">
+        <h2>{{mountain.name}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(mountain)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list> -->
+<!-- sean branch -->
   </ion-content>
 
 </ion-view>

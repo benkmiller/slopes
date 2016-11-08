@@ -41,6 +41,8 @@ angular.module('starter.controllers', [])
     //WHISTLER: http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json
     //CYPRESS: http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json
     //GROUSE: http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json
+    //SEYMOUR:
+    //BIG WHITE: 
     //$scope.mountain.url is the url hardcoded for each mountain in the service.js file
     hr.open('GET', $scope.mountain.url);
     hr.setRequestHeader("Content-type", "application/json");
@@ -55,6 +57,7 @@ angular.module('starter.controllers', [])
         $scope.days2 = data.weather.forecast[2].day[0].weather_text;
         $scope.days3 = data.weather.forecast[3].day[0].weather_text;
         $scope.days4 = data.weather.forecast[4].day[0].weather_text;
+        $scope.$apply();
         // lastSnow.innerHTML = "<b><span style='font-size:20px'>last snowfall: </span> </b>" + data.weather.snow_report[0].last_snow_date.fontsize(3);
         //results.innerHTML = "<b><span style='font-size:20px'>todays weather: </span> </b>"+  data.weather.forecast[0].day[0].weather_text.fontsize(3);
         //tomorrow.innerHTML = "<b><span style='font-size:20px'>tomorrows weather: </span> </b>"+ data.weather.forecast[1].day[0].weather_text.fontsize(3);

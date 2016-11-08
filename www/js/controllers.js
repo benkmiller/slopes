@@ -19,6 +19,7 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
   $scope.collection = [] ;
+  // $scope.query = 'empty' ;
 
   $scope.mountains = Mountains.all();
 
@@ -39,21 +40,21 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.submitForm = function()
   {
     this.form = !this.form ;
-    var size = $scope.size ;
+    var size = this.size ;
 
     switch(this.difficulty)
     {
       case '0':
-        diff = " between 1 and 6 " ;
+        diff = " between 3 and 5 " ;
         break ;
       case '1':
-        diff = " between 5 and 7 " ;
+        diff = " between 2 and 4 " ;
         break ;
       case '2':
-        diff = " between 7 and 10 " ;
+        diff = " between 1 and 3 " ;
         break ;
       default:
-        diff = " between 1 and 6 " ;
+        diff = " between 1 and 3 " ;
         break;
     }
 
@@ -69,7 +70,9 @@ angular.module('starter.controllers', ['ngCordova'])
    {
      // Query the database
      db.readTransaction(function(query){
-       var q = "SELECT * FROM mountains where size =='"+ size +"' or difficulty" + diff ;
+       //debug
+      //  $scope.query = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
+       var q = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
        //var q = "SELECT * FROM MOUNTAINS" //for debugging
        console.log("Query: " + q) ;
        query.executeSql(q, [], function(tx, results){

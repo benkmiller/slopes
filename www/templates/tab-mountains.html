@@ -61,16 +61,17 @@
   </div>
 <!-- ng show -->
 
-<div ng-hide="form">
-  <h1>Top slopes for you ...</h1>
-  <span ng-repeat="entry in collection">
-    <div class="col col-75">
+<div class ="padding" ng-hide="form">
+  <h1>Top Slopes for you ...</h1>
+<table>
+  <tr ng-repeat="entry in collection">
+    <td><div class="col col-80">
       <h2>{{entry.name}}</h2>
-      {{entry.size}}
+      <p>Size: {{entry.size}}</p></td>
     </div>
     <div="col col-25"></div>
-  </span>
-</div>
+  </tr>
+</table>
   </ion-content>
 
 </ion-view>

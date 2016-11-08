@@ -28,9 +28,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
   $scope.submitForm = function()
   {
-    console.log($scope.form) ;
-    $scope.form = false ;
-    console.log($scope.form) ;
+    this.form = !this.form ;
     var size, diff ;
     switch(this.size)
     {

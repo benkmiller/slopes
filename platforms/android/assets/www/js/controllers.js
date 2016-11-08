@@ -18,27 +18,17 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
   $scope.collection = [] ;
-  $scope.newData = {
-    name:'',
-    size:'',
-    park:'',
-    difficulty:'',
-    lifts:'',
-    shuttle:''
-  };
 
   //add entry to collection
-  $scope.addEntry = function(){
-    $scope.collection.push($scope.newData) ;
-    $scope.newData= '' ;
+  $scope.addEntry = function(newData){
+    $scope.collection.push(newData) ;
 
     console.log("Size of collection: " + $scope.collection.length) ;
   };
 
   $scope.submitForm = function()
   {
-    $scope.form = false ;
-    console.log($scope.form) ;
+    this.form = !this.form ;
     var size, diff ;
     switch(this.size)
     {
@@ -87,22 +77,33 @@ angular.module('starter.controllers', ['ngCordova'])
      // Query the database
      db.readTransaction(function(query){
        var q = "SELECT * FROM mountains where size =='"+ size +"' or difficulty" + diff ;
+       //var q = "SELECT * FROM MOUNTAINS" //for debugging
        console.log("Query: " + q) ;
        query.executeSql(q, [], function(tx, results){
 
          // Iterate through all of the results, output rows into console
          for(var i=0; i < results.rows.length; i++)
          {
-           $scope.newData.name = results.rows.item(i)['name'] ;
+           var newData={
+               name:'',
+               size:'',
+               park:'',
+               difficulty:'',
+               lifts:'',
+               shuttle:''
+             } ;
 
-           $scope.newData.size = results.rows.item(i)['size'] ;
-           $scope.newData.park = results.rows.item(i)['park'] ;
-           $scope.newData.difficulty = results.rows.item(i)['difficulty'] ;
+           newData.name = results.rows.item(i)['name'] ;
 
-           $scope.newData.lifts = results.rows.item(i)['lifts'] ;
+           newData.size = results.rows.item(i)['size'] ;
+           newData.park = results.rows.item(i)['park'] ;
+           newData.difficulty = results.rows.item(i)['difficulty'] ;
 
-           $scope.newData.shuttle = results.rows.item(i)['shuttle'] ;
-           $scope.addEntry() ;
+           newData.lifts = results.rows.item(i)['lifts'] ;
+
+           newData.shuttle = results.rows.item(i)['shuttle'] ;
+           $scope.addEntry(newData) ;
+           $scope.$apply() ;
            console.log(JSON.stringify(results.rows.item(i)));
          }
        });

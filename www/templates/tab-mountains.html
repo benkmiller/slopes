@@ -1,8 +1,117 @@
+
+<ion-view view-title="Mountains" ng-controller="MntCtrl">
+<!--
 <ion-view view-title="Mountains">
+>>>>>>> origin/sean
   <ion-content class="padding">
-    <h2>Mountains Page</h2>
+    <!-- <h2>Mountains Page</h2>
     <p>Show the list of mountains based on filters set here.</p>
     <p>Create a preferences drop down menu to set the filters with this in the background.</p>
-    <p><b>TODO:</b> Add a mountain icon for the tab</p>
+<<<<<<< HEAD
+    <p><b>TODO:</b> Add a mountain icon for the tab</p> -->
+    <!-- button to show/hide preference menu -->
+    <button class="button button-light ion-gear-a" ng-click="form=!form"></button>
+
+    <ion-list>
+      <div ng-show="form">
+        <!-- radius -->
+      <div class="item">
+        <div class="input label">
+          <div class="row">
+            <div class="col-50"><h2>Distance:</h2></div>
+            <!-- debug -->
+            <!-- <div class="col-50"><h2 align="right">{{distance}}km</h2></div> -->
+          </div>
+        </div>
+        <!-- radius slider -->
+        <div class = "range">
+          <div class="input label">0</div>
+          <input type = "range" ng-model = "distance" min="0" max="200">
+          <div class="input label">200</div>
+        </div>
+      </div>
+
+      <!-- Difficulty -->
+      <div class="item">
+        <div class="row">
+          <div class="col-50"><h2>Difficulty:</h2></div>
+          <!-- debug -->
+          <!-- <div class="col-50"><h2 align="right">{{difficulty}}</h2></div> -->
+        </div>
+        <div class= "range">
+          <div class="input label">Easy</div>
+          <input type = "range" ng-model = "difficulty" min="0" max="2" step="1" snap="true">
+          <div class="input label">Hard</div>
+        </div>
+      </div>
+
+    <!-- size -->
+      <div class="item">
+        <div class="row">
+          <div class="col-50"><h2>Size:</h2></div>
+          <div class="col-50"><h2 align="right">{{size}}</h2></div>
+        </div>
+        <div class= "range">
+          <div class="input label">Small</div>
+          <input type = "range" ng-model = "size" min="0" max="3" step="1" snap="true">
+          <div class="input label">Large</div>
+        </div>
+      </div>
+
+      <ion-toggle  ng-model="parks" ng-init="parks = true">With parks</ion-toggle>
+    </ion-list>
+    <!-- end of preferences -->
+    <!-- submit button -->
+    <button class = "button button-block button-positive" ng-click="submitForm()">Submit</button>
+  </div>
+<!-- ng show -->
+
+<div class ="padding" ng-hide="form">
+  <h1>Top Slopes for you ...</h1>
+  <ion-class ng-repeat="entry in collection">
+    <td>
+      <!-- <div ng-click="active = !active" ng-class="{'mountain' : active, 'mountain' : !active}" href="#/tab/mountains/{{selMountain.id}}"> -->
+      <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/mountains/{{entry.id}}">
+        <img ng-src="{{mountain.face}}">
+        <h2>{{entry.name}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ul>Size: {{entry.size}}</ul>
+        <ul>Difficulty {{entry.difficulty}}</ul>
+
+        <ion-option-button class="button-assertive" ng-click="remove(mountain)">
+          Delete
+        </ion-option-button>
+    </ion-item>
+    </div>
+      <!-- <div class="mountain-details" ng-show= "active">
+        <ul>Has parks: {{entry.park}}</ul>
+        <ul>Number of Lifts: {{entry.lifts}}</ul>
+        <ul># of green runs: {{entry.green}}, # of blue runs: {{entry.blue}},  # of black runs: {{entry.black}}</ul>
+      </div> -->
+    </td>
+
+    <div="col col-25"></div>
+  </ion-class>
+  <!-- sean branch -->
+    <!-- <p><b>Todo:</b> Add a mountain icon for the tab</p>
   </ion-content>
+</ion-view> -->
+
+<!-- <ion-view view-title="Mountains">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="mountain in mountains" type="item-text-wrap" href="#/tab/mountains/{{mountain.id}}">
+        <img ng-src="{{mountain.face}}">
+        <h2>{{mountain.name}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(mountain)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list> -->
+<!-- sean branch -->
+  </ion-content>
+
 </ion-view>

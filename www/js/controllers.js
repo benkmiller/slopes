@@ -22,9 +22,10 @@ angular.module('starter.controllers', [])
   $scope.mountain = Mountains.get($stateParams.mountainId);
 
   $scope.$on("$ionicView.loaded", function() {
-    //Put your script in here!
+    //Put your script in here!ß
 
     //set variables to use for storing information from myweather2
+    var lastSnow = document.getElementById("lastSnow");
     var results = document.getElementById("results");
     var tomorrow = document.getElementById("tomorrow");
     var days2 = document.getElementById("days2");
@@ -42,16 +43,19 @@ angular.module('starter.controllers', [])
     hr.onreadystatechange = function() {
       if(hr.readyState == 4 && hr.status == 200) {
         var data = JSON.parse(hr.responseText);
-        results.innerHTML = "today's conditions: "+ data.weather.forecast[0].day[0].weather_text;
-        tomorrow.innerHTML = "tomorrow's conditions: "+ data.weather.forecast[1].day[0].weather_text;
-        days2.innerHTML = "conditions in 2 days: "+ data.weather.forecast[2].day[0].weather_text;
-        days3.innerHTML = "conditions in 3 days: "+ data.weather.forecast[3].day[0].weather_text;
-        days4.innerHTML = "conditions in 4 days: "+ data.weather.forecast[4].day[0].weather_text;
+        //ben added a different font size and bolding
+        lastSnow.innerHTML = "<b><span style='font-size:20px'>last snowfall: </span> </b>" + data.weather.snow_report[0].last_snow_date.fontsize(3);
+        results.innerHTML = "<b><span style='font-size:20px'>todays weather: </span> </b>"+  data.weather.forecast[0].day[0].weather_text.fontsize(3);
+        tomorrow.innerHTML = "<b><span style='font-size:20px'>tomorrows weather: </span> </b>"+ data.weather.forecast[1].day[0].weather_text.fontsize(3);
+        days2.innerHTML = "<b><span style='font-size:20px'>conditions in 2 days: </span> </b>"+ data.weather.forecast[2].day[0].weather_text.fontsize(3);
+        days3.innerHTML = "<b><span style='font-size:20px'>conditions in 3 days: </span> </b>"+ data.weather.forecast[3].day[0].weather_text.fontsize(3);
+        days4.innerHTML = "<b><span style='font-size:20px'>conditions in 4 days: </span> </b>"+ data.weather.forecast[4].day[0].weather_text.fontsize(3);
       }
     }
 
     //show the requesting strings while it is retrieving data
     hr.send(null);
+    lastSnow.innerHTML = "requesting...";
     results.innerHTML = "requesting...";
     tomorrow.innerHTML = "requesting...";
     days2.innerHTML = "requesting...";

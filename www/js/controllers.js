@@ -25,12 +25,17 @@ angular.module('starter.controllers', [])
     //Put your script in here!ß
 
     //set variables to use for storing information from myweather2
-    var lastSnow = document.getElementById("lastSnow");
-    var results = document.getElementById("results");
-    var tomorrow = document.getElementById("tomorrow");
-    var days2 = document.getElementById("days2");
-    var days3 = document.getElementById("days3");
-    var days4 = document.getElementById("days4");
+    $scope.lastSnow = document.getElementById("lastSnow");
+    $scope.results = document.getElementById("results");
+    $scope.tomorrow = document.getElementById("tomorrow");
+    $scope.days2 = document.getElementById("days2");
+    $scope.days3 = document.getElementById("days3");
+    $scope.days4 = document.getElementById("days4");
+    //var results = document.getElementById("results");
+    //var tomorrow = document.getElementById("tomorrow");
+    //var days2 = document.getElementById("days2");
+    //var days3 = document.getElementById("days3");
+    //var days4 = document.getElementById("days4");
 
     var hr = new XMLHttpRequest();
     //WHISTLER: http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json
@@ -44,12 +49,18 @@ angular.module('starter.controllers', [])
       if(hr.readyState == 4 && hr.status == 200) {
         var data = JSON.parse(hr.responseText);
         //ben added a different font size and bolding
-        lastSnow.innerHTML = "<b><span style='font-size:20px'>last snowfall: </span> </b>" + data.weather.snow_report[0].last_snow_date.fontsize(3);
-        results.innerHTML = "<b><span style='font-size:20px'>todays weather: </span> </b>"+  data.weather.forecast[0].day[0].weather_text.fontsize(3);
-        tomorrow.innerHTML = "<b><span style='font-size:20px'>tomorrows weather: </span> </b>"+ data.weather.forecast[1].day[0].weather_text.fontsize(3);
-        days2.innerHTML = "<b><span style='font-size:20px'>conditions in 2 days: </span> </b>"+ data.weather.forecast[2].day[0].weather_text.fontsize(3);
-        days3.innerHTML = "<b><span style='font-size:20px'>conditions in 3 days: </span> </b>"+ data.weather.forecast[3].day[0].weather_text.fontsize(3);
-        days4.innerHTML = "<b><span style='font-size:20px'>conditions in 4 days: </span> </b>"+ data.weather.forecast[4].day[0].weather_text.fontsize(3);
+        $scope.lastSnow = data.weather.snow_report[0].last_snow_date;
+        $scope.results = data.weather.forecast[0].day[0].weather_text;
+        $scope.tomorrow = data.weather.forecast[1].day[0].weather_text;
+        $scope.days2 = data.weather.forecast[2].day[0].weather_text;
+        $scope.days3 = data.weather.forecast[3].day[0].weather_text;
+        $scope.days4 = data.weather.forecast[4].day[0].weather_text;
+        // lastSnow.innerHTML = "<b><span style='font-size:20px'>last snowfall: </span> </b>" + data.weather.snow_report[0].last_snow_date.fontsize(3);
+        //results.innerHTML = "<b><span style='font-size:20px'>todays weather: </span> </b>"+  data.weather.forecast[0].day[0].weather_text.fontsize(3);
+        //tomorrow.innerHTML = "<b><span style='font-size:20px'>tomorrows weather: </span> </b>"+ data.weather.forecast[1].day[0].weather_text.fontsize(3);
+        //days2.innerHTML = "<b><span style='font-size:20px'>conditions in 2 days: </span> </b>"+ data.weather.forecast[2].day[0].weather_text.fontsize(3);
+        //days3.innerHTML = "<b><span style='font-size:20px'>conditions in 3 days: </span> </b>"+ data.weather.forecast[3].day[0].weather_text.fontsize(3);
+        //days4.innerHTML = "<b><span style='font-size:20px'>conditions in 4 days: </span> </b>"+ data.weather.forecast[4].day[0].weather_text.fontsize(3);
       }
     }
 

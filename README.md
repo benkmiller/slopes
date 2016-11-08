@@ -60,6 +60,7 @@ $ npm install -g phantomjs
 $ npm install jasmine-core --save-dev
 ```
 
+angular mocks version needs to be the same as angular version in the project.
 
 ## Build Errors and Resolutions
 

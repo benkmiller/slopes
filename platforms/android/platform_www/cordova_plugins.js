@@ -1,6 +1,14 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "id": "cordova-plugin-device.device",
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "pluginId": "cordova-plugin-device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
         "id": "cordova-plugin-file.DirectoryEntry",
         "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
         "pluginId": "cordova-plugin-file",
@@ -174,12 +182,18 @@ module.exports = [
         "runs": true
     },
     {
-        "id": "cordova-plugin-device.device",
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "pluginId": "cordova-plugin-device",
+        "id": "cordova-plugin-geolocation.geolocation",
+        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+        "pluginId": "cordova-plugin-geolocation",
         "clobbers": [
-            "device"
+            "navigator.geolocation"
         ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.PositionError",
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "runs": true
     },
     {
         "id": "cordova-plugin-splashscreen.SplashScreen",
@@ -190,13 +204,12 @@ module.exports = [
         ]
     },
     {
-        "id": "ionic-plugin-keyboard.keyboard",
-        "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
-        "pluginId": "ionic-plugin-keyboard",
+        "id": "cordova-plugin-sqlite-2.sqlitePlugin",
+        "file": "plugins/cordova-plugin-sqlite-2/dist/sqlite-plugin.js",
+        "pluginId": "cordova-plugin-sqlite-2",
         "clobbers": [
-            "cordova.plugins.Keyboard"
-        ],
-        "runs": true
+            "sqlitePlugin"
+        ]
     },
     {
         "id": "cordova-plugin-statusbar.statusbar",
@@ -207,25 +220,37 @@ module.exports = [
         ]
     },
     {
-        "id": "cordova-plugin-sqlite-2.sqlitePlugin",
-        "file": "plugins/cordova-plugin-sqlite-2/dist/sqlite-plugin.js",
-        "pluginId": "cordova-plugin-sqlite-2",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "pluginId": "cordova-sqlite-storage",
         "clobbers": [
-            "sqlitePlugin"
+            "SQLitePlugin"
         ]
+    },
+    {
+        "id": "ionic-plugin-keyboard.keyboard",
+        "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
+        "pluginId": "ionic-plugin-keyboard",
+        "clobbers": [
+            "cordova.plugins.Keyboard"
+        ],
+        "runs": true
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-compat": "1.0.0",
-    "cordova-plugin-file": "4.3.0",
+    "cordova-plugin-compat": "1.1.0",
+    "cordova-plugin-console": "1.0.4",
     "cordova-plugin-device": "1.1.3",
-    "cordova-plugin-whitelist": "1.3.0",
+    "cordova-plugin-file": "4.3.0",
+    "cordova-plugin-geolocation": "2.4.0",
     "cordova-plugin-splashscreen": "4.0.0",
-    "ionic-plugin-keyboard": "2.2.1",
+    "cordova-plugin-sqlite-2": "1.0.4",
     "cordova-plugin-statusbar": "2.2.0",
-    "cordova-plugin-sqlite-2": "1.0.4"
+    "cordova-plugin-whitelist": "1.3.0",
+    "cordova-sqlite-storage": "1.4.8",
+    "ionic-plugin-keyboard": "2.2.1"
 };
 // BOTTOM OF METADATA
 });

@@ -89,6 +89,7 @@ angular.module('starter.controllers', ['ngCordova'])
                size:'',
                park:'',
                difficulty:'',
+               green:'', blue:'', black:'', dblack:'',
                lifts:'',
                shuttle:''
              } ;
@@ -100,6 +101,10 @@ angular.module('starter.controllers', ['ngCordova'])
            newData.difficulty = results.rows.item(i)['difficulty'] ;
 
            newData.lifts = results.rows.item(i)['lifts'] ;
+           newData.green = results.rows.item(i)['green'] ;
+           newData.blue = results.rows.item(i)['blue'] ;
+           newData.black = results.rows.item(i)['black'] ;
+           newData.dblack = results.rows.item(i)['dblack'] ;
 
            newData.shuttle = results.rows.item(i)['shuttle'] ;
            $scope.addEntry(newData) ;

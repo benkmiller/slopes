@@ -1,27 +1,33 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.slopes640382" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
         <param name="onload" value="true" />
     </feature>
     <allow-navigation href="cdvfile:*" />
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
-    <feature name="Whitelist">
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-        <param name="onload" value="true" />
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
     </feature>
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="Keyboard">
-        <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
-        <param name="onload" value="true" />
-    </feature>
     <feature name="StatusBar">
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="SQLitePlugin">
+        <param name="android-package" value="io.sqlc.SQLitePlugin" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
     </feature>
     <feature name="SQLitePlugin">
@@ -34,7 +40,7 @@
     <author email="you@example.com" href="http://example.com.com/">
       Your Name Here
     </author>
-    <content original-src="index.html" src="http://206.87.215.198:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
     <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />

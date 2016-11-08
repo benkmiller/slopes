@@ -66,7 +66,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }).catch(function (err) {
 
       // Error copying the database
-      console.log(err);
+      console.log("Cannto open database" + err);
     });
   })
 })

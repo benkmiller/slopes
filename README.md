@@ -45,7 +45,7 @@ If you do not have an Android device connected, the command `ionic run Android` 
 
 ## Testing
 
-Unit testing will be done via karma/jasmine. Unit tests should go in the tests/unit-tests directory. 
+Unit testing will be done via karma/jasmine. Unit tests should go in the tests/unit-tests directory.
 In order to run tests, navigate to /tests/ and run in command line: `karma start unit-tests.conf.js`.
 Tests will continue to run as code is changed, unless otherwise specified.
 
@@ -59,8 +59,14 @@ $ npm install -g karma-cli
 $ npm install -g phantomjs
 $ npm install jasmine-core --save-dev
 ```
+may need to also install if you get this error:
+Cannot load browser "PhantomJS": it is not registered! Perhaps you are missing some plugin?
 
-angular mocks version needs to be the same as angular version in the project.
+```
+npm install karma-phantomjs-launcher --save-dev
+
+```
+
 
 ## Build Errors and Resolutions
 

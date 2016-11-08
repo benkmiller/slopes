@@ -43,6 +43,13 @@ Run the following command on the command line interface:
 
 If you do not have an Android device connected, the command `ionic run Android` will run on an emulator.
 
+## Testing
+
+Unit testing will be done via karma/jasmine. Unit tests should go in the tests/unit-tests directory. 
+In order to run tests, navigate to /tests/ and run in command line: `karma start unit-tests.conf.js`.
+Tests will continue to run as code is changed, unless otherwise specified.
+
+
 ## Build Errors and Resolutions
 
 1) Node Sass could not find a binding for your current environment:

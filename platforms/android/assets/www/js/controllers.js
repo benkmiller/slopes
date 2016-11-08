@@ -39,24 +39,7 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.submitForm = function()
   {
     this.form = !this.form ;
-    var size, diff ;
-    // switch(this.size)
-    // {
-    //   case '0':
-    //     size = "S" ;
-    //     break ;
-    //   case '1':
-    //     size = "M" ;
-    //     break ;
-    //   case '2':
-    //     size = "L" ;
-    //     break ;
-    //   case '3':
-    //     size = "XL" ;
-    //     break ;
-    //   default:
-    //     size = "M";
-    // }
+    var size = $scope.size ;
 
     switch(this.difficulty)
     {
@@ -131,13 +114,6 @@ angular.module('starter.controllers', ['ngCordova'])
    else
      console.error("db is null!");
 
-// .controller('MntCtrl', function($scope, Mountains) {
-//   console.log('MntCtrl');
-//   $scope.mountains = Mountains.all();
-//   $scope.remove = function(mountain){
-//     Mountains.remove(mountain);
-//   };
-// })
 }
 })
 .controller('MntDetailCtrl', function($scope, $stateParams, Mountains){

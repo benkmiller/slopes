@@ -71,7 +71,9 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ul>Size: {{entry.size}}</ul>
-        <ul>Difficulty {{entry.difficulty}}</ul>
+        <ul>Difficulty: {{entry.difficulty}}</ul>
+        <ul>Latitude: {{entry.latitude}} Longitude: {{entry.longitude}}</ul>
+        <ul>Distance: {{entry.distance}} km</ul> <!-- Calculate distance to mountain -->
 
         <ion-option-button class="button-assertive" ng-click="remove(mountain)">Delete</ion-option-button>
       <!-- <div class="mountain-details" ng-show= "active">

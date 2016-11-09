@@ -22,70 +22,27 @@ angular.module('starter.controllers', ['ngCordova'])
   // $scope.query = 'empty' ;
 
   // Start Geolocation code
-  // 49.134690, -122.873986
+  // Test coordinates: 49.134690, -122.873986
 
-  $scope.gpsLat = 49.134690;
-  $scope.gpsLong = -122.873986;
+  $scope.gpsLat;
+  $scope.gpsLong;
 
+  // GPS options, set to use GPS
+  var posOptions = {timeout: 1000, enableHighAccuracy: true};
 
-  $scope.getCurrentPosition = function()
-  {
-    var posOptions = {timeout: 3600000, enableHighAccuracy: true};
+  // Get location data
+  var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
 
-    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
+  function onSuccess(position) {
+    $scope.gpsLat = position.coords.latitude;
+    $scope.gpsLong = position.coords.longitude;
+  }
 
-    function onSuccess(position) {
+  function onError(error) {
+    console.error("getCurrentPosition Error: " + error);
+  }
 
-      /* alert('Latitude: '          + position.coords.latitude          + '\n' +
-        'Longitude: '         + position.coords.longitude         + '\n' +
-        'Altitude: '          + position.coords.altitude          + '\n' +
-        'Accuracy: '          + position.coords.accuracy          + '\n' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-        'Heading: '           + position.coords.heading           + '\n' +
-        'Speed: '             + position.coords.speed             + '\n' +
-        'Timestamp: '         + position.timestamp                + '\n');
-      */
-
-      $scope.gpsLat = position.coords.latitude;
-      $scope.gpsLong = position.coords.longitude;
-    }
-
-    function onError(error) {
-      console.error("getCurrentPosition Error: " + error);
-    }
-  };
-
-  $scope.watchCurrentPosition = function()
-  {
-    var options = {
-      maximumAge: 3600000,
-      timeout: 3000,
-      enableHighAccuracy: true,
-    }
-
-    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-
-    function onSuccess(position) {
-
-      /* alert('Latitude: '          + position.coords.latitude          + '\n' +
-        'Longitude: '         + position.coords.longitude         + '\n' +
-        'Altitude: '          + position.coords.altitude          + '\n' +
-        'Accuracy: '          + position.coords.accuracy          + '\n' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-        'Heading: '           + position.coords.heading           + '\n' +
-        'Speed: '             + position.coords.speed             + '\n' +
-        'Timestamp: '         + position.timestamp                + '\n');
-      */
-
-      $scope.gpsLat = position.coords.latitude;
-      $scope.gpsLong = position.coords.longitude;
-    }
-
-    function onError(error) {
-      console.error("watchCurrentPosition Error: " + error);
-    }
-  };
-
+  // Convert to distance
   // lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
   $scope.getDistance = function (lat1,lon1,lat2,lon2) {
     var R = 6371; // Radius of the earth in km
@@ -200,9 +157,14 @@ angular.module('starter.controllers', ['ngCordova'])
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
 
-           $scope.getCurrentPosition();
-
-           newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
+           if($scope.gpsLat != null)
+           {
+             newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
+           }
+           else
+           {
+             newData.distance = "No valid GPS data"
+           }
 
            $scope.addEntry(newData);
            $scope.$apply() ;

@@ -10,7 +10,7 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl',function($scope, Mountains) {
+.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation) {
   // variables for reading from table
   $scope.title = 'Mountains';
   $scope.form = true ;
@@ -19,16 +19,104 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
   $scope.collection = [] ;
+  // $scope.query = 'empty' ;
+
+  // Start Geolocation code
+  // 49.134690, -122.873986
+
+  $scope.gpsLat = 49.134690;
+  $scope.gpsLong = -122.873986;
+
+
+  $scope.getCurrentPosition = function()
+  {
+    var posOptions = {timeout: 3600000, enableHighAccuracy: true};
+
+    var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
+
+    function onSuccess(position) {
+
+      /* alert('Latitude: '          + position.coords.latitude          + '\n' +
+        'Longitude: '         + position.coords.longitude         + '\n' +
+        'Altitude: '          + position.coords.altitude          + '\n' +
+        'Accuracy: '          + position.coords.accuracy          + '\n' +
+        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+        'Heading: '           + position.coords.heading           + '\n' +
+        'Speed: '             + position.coords.speed             + '\n' +
+        'Timestamp: '         + position.timestamp                + '\n');
+      */
+
+      $scope.gpsLat = position.coords.latitude;
+      $scope.gpsLong = position.coords.longitude;
+    }
+
+    function onError(error) {
+      console.error("getCurrentPosition Error: " + error);
+    }
+  };
+
+  $scope.watchCurrentPosition = function()
+  {
+    var options = {
+      maximumAge: 3600000,
+      timeout: 3000,
+      enableHighAccuracy: true,
+    }
+
+    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+
+    function onSuccess(position) {
+
+      /* alert('Latitude: '          + position.coords.latitude          + '\n' +
+        'Longitude: '         + position.coords.longitude         + '\n' +
+        'Altitude: '          + position.coords.altitude          + '\n' +
+        'Accuracy: '          + position.coords.accuracy          + '\n' +
+        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+        'Heading: '           + position.coords.heading           + '\n' +
+        'Speed: '             + position.coords.speed             + '\n' +
+        'Timestamp: '         + position.timestamp                + '\n');
+      */
+
+      $scope.gpsLat = position.coords.latitude;
+      $scope.gpsLong = position.coords.longitude;
+    }
+
+    function onError(error) {
+      console.error("watchCurrentPosition Error: " + error);
+    }
+  };
+
+  // lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
+  $scope.getDistance = function (lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = $scope.toRadians(lat2-lat1);  // toRadians defined below
+    var dLon = $scope.toRadians(lon2-lon1);
+    var a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos($scope.toRadians(lat1)) * Math.cos($scope.toRadians(lat2)) *
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+      ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+  };
+
+  $scope.toRadians = function(deg) {
+    return deg * (Math.PI/180)
+  };
+
+  // End Geolocation
 
   $scope.mountains = Mountains.all();
 
   $scope.getMountain = function(mountainId){
     Mountains.getMountain(mountainId) ;
-  }
+  };
 
   $scope.remove = function(mountain){
     Mountains.remove(mountain);
-}
+  };
+
   //add entry to collection
   $scope.addEntry = function(newData){
     $scope.collection.push(newData) ;
@@ -39,21 +127,21 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.submitForm = function()
   {
     this.form = !this.form ;
-    var size = $scope.size ;
+    var size = this.size ;
 
     switch(this.difficulty)
     {
       case '0':
-        diff = " between 1 and 6 " ;
+        diff = " between 3 and 5 " ;
         break ;
       case '1':
-        diff = " between 5 and 7 " ;
+        diff = " between 2 and 4 " ;
         break ;
       case '2':
-        diff = " between 7 and 10 " ;
+        diff = " between 1 and 3 " ;
         break ;
       default:
-        diff = " between 1 and 6 " ;
+        diff = " between 1 and 3 " ;
         break;
     }
 
@@ -69,7 +157,9 @@ angular.module('starter.controllers', ['ngCordova'])
    {
      // Query the database
      db.readTransaction(function(query){
-       var q = "SELECT * FROM mountains where size =='"+ size +"' or difficulty" + diff ;
+       //debug
+      //  $scope.query = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
+       var q = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
        //var q = "SELECT * FROM MOUNTAINS" //for debugging
        console.log("Query: " + q) ;
        query.executeSql(q, [], function(tx, results){
@@ -85,9 +175,12 @@ angular.module('starter.controllers', ['ngCordova'])
                difficulty:'',
                green:'', blue:'', black:'', dblack:'',
                lifts:'',
-               shuttle:''
+               shuttle:'',
+                latitude:'',
+                longitude:'',
+                distance:''
              } ;
-             var newMountain ;
+             var newMountain;
 
            newData.id = results.rows.item(i)['id'] ;
            newData.name = results.rows.item(i)['name'] ;
@@ -104,9 +197,18 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.shuttle = results.rows.item(i)['shuttle'] ;
 
-           $scope.addEntry(newData) ;
+           newData.latitude = results.rows.item(i)['latitude'];
+           newData.longitude = results.rows.item(i)['longitude'];
+
+           $scope.getCurrentPosition();
+
+           newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
+
+           $scope.addEntry(newData);
            $scope.$apply() ;
-           console.log(JSON.stringify(results.rows.item(i)));
+
+           //console.log(JSON.stringify(results.rows.item(i)));
+           console.log(newData);
          }
        });
      });

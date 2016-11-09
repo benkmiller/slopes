@@ -30,6 +30,9 @@
         },
         "cordova-plugin-sqlite-2": {
             "PACKAGE_NAME": "com.ionicframework.slopes640382"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.slopes"
         }
     },
     "dependent_plugins": {

@@ -1,47 +1,52 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Mountains', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var chats = [{
+  var mountains = [{
     id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
+    name: 'Whistler',
+    lastText: 'New Snow!!!',
+    face: 'img/clouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json"
   }, {
     id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
+    name: 'Cypress',
+    lastText: 'no new snow',
+    face: 'img/sunandclouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json"
   }, {
     id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
+    name: 'Grouse',
+    lastText: 'no new snow',
+    face: 'img/sunandclouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json"
   }, {
     id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
+    name: 'Seymour',
+    lastText: 'no new snow',
+    face: 'img/clouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json"
+  },{
     id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
+    name: 'Big White',
+    lastText: 'no new snow',
+    face: 'img/clouds.jpg',
+    url: "http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json"
   }];
 
   return {
     all: function() {
-      return chats;
+      return mountains;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    remove: function(mountain) {
+      mountains.splice(mountains.indexOf(mountain), 1);
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    get: function(mountainId) {
+      for (var i = 0; i < mountains.length; i++) {
+        if (mountains[i].id === parseInt(mountainId)) {
+          return mountains[i];
         }
       }
       return null;

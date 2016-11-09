@@ -1,1 +1,51 @@
 /* Empty. Add your own CSS if you like */
+.home{
+background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+}
+
+.mountain{
+background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+
+}
+.mountaindetail{
+  background-color: #444444;
+
+}
+.strokeme
+{
+  position:absolute;
+  top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  color: black;
+  text-shadow:
+  -1px -1px 0 #FFFFFF,
+  1px -1px 0 #FFFFFF,
+  -1px 1px 0 #FFFFFF,
+  1px 1px 0 #FFFFFF;
+}
+
+.item .item-content {
+  background-color: rgba(68, 68, 68, 1) !important;
+  filter: alpha(opacity=50) !important;
+}
+
+/*ion-list.card-background{
+      position: absolute;
+      left: 40%;
+      top: 80%;
+      background-color: rgba(0, 0, 0, 0);
+  }
+
+  ion-item.item-trns {
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+   } */

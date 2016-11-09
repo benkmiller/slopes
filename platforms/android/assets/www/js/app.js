@@ -86,15 +86,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('tab.weather', {
-      url: "/weather",
-      views: {
-        'weather-tab': {
-          templateUrl: "templates/tab-weather.html",
-          controller: 'WthrCtrl'
-        }
-      }
-    })
     .state('tab.mountains', {
       url: "/mountains",
       views: {
@@ -114,6 +105,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     });
 
-  $urlRouterProvider.otherwise("/tab/home");
+  $urlRouterProvider.otherwise("/tab/mountains");
 
 })

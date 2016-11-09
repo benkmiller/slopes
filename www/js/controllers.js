@@ -115,7 +115,10 @@ angular.module('starter.controllers', ['ngCordova'])
                difficulty:'',
                green:'', blue:'', black:'', dblack:'',
                lifts:'',
-               shuttle:''
+               shuttle:'',
+             latitude:'',
+             longitude:'',
+             distance:''
              } ;
              var newMountain ;
 
@@ -133,6 +136,18 @@ angular.module('starter.controllers', ['ngCordova'])
            newData.dblack = results.rows.item(i)['dblack'] ;
 
            newData.shuttle = results.rows.item(i)['shuttle'] ;
+
+           newData.latitude = results.rows.item(i)['latitude'];
+           newData.longitude = results.rows.item(i)['longitude'];
+
+           if($scope.gpsLat != null)
+           {
+             newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
+           }
+           else
+           {
+             newData.distance = "No valid GPS data"
+           }
 
            $scope.addEntry(newData) ;
            $scope.$apply() ;

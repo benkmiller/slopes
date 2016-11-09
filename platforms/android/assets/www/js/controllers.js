@@ -295,6 +295,7 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.days3 = data.weather.forecast[3].day[0].weather_text;
         $scope.days4 = data.weather.forecast[4].day[0].weather_text;
         $scope.$apply();
+
       }
     }
 

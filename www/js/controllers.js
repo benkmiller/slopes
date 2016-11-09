@@ -42,7 +42,7 @@ angular.module('starter.controllers', [])
     //CYPRESS: http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json
     //GROUSE: http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json
     //SEYMOUR:
-    //BIG WHITE: 
+    //BIG WHITE:
     //$scope.mountain.url is the url hardcoded for each mountain in the service.js file
     hr.open('GET', $scope.mountain.url);
     hr.setRequestHeader("Content-type", "application/json");

@@ -4,16 +4,59 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
+<!--
 <ion-view view-title="{{mountain.name}}">
-  <ion-content class="padding">
-    <img ng-src="{{mountain.face}}" style="width: 64px; height: 64px">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('{{mountain.face}}');">
+            <div class="content">
+                <div class="avatar" style="background-image: url('img/mike.jpg');"></div>
+                <h3><a class="light">Daenerys Targaryen</a></h3>
+                <h4>dragon_mommy</h4>
+            </div>
+        </div>
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.activity" class="tab-item">
+                <i class="icon ion-arrow-graph-up-right"></i> Activity
+            </a>
+            <a ui-sref="app.friends" class="tab-item">
+                <i class="icon ion-android-people"></i> Friends
+            </a>
+            <a ui-sref="app.gallery" class="tab-item">
+                <i class="icon ion-images"></i> Photos
+            </a>
+        </div>
+        <h4 class="content padding double-padding-x">Following</h4>
 
-    <h2> Snow Report </h2>
+    </ion-content>
+</ion-view>
+-->
+
+<ion-view >
+  <ion-nav-bar  class="bar-dark">
+        <ion-nav-back-button class="button-icon ion-ios-arrow-back md-arrow-round-back">
+        </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content class="padding">
+
+    <h1> <div class="strokeme"> <font face="AR BERKLEY", size="100"> <center> {{mountain.name}} </center> </font> </div> </h1>
+
+    <img ng-src="{{mountain.face}}" style="width:100%;height:300px;">
+
+    <div class="card">
+  <div class="item item-divider item-icon-left item-dark">
+    <i class="icon ion-ios-snowy"></i>
+    Snow Report
+  </div>
+  <div class="item item-text-wrap">
     <div class="snow-details">
     <p><b>Last Snow:</b> {{lastSnow}}</p>
     </div>
-
-    <h2> Weather </h2>
+  </div>
+  <div class="item item-divider item-icon-left item-dark">
+    <i class="icon ion-ios-rainy"></i>
+    Weather
+  </div>
+  <div class="item item-text-wrap">
     <div class="weather-details">
     <p><b>Todays Weather:</b> {{results}}</p>
     <p><b>Tomorrows Weather:</b> {{tomorrow}}</p>
@@ -22,6 +65,8 @@
     <p><b>Weather in 4 Days:</b> {{days4}}</p>
 
     </div>
+  </div>
+</div>
 
     <!--
     Print the variables with information from myweather2 that the conroller MntDetailCtrl retrieved

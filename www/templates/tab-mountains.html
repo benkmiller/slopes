@@ -8,18 +8,25 @@
   </ion-content>
 </ion-view>
 -->
-<ion-view view-title="Mountains">
+<ion-view class="mountain" view-title="Mountains">
+  <ion-nav-bar class="bar-dark">
+        <ion-nav-back-button class="button-icon ion-arrow-left-c">
+        </ion-nav-back-button>
+  </ion-nav-bar>
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="mountain in mountains" type="item-text-wrap" href="#/tab/mountains/{{mountain.id}}">
+      <ion-item class="item-remove-animate item-transparent item-avatar item-icon-right" ng-repeat="mountain in mountains" type="item-text-wrap" href="#/tab/mountains/{{mountain.id}}">
+
+
         <img ng-src="{{mountain.face}}">
-        <h2>{{mountain.name}}</h2>
-        <p>{{mountain.lastText}}</p>
+        <h2><font color="white"">{{mountain.name}}</font></h2>
+        <p><font color="gray"">{{mountain.lastText}} </font></p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(mountain)">
           Delete
         </ion-option-button>
+
       </ion-item>
     </ion-list>
   </ion-content>

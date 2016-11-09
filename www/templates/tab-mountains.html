@@ -1,15 +1,13 @@
-<<<<<<< HEAD
-
 <ion-view view-title="Mountains" ng-controller="MntCtrl">
   <ion-nav-bar class="bar-dark">
-        <ion-nav-back-button class="button-icon ion-arrow-left-c">
-        </ion-nav-back-button>
+      <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
   </ion-nav-bar>
+
   <ion-content>
     <button class="button button-light ion-gear-a" ng-click="form=!form"></button>
-    <div ng-show="form">
-    <ion-list>
 
+    <div ng-show="form">
+      <ion-list>
         <!-- radius -->
         <div class="item">
           <div class="input label">
@@ -60,57 +58,32 @@
         <!-- submit button -->
         <button class = "button button-block button-positive" ng-click="submitForm()">Submit</button>
         <button class = "button button-block" ng-click="showAll()">Show All Moutains</div>
-
     <!-- ng show -->
     </ion-list>
     </div>
 
-<div class ="padding" ng-hide="form">
-  <h1>Top Slopes for you ...</h1>
-  <!-- <p>query: {{query}}</p> -->
-  <ion-class ng-repeat="entry in collection">
-      <ion-item class="item-remove-animate item-transparent item-avatar item-icon-right" type="item-text-wrap" href="#/tab/mountains/{{entry.id}}">
-        <!-- <img ng-src="{{mountain.face}}"> -->
-        <h2><font color="white">{{entry.name}}</h2>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+    <div class ="padding" ng-hide="form">
+      <h1>Top Slopes for you ...</h1>
+      <!-- <p>query: {{query}}</p> -->
+      <ion-class ng-repeat="entry in collection">
+          <ion-item class="item-remove-animate item-transparent item-avatar item-icon-right" type="item-text-wrap" href="#/tab/mountains/{{entry.id}}">
+            <!-- <img ng-src="{{mountain.face}}"> -->
+            <h2><font color="white">{{entry.name}}</h2>
+            <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ul><font color="gray">Size: {{entry.size}}</ul>
-        <ul><font color="gray">Difficulty: {{entry.difficulty}}</ul>
-        <ul><font color="gray">Distance: {{entry.distance}} km</ul> <!-- Calculate distance to mountain -->
+            <ul><font color="gray">Size: {{entry.size}}</ul>
+            <ul><font color="gray">Difficulty: {{entry.difficulty}}</ul>
+            <ul><font color="gray">Distance: {{entry.distance}} km</ul> <!-- Calculate distance to mountain -->
 
-        <ion-option-button class="button-assertive" ng-click="remove(mountain)">Delete</ion-option-button>
-      <!-- <div class="mountain-details" ng-show= "active">
-        <ul>Has parks: {{entry.park}}</ul>
-        <ul>Number of Lifts: {{entry.lifts}}</ul>
-        <ul># of green runs: {{entry.green}}, # of blue runs: {{entry.blue}},  # of black runs: {{entry.black}}</ul>
-      </div>-->
-        </ion-item>
-  </ion-class>
-  <ion-class ng-hide="collection.length">Sorry, no matching mountains found.  Please try again.<ion-class>
-</div>
-  <!-- sean branch -->
-    <!-- <p><b>Todo:</b> Add a mountain icon for the tab</p>
- <ion-view class="mountain" view-title="Mountains">
-  <ion-nav-bar class="bar-dark">
-        <ion-nav-back-button class="button-icon ion-arrow-left-c">
-        </ion-nav-back-button>
-  </ion-nav-bar>
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-transparent item-avatar item-icon-right" ng-repeat="mountain in mountains" type="item-text-wrap" href="#/tab/mountains/{{mountain.id}}">
-
-
-        <img ng-src="{{mountain.face}}">
-        <h2><font color="white">{{mountain.name}}</font></h2>
-        <p><font color="gray">{{mountain.lastText}} </font></p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="remove(mountain)">
-          Delete
-        </ion-option-button>
-
-      </ion-item>
-    </ion-list>
->>>>>>> 6c075fb9c5693f55967dd59ef27f19891bafd0b4 -->
+            <ion-option-button class="button-assertive" ng-click="remove(mountain)">Delete</ion-option-button>
+          <!-- <div class="mountain-details" ng-show= "active">
+            <ul>Has parks: {{entry.park}}</ul>
+            <ul>Number of Lifts: {{entry.lifts}}</ul>
+            <ul># of green runs: {{entry.green}}, # of blue runs: {{entry.blue}},  # of black runs: {{entry.black}}</ul>
+          </div>-->
+            </ion-item>
+      </ion-class>
+      <ion-class ng-hide="collection.length">Sorry, no matching mountains found.  Please try again.<ion-class>
+    </div>
   </ion-content>
 </ion-view>

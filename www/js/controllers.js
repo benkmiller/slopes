@@ -37,6 +37,71 @@ angular.module('starter.controllers', ['ngCordova'])
     console.log("Size of collection: " + $scope.collection.length) ;
   };
 
+  $scope.showAll = function()
+  {
+    this.form = !this.form ;
+
+    //Delete everything from collection before inserting
+    var j = 0 ;
+    while($scope.collection.length > 0)
+    {
+      $scope.collection.splice(j, 1) ;
+    }
+    console.log("Size of collection:" + $scope.collection.length) ;
+
+    if(db != null)
+   {
+     // Query the database
+     db.readTransaction(function(query){
+       //debug
+      //  $scope.query = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
+       var q = "SELECT * FROM mountains" ;
+       //var q = "SELECT * FROM MOUNTAINS" //for debugging
+       console.log("Query: " + q) ;
+       query.executeSql(q, [], function(tx, results){
+
+         // Iterate through all of the results, output rows into console
+         for(var i=0; i < results.rows.length; i++)
+         {
+           var newData={
+                id:'',
+               name:'',
+               size:'',
+               park:'',
+               difficulty:'',
+               green:'', blue:'', black:'', dblack:'',
+               lifts:'',
+               shuttle:''
+             } ;
+             var newMountain ;
+
+           newData.id = results.rows.item(i)['id'] ;
+           newData.name = results.rows.item(i)['name'] ;
+
+           newData.size = results.rows.item(i)['size'] ;
+           newData.park = results.rows.item(i)['park'] ;
+           newData.difficulty = results.rows.item(i)['difficulty'] ;
+
+           newData.lifts = results.rows.item(i)['lifts'] ;
+           newData.green = results.rows.item(i)['green'] ;
+           newData.blue = results.rows.item(i)['blue'] ;
+           newData.black = results.rows.item(i)['black'] ;
+           newData.dblack = results.rows.item(i)['dblack'] ;
+
+           newData.shuttle = results.rows.item(i)['shuttle'] ;
+
+           $scope.addEntry(newData) ;
+           $scope.$apply() ;
+           console.log(JSON.stringify(results.rows.item(i)));
+         }
+       });
+     });
+   }
+   else
+     console.error("db is null!");
+
+  }
+
   $scope.submitForm = function()
   {
     this.form = !this.form ;
@@ -72,7 +137,7 @@ angular.module('starter.controllers', ['ngCordova'])
      db.readTransaction(function(query){
        //debug
       //  $scope.query = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
-       var q = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
+       var q = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff + " order by priority desc" ;
        //var q = "SELECT * FROM MOUNTAINS" //for debugging
        console.log("Query: " + q) ;
        query.executeSql(q, [], function(tx, results){

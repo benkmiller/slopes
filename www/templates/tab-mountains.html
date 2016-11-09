@@ -44,7 +44,7 @@
           </div>
           <div class= "range">
             <div class="input label">Small</div>
-            <input type = "range" ng-model = "size" min="0" max="3" step="1" snap="true">
+            <input type = "range" ng-model = "size" min="0" max="4" step="1" snap="true">
             <div class="input label">Large</div>
           </div>
         </div>
@@ -54,6 +54,7 @@
         <!-- end of preferences -->
         <!-- submit button -->
         <button class = "button button-block button-positive" ng-click="submitForm()">Submit</button>
+        <button class = "button button-block" ng-click="showAll()">Show All Moutains</div>
 
     <!-- ng show -->
     </ion-list>
@@ -72,9 +73,7 @@
         <ul>Size: {{entry.size}}</ul>
         <ul>Difficulty {{entry.difficulty}}</ul>
 
-        <ion-option-button class="button-assertive" ng-click="remove(mountain)">
-          Delete
-        </ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="remove(mountain)">Delete</ion-option-button>
       <!-- <div class="mountain-details" ng-show= "active">
         <ul>Has parks: {{entry.park}}</ul>
         <ul>Number of Lifts: {{entry.lifts}}</ul>
@@ -82,6 +81,7 @@
       </div>-->
         </ion-item>
   </ion-class>
+  <ion-class ng-hide="collection.length">Sorry, no matching mountains found.  Please try again.<ion-class>
 </div>
   <!-- sean branch -->
     <!-- <p><b>Todo:</b> Add a mountain icon for the tab</p>

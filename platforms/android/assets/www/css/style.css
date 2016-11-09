@@ -36,7 +36,7 @@ background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat
 
 .item .item-content {
   background-color: rgba(68, 68, 68, 1) !important;
-  filter: alpha(opacity=0.50) !important;
+  filter: alpha(opacity=50) !important;
 }
 
 /*ion-list.card-background{

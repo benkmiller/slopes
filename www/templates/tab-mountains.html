@@ -14,7 +14,7 @@
             <div class="row">
               <div class="col-50"><h2>Distance:</h2></div>
               <!-- debug -->
-              <!-- <div class="col-50"><h2 align="right">{{distance}}km</h2></div> -->
+              <div class="col-50"><h2 align="right">{{distance}}km</h2></div>
             </div>
           </div>
           <!-- radius slider -->
@@ -61,28 +61,24 @@
     <!-- ng show -->
     </ion-list>
     </div>
-
-    <div class ="padding" ng-hide="form">
+    <div class ="result" ng-hide="form">
       <h1>Top Slopes for you ...</h1>
       <!-- <p>query: {{query}}</p> -->
-      <ion-class ng-repeat="entry in collection">
-          <ion-item class="item-remove-animate item-transparent item-avatar item-icon-right" type="item-text-wrap" href="#/tab/mountains/{{entry.id}}">
-            <!-- <img ng-src="{{mountain.face}}"> -->
-            <h2><font color="white">{{entry.name}}</h2>
-            <i class="icon ion-chevron-right icon-accessory"></i>
-
-            <ul><font color="gray">Size: {{entry.size}}</ul>
-            <ul><font color="gray">Difficulty: {{entry.difficulty}}</ul>
-            <ul><font color="gray">Distance: {{entry.distance}} km</ul> <!-- Calculate distance to mountain -->
-
-            <ion-option-button class="button-assertive" ng-click="remove(mountain)">Delete</ion-option-button>
-          <!-- <div class="mountain-details" ng-show= "active">
-            <ul>Has parks: {{entry.park}}</ul>
-            <ul>Number of Lifts: {{entry.lifts}}</ul>
-            <ul># of green runs: {{entry.green}}, # of blue runs: {{entry.blue}},  # of black runs: {{entry.black}}</ul>
-          </div>-->
-            </ion-item>
-      </ion-class>
+      <table class="results-table">
+        <tr class="each-mountain" ng-repeat="entry in collection" onclick="document.location = '#/tab/mountains/{{entry.id}}';">
+              <td class = "padding mountain-details">
+                <div class= "col-70">
+                <h3>{{entry.name}}</h3>
+                <ul>Size: {{entry.size}}</ul>
+                <ul>Difficulty: {{entry.difficulty}}</ul>
+                <ul>{{entry.distance | number:0}} km away</ul>
+              </div>
+              <div class="col-30">
+                {{results}}
+              </div>
+              </td>
+        </tr>
+      </table>
       <ion-class ng-hide="collection.length">Sorry, no matching mountains found.  Please try again.<ion-class>
     </div>
   </ion-content>

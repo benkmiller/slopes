@@ -15,7 +15,7 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.title = 'Mountains';
   $scope.form = true ;
   $scope.parks = true ;
-  $scope.distance = 50 ;
+  $scope.distance = 200 ;
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
   $scope.collection = [] ;
@@ -24,8 +24,14 @@ angular.module('starter.controllers', ['ngCordova'])
   // Start Geolocation code
   // Test coordinates: 49.134690, -122.873986
 
-  $scope.gpsLat;
-  $scope.gpsLong;
+  $scope.gpsLat = 49.134690;
+  $scope.gpsLong = -122.873986;
+
+  $scope.filterFunction = function(element){
+    //console.log("Input distance: " + $scope.distance) ;
+    //console.log("Mountain distance: " + element.distance) ;
+    return element.distance <= $scope.distance ;
+  };
 
   // GPS options, set to use GPS
   var posOptions = {timeout: 1000, enableHighAccuracy: true};
@@ -165,7 +171,7 @@ angular.module('starter.controllers', ['ngCordova'])
   {
     this.form = !this.form ;
     var size = this.size ;
-
+    var distance = this.distance ;
     switch(this.difficulty)
     {
       case '0':
@@ -196,7 +202,7 @@ angular.module('starter.controllers', ['ngCordova'])
      db.readTransaction(function(query){
        //debug
       //  $scope.query = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff ;
-       var q = "SELECT * FROM mountains where size =='"+ size +"' and difficulty" + diff + " order by priority desc" ;
+       var q = "SELECT * FROM mountains where size <='"+ size +"' and difficulty" + diff + " order by priority desc" ;
        //var q = "SELECT * FROM MOUNTAINS" //for debugging
        console.log("Query: " + q) ;
        query.executeSql(q, [], function(tx, results){
@@ -245,8 +251,8 @@ angular.module('starter.controllers', ['ngCordova'])
            {
              newData.distance = "No valid GPS data"
            }
-
-           $scope.addEntry(newData);
+           if(newData.distance <= distance)
+            $scope.addEntry(newData);
            $scope.$apply() ;
 
            //console.log(JSON.stringify(results.rows.item(i)));

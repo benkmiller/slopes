@@ -13,6 +13,11 @@ background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat
         -moz-background-size: cover;
         background-size: cover;
 }
+/*don't show underline in links*/
+a{
+  text-decoration: none ;
+}
+
 .mountaindetail{
   background-color: #444444;
 
@@ -52,14 +57,11 @@ background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat
   border-radius: 5px ;
   border: 1px solid grey ;
 }
-
+/*
 .item .item-content{
   background-color: rgba(0, 0, 0, 0) !important ;
-  /*filter: alpha(opacity=50) !important;*/
-  h2{
-    color:white !important ;
-  }
-}
+  filter: alpha(opacity=50) !important;
+}*/
 
 
 /*ion-list.card-background{

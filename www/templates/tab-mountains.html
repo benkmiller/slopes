@@ -65,8 +65,9 @@
       <h1>Top Slopes for you ...</h1>
       <!-- <p>query: {{query}}</p> -->
       <table class="results-table">
-        <tr class="each-mountain" ng-repeat="entry in collection" onclick="document.location = '#/tab/mountains/{{entry.id}}';">
+        <tr class="each-mountain" ng-repeat="entry in collection">
               <td class = "padding mountain-details">
+                <a href= "#/tab/mountains/{{entry.id}}">
                 <div class= "col-70">
                 <h3>{{entry.name}}</h3>
                 <ul>Size: {{entry.size}}</ul>
@@ -76,6 +77,7 @@
               <div class="col-30">
                 {{results}}
               </div>
+            </a>
               </td>
         </tr>
       </table>

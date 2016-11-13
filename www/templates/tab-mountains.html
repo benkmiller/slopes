@@ -4,12 +4,13 @@
   </ion-nav-bar>
 
   <ion-content>
-    <button class="button button-light ion-gear-a" ng-click="form=!form"></button>
-
-    <div ng-show="form">
+    <div class="settings-button padding block">
+      <button class="button button-light icon button-icon ion-gear-a" ng-click="form=!form"></button>
+  </div>
+    <div class ="padding block" ng-show="form">
       <ion-list>
         <!-- radius -->
-        <div class="item">
+        <div class="item table-row">
           <div class="input label">
             <div class="row">
               <div class="col-50"><h2>Distance:</h2></div>
@@ -26,7 +27,7 @@
         </div>
 
         <!-- Difficulty -->
-        <div class="item">
+        <div class="item table-row">
           <div class="row">
             <div class="col-50"><h2>Difficulty:</h2></div>
             <!-- debug -->
@@ -40,7 +41,7 @@
         </div>
 
         <!-- size -->
-        <div class="item">
+        <div class="item table-row">
           <div class="row">
             <div class="col-50"><h2>Size:</h2></div>
             <div class="col-50"><h2 align="right">{{size}}</h2></div>
@@ -52,7 +53,7 @@
           </div>
         </div>
 
-        <ion-toggle  ng-model="parks" ng-init="parks = true">With parks</ion-toggle>
+        <!-- <ion-toggle  ng-model="parks" ng-init="parks = true">With parks</ion-toggle> -->
 
         <!-- end of preferences -->
         <!-- submit button -->
@@ -61,11 +62,11 @@
     <!-- ng show -->
     </ion-list>
     </div>
-    <div class ="result" ng-hide="form">
+    <div class ="result padding block" ng-hide="form">
       <h1>Top Slopes for you ...</h1>
       <!-- <p>query: {{query}}</p> -->
       <table class="results-table">
-        <tr class="each-mountain" ng-repeat="entry in collection">
+        <tr class="table-row" ng-repeat="entry in collection">
               <td class = "padding mountain-details">
                 <a href= "#/tab/mountains/{{entry.id}}">
                 <div class= "col-70">
@@ -73,6 +74,7 @@
                 <ul>Size: {{entry.size}}</ul>
                 <ul>Difficulty: {{entry.difficulty}}</ul>
                 <ul>{{entry.distance | number:0}} km away</ul>
+                <ul>Weather: {{entry.weather}}</ul>
               </div>
               <div class="col-30">
                 {{results}}

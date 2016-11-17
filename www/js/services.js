@@ -90,10 +90,10 @@ angular.module('starter.services', [])
         }
       }
       return null;
-    },
+    }/*,
     set: function(mountain, updatedWeather){
       mountain.oldWeather.lastSnow = updatedWeather;
       return null;
-    }
+    }*/
   };
 });

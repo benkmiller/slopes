@@ -1,49 +1,68 @@
  describe('MntCtrl', function() {
-     // load the controller module
-     beforeEach(module('starter.controllers'));
+     var $scope, ctrl;
      
-     var controller,
-            deferredMountainsService,
-            mountainsMock;
+     // mountains service mock
+     var mountainsMock;
      
-     // instantiate controller and necessary mocks
-     beforeEach(inject(function($controller, $q) {
+     beforeEach(function() {
          
-         
-         // mock mountains
-         deferredMountainsService = $q.defer();
-         mountainsMock = {
+         module('starter.controllers');
+
+         // mock the Mountains service
+         inject(function($q) {
+             
+             deferredMountainsService = $q.defer();
+             mountainsMock = {
              all: jasmine.createSpy('all spy').and.returnValue(deferredMountainsService.promise),
-             getMountain: jasmine.createSpy('getMountain spy').and.returnValue(deferredMountainsService.promise),
-             remove: jasmine.createSpy('remove spy').and.returnValue(deferredMountainsService.promise)
-         };
+             remove: jasmine.createSpy('remove spy').and.returnValue(deferredMountainsService.promise),
+             get: jasmine.createSpy('get spy').and.returnValue(deferredMountainsService.promise)
+         }
+         });
          
-         // instantiate a scope, for each test, necessary values should be written to it before tests runs
-         var $scope = {};
          
-         // instantiate controller
-         controller = $controller('MtnCtrl', {$scope: $scope, Mountains: mountainsMock});
-         
-     }));
+         // create a scope and initialize the controller with our mock and scope
+         inject(function($rootScope, $controller, $q) {
+             $scope = $rootScope.$new();
+             
+             ctrl = $controller('MntCtrl', {$scope: $scope, Mountains: mountainsMock}); 
+
+             
+         });
+     });
      
-     // tests for getMountain function
+
      describe('$scope.getMountain', function() {
+         //call the function
+         beforeEach(function() {
+             var mountainId = 1;
+             $scope.getMountain(mountainId);             
+         });
          
+         it('proper mountainId used', function() {
+             expect(mountainsMock.get).toHaveBeenCalledWith(1);
+         });
+         
+         it('proper mountain "got"', function() {
+             // TODO: how to check this? what does getting a mountain do?
+         });
      });
      
-     //tests for remove function
+
      describe('$scope.remove', function() {
+         //call the function
+         beforeEach(function() {
+             var mountain = 'testMountain';
+             $scope.remove(mountain);  
+            // TODO: why does remove use a mountain but get uses an ID?          
+         });
          
-     });
-     
-     //tests for addEntry
-     describe('$scope.addEntry', function() {
+         it('proper mountain used', function() {
+             expect(mountainsMock.remove).toHaveBeenCalledWith('testMountain');
+         });
          
-     });
-     
-     //tests for submitForm
-     describe('$scope.submitForm', function() {
-         
+         it('mountain properly removed', function() {
+             // TODO: how to check for this?
+         });
      });
      
  });

@@ -24,8 +24,8 @@ angular.module('starter.controllers', ['ngCordova'])
   // Start Geolocation code
   // Test coordinates: 49.134690, -122.873986
 
-  $scope.gpsLat = 49.134690;
-  $scope.gpsLong = -122.873986;
+  //$scope.gpsLat = 49.134690;
+  //$scope.gpsLong = -122.873986;
 
   $scope.filterFunction = function(element){
     //console.log("Input distance: " + $scope.distance) ;
@@ -42,6 +42,7 @@ angular.module('starter.controllers', ['ngCordova'])
   function onSuccess(position) {
     $scope.gpsLat = position.coords.latitude;
     $scope.gpsLong = position.coords.longitude;
+    console.log("latitude" + $scope.gpsLat) ;
   }
 
   function onError(error) {

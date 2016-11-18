@@ -10,7 +10,7 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation) {
+.controller('MntCtrl',function($scope, Mountains, Geolocation) {
   // variables for reading from table
   $scope.title = 'Mountains';
   $scope.form = true ;
@@ -24,30 +24,20 @@ angular.module('starter.controllers', ['ngCordova'])
   // Start Geolocation code
   // Test coordinates: 49.134690, -122.873986
 
-  //$scope.gpsLat = 49.134690;
-  //$scope.gpsLong = -122.873986;
+  //Calls function to get current location of phone
+  Geolocation.getCurrentLocation()
+    .then(function(position) {
+      $scope.gpsLat = position.coords.latitude;
+      $scope.gpsLong = position.coords.longitude ;
+    }, function(err) {
+    console.log('getCurrentPosition error: ' + angular.toJson(err));
+  });
 
   $scope.filterFunction = function(element){
     //console.log("Input distance: " + $scope.distance) ;
     //console.log("Mountain distance: " + element.distance) ;
     return element.distance <= $scope.distance ;
   };
-
-  // GPS options, set to use GPS
-  var posOptions = {timeout: 1000, enableHighAccuracy: true};
-
-  // Get location data
-  var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
-
-  function onSuccess(position) {
-    $scope.gpsLat = position.coords.latitude;
-    $scope.gpsLong = position.coords.longitude;
-    console.log("latitude" + $scope.gpsLat) ;
-  }
-
-  function onError(error) {
-    console.error("getCurrentPosition Error: " + error);
-  }
 
   // Convert to distance
   // lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
@@ -68,8 +58,6 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.toRadians = function(deg) {
     return deg * (Math.PI/180)
   };
-
-  // End Geolocation
 
   $scope.mountains = Mountains.all();
 
@@ -149,7 +137,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
            if($scope.gpsLat != null)
            {
-             newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
+             newData.distance = $scope.getDistance($scope.gpsLat, $scope.gpsLong, newData.latitude, newData.longitude);
            }
            else
            {

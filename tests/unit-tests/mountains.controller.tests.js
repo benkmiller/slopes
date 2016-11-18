@@ -1,4 +1,4 @@
- /*describe('MntCtrl', function() {
+ describe('MntCtrl', function() {
      var $scope, ctrl;
      
      // mountains service mock
@@ -19,12 +19,20 @@
          }
          });
          
+         // mock the geolocation
+         inject(function($q) {
+             deferredGeolocation = $q.defer();
+             geolocationMock = {
+                 getCurrentLocation: jasmine.createSpy('getCurrentLocationSpy').and.returnValue(deferredGeolocation.promise)
+             }
+         });
+         
          
          // create a scope and initialize the controller with our mock and scope
          inject(function($rootScope, $controller, $q) {
              $scope = $rootScope.$new();
              
-             ctrl = $controller('MntCtrl', {$scope: $scope, Mountains: mountainsMock}); 
+             ctrl = $controller('MntCtrl', {$scope: $scope, Mountains: mountainsMock, Geolocation: geolocationMock}); 
 
              
          });
@@ -65,4 +73,4 @@
          });
      });
      
- });*/
+ });

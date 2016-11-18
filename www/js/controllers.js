@@ -232,7 +232,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
-           newData.weather = getWeather(newData.id) ;
+           //newData.weather = getWeather(newData.id) ;
            console.log("weather" + newData.weather) ;
 
            if($scope.gpsLat != null)

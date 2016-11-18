@@ -58,14 +58,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
 
     copyDatabaseFile('mountains.db').then(function () {
-
+      console.log("Attempting to open database...");
       // Successful copy, open the copied database
       db = sqlitePlugin.openDatabase('mountains.db');
       console.log("Successfully opened!")
     }).catch(function (err) {
 
       // Error copying the database
-      console.log(err);
+      console.log("Error opening database :" + err);
     });
   })
 })

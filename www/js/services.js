@@ -66,4 +66,25 @@ angular.module('starter.services', [])
       return null;
     }
   };
-}) ;
+})
+.factory('Weather', function($http, $q){
+  return{
+
+    getWeather: function(latitude, longitude){
+      var def = $q.defer() ;
+      var APIKEY = '3770427263d5a7a6ce2c0f0ac0c53bba' ;   // API key for OpenWeather
+      var url = 'http://api.openweathermap.org/data/2.5/weather?lat=' + latitude +
+        '&lon='+ longitude + '&appid=' + APIKEY ;
+      $http.get(url)
+      .then(function (response) {
+          var weather = response.data.weather[0].main ;   // successfully executed http request
+          def.resolve(weather) ;
+          console.log("Weather: " + weather) ;
+      }).catch(function(err){                             // error in connecting, return error
+          def.reject(err) ;
+          console.log("Error getting weather.") ;
+      }) ;
+      return def.promise ;                                // because http request might be delayed
+    }                                                     // return a "promise"
+  }
+});

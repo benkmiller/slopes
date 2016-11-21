@@ -68,17 +68,19 @@
       <table class="results-table">
         <tr class="table-row" ng-repeat="entry in collection">
               <td class = "padding mountain-details">
-                <a href= "#/tab/mountains/{{entry.id}}">
-                <div class= "col-70">
-                <h3>{{entry.name}}</h3>
+                <ahref= "#/tab/mountains/{{entry.id}}">
+                  <h3>{{entry.name}}</h3>
+                  <div class= "row">
+                <div class= "col col-70">
                 <ul>Size: {{entry.size}}</ul>
                 <ul>Difficulty: {{entry.difficulty}}</ul>
                 <ul>{{entry.distance | number:0}} km away</ul>
-                <!-- <ul>Weather: {{entry.weather}}</ul> -->
               </div>
-              <div class="col-30">
-                {{results}}
+              <div class="col">
+                <img ng-src="{{entry.weather == 'Clouds' && 'img/weather-icons/cloudy.png' || entry.weather == 'Snow' && 'img/weather-icons/snowy.png'}}" alt="Clouds" style="height:80px;width:auto"/>
+                <p>{{entry.weather}}</p>
               </div>
+            </div>
             </a>
               </td>
         </tr>

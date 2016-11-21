@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('HomeCtrl', function($scope) {
+.controller('HomeCtrl', function($scope,Weather) {
   $scope.title = 'Home';
   console.log('HomeCtrl');
 })
@@ -10,7 +10,7 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl',function($scope, Mountains, Geolocation) {
+.controller('MntCtrl',function($scope, Mountains, Geolocation, Weather) {
   // variables for reading from table
   $scope.title = 'Mountains';
   $scope.form = true ;
@@ -32,6 +32,16 @@ angular.module('starter.controllers', ['ngCordova'])
     }, function(err) {
     console.log('getCurrentPosition error: ' + angular.toJson(err));
   });
+
+  $scope.getWeather = function(newData, latitude, longitude){
+    var promise = Weather.getWeather(latitude, longitude);
+    promise.then(function(weather){
+      console.log("Received weather ... " + weather) ;
+      newData.weather = weather ;
+      }, function(error){
+      console.log("Failed to receive weather info") ;
+    })
+  }
 
   $scope.filterFunction = function(element){
     //console.log("Input distance: " + $scope.distance) ;
@@ -113,7 +123,8 @@ angular.module('starter.controllers', ['ngCordova'])
                shuttle:'',
              latitude:'',
              longitude:'',
-             distance:''
+             distance:'',
+             weather:''
              } ;
              var newMountain ;
 
@@ -134,6 +145,9 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
+           $scope.getWeather(newData, newData.latitude, newData.longitude) ;
+           console.log("weather" + newData.weather) ;
+           $scope.$apply() ;
 
            if($scope.gpsLat != null)
            {
@@ -232,9 +246,9 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
-           //newData.weather = getWeather(newData.id) ;
+           $scope.getWeather(newData, newData.latitude, newData.longitude) ;
            console.log("weather" + newData.weather) ;
-
+           $scope.$apply() ;
            if($scope.gpsLat != null)
            {
              newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);

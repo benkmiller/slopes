@@ -10,7 +10,7 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl',function($scope, Mountains, Geolocation, Weather) {
+.controller('MntCtrl',function($scope, Mountains, Geolocation, Weather, Results) {
   // variables for reading from table
   $scope.title = 'Mountains';
   $scope.form = true ;
@@ -18,12 +18,13 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.distance = 200 ;
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
-  $scope.collection = [] ;
-  // $scope.query = 'empty' ;
 
   // Start Geolocation code
   // Test coordinates: 49.134690, -122.873986
 
+  $scope.getResults = function(){
+    $scope.collection = Results.getAll() ;
+  }
   //Calls function to get current location of phone
   Geolocation.getCurrentLocation()
     .then(function(position) {
@@ -71,32 +72,16 @@ angular.module('starter.controllers', ['ngCordova'])
 
   $scope.mountains = Mountains.all();
 
-  $scope.getMountain = function(mountainId){
-    Mountains.get(mountainId) ;
-  };
-
-  $scope.remove = function(mountain){
-    Mountains.remove(mountain);
-  };
-
   //add entry to collection
   $scope.addEntry = function(newData){
-    $scope.collection.push(newData) ;
-
-    console.log("Size of collection: " + $scope.collection.length) ;
+    Results.push(newData) ;
   };
 
   $scope.showAll = function()
   {
     this.form = !this.form ;
 
-    //Delete everything from collection before inserting
-    var j = 0 ;
-    while($scope.collection.length > 0)
-    {
-      $scope.collection.splice(j, 1) ;
-    }
-    console.log("Size of collection:" + $scope.collection.length) ;
+    Results.clearAll() ;
 
     if(db != null)
    {
@@ -159,10 +144,11 @@ angular.module('starter.controllers', ['ngCordova'])
 
            $scope.addEntry(newData) ;
            $scope.$apply() ;
-           console.log(JSON.stringify(results.rows.item(i)));
+           //console.log(JSON.stringify(results.rows.item(i)));
          }
        });
      });
+     $scope.getResults() ;
    }
    else
      console.error("db is null!");
@@ -189,14 +175,7 @@ angular.module('starter.controllers', ['ngCordova'])
         diff = " between 1 and 3 " ;
         break;
     }
-
-    //Delete everything from collection before inserting
-    var j = 0 ;
-    while($scope.collection.length > 0)
-    {
-      $scope.collection.splice(j, 1) ;
-    }
-    console.log("Size of collection:" + $scope.collection.length) ;
+    Results.clearAll() ;
 
     if(db != null)
    {
@@ -264,6 +243,7 @@ angular.module('starter.controllers', ['ngCordova'])
          }
        });
      });
+     $scope.getResults() ;
    }
    else
      console.error("db is null!");

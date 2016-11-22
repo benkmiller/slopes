@@ -73,7 +73,7 @@
       <table class="results-table">
         <tr class="table-row" ng-repeat="entry in collection">
               <td class = "padding mountain-details">
-                <ahref= "#/tab/mountains/{{entry.id}}">
+                <a href= "#/tab/mountains/{{entry.id}}">
                   <h3>{{entry.name}}</h3>
                   <div class= "row">
                 <div class= "col col-70">
@@ -92,7 +92,7 @@
                     || entry.weather == 'Snow' && 'img/weather-icons/snowy.png'
                     || entry.weather == 'Rain' && 'img/weather-icons/rainy.png'
                     || entry.weather == 'Clear' && 'img/weather-icons/clear.png'}}" alt="Clouds" style="height:80px;width:auto"/>
-                <p>{{entry.weather}}</p>
+                <ul>{{entry.weather}}</ul>
               </div>
             </div>
             </a>

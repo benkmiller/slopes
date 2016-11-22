@@ -67,6 +67,32 @@ angular.module('starter.services', [])
     }
   };
 })
+.factory('Results', function(){                         // Collection of results from the most recent parse to db
+  var collection = [{}];
+  return{
+    push: function(newData){                            // add new result
+      collection.push(newData) ;
+    },
+    get: function(id){                                  // get specific mountain by their id
+      for (var i = 0; i < collection.length; i++) {
+        if (collection[i].id === parseInt(mountainId)) {
+          return collection[i];
+        }
+      }
+    },
+    getAll: function(){                                 // return all results
+      return collection ;
+    },
+    clearAll: function(id){                             // delete all results from collection
+      var j = 0 ;
+      while(collection.length > 0)
+      {
+        collection.splice(j, 1) ;
+      }
+      console.log("Size of collection:" + collection.length) ;
+    }
+  };
+})
 .factory('Weather', function($http, $q){
   return{
 
@@ -87,4 +113,17 @@ angular.module('starter.services', [])
       return def.promise ;                                // because http request might be delayed
     }                                                     // return a "promise"
   }
-});
+})
+// .service('Direction', function(){
+//   return navigate = function(lat, long){
+//     var devicePlatform = device.platform ;
+//     if(devicePlatform == 'iOS')
+//     {
+//       window.open("maps://maps.apple.com/?q=" + lat + "," + long);
+//     }
+//     else if (devicePlatform == 'Android')
+//     {
+//       window.open("geo:"+ lat + "," + long);
+//     }
+//   };
+// });

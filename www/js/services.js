@@ -75,7 +75,7 @@ angular.module('starter.services', [])
     },
     get: function(id){                                  // get specific mountain by their id
       for (var i = 0; i < collection.length; i++) {
-        if (collection[i].id === parseInt(mountainId)) {
+        if (collection[i].id === parseInt(id)) {
           return collection[i];
         }
       }

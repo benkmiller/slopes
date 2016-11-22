@@ -249,8 +249,10 @@ angular.module('starter.controllers', ['ngCordova'])
      console.error("db is null!");
 }
 })
-.controller('MntDetailCtrl', function($scope, $stateParams, Mountains){
+.controller('MntDetailCtrl', function($scope, $stateParams, Mountains, Results){
   $scope.mountain = Mountains.get($stateParams.mountainId);
+  //FROM DATABASE
+  $scope.info = Results.get($stateParams.mountainId) ;
 
   $scope.$on("$ionicView.loaded", function() {
     //Put your script in here!ß

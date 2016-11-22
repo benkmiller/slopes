@@ -114,16 +114,3 @@ angular.module('starter.services', [])
     }                                                     // return a "promise"
   }
 })
-// .service('Direction', function(){
-//   return navigate = function(lat, long){
-//     var devicePlatform = device.platform ;
-//     if(devicePlatform == 'iOS')
-//     {
-//       window.open("maps://maps.apple.com/?q=" + lat + "," + long);
-//     }
-//     else if (devicePlatform == 'Android')
-//     {
-//       window.open("geo:"+ lat + "," + long);
-//     }
-//   };
-// });

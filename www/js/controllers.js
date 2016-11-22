@@ -300,4 +300,26 @@ angular.module('starter.controllers', ['ngCordova'])
     days4.innerHTML = "requesting...";
 });
 
+$scope.navigate = function(){
+  var lat = this.info.latitude ;
+  var long = this.info.longitude ;
+  var devicePlatform = device.platform ;
+
+  console.log("Device Platform: " + device.platform) ;
+  console.log("Latitude: " + this.info.latitude) ;
+  console.log("Longitude:" + this.info.longitude) ;
+
+  if(devicePlatform == 'iOS')
+  {
+    window.open("maps://maps.apple.com/?q=" + lat + "," + long);
+  }
+  else if (devicePlatform == 'Android')
+  {
+    window.open("geo:"+ lat + "," + long);
+  }
+  else {
+    window.alert("Your device is incompatible!") ;
+  }
+};
+
 });

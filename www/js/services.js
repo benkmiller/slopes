@@ -135,18 +135,26 @@ angular.module('starter.services', [])
       mountain.oldWeather.lastSnow = updatedWeather;
       return null;
     },
-    getMountainInfoWeb: function(){
+         
+    
+         
+    getMountainInfoWeb: function(url1, mtnNum){
       var defs = $q.defer()
-      $http.get('http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json')
+      $http.get(url1)
       .then(function (response) {
-          var conditions = response.data;   // successfully executed http request
-          defs.resolve(conditions);
+          sean[mtnNum] = response.data;   // successfully executed http request
+          defs.resolve(sean[mtnNum]);
       }).catch(function(err){                             // error in connecting, return error
           defs.reject(err) ;
           console.log("Error getting conditions.") ;
       }) ;
       return defs.promise ;                                // because http request might be delayed
     } ,
+    
+         
+         
+         
+         
     /*
     getMountainInfoWeb: function(mountainURL, mtnNum){
       mountainInfo = [];

@@ -25,21 +25,39 @@ angular.module('starter.controllers', ['ngCordova'])
       })
   */
 
-  $scope.getMountainInfoWeb = function(){
-    var promise2 = Mountains.getMountainInfoWeb();
+  $scope.getMountainInfoWeb = function(url1, mtnNum){
+    var promise2 = Mountains.getMountainInfoWeb(url1, mtnNum);
     promise2.then(
       function(conditions){
         console.log("Received conditions.. potensially ") ;
         //newData.weather = conditions ;
-        console.log(conditions.weather.snow_report[0].last_snow_date)
+                  console.log("Index:  " + i + "   "  + conditions.weather.snow_report[0].last_snow_date)
       },
       function(error){
         console.log("Failed to receive conditions info") ;
       })
   }
-
-  $scope.getMountainInfoWeb();
-
+  for(var i = 0; i < 5; i ++){
+    $scope.getMountainInfoWeb($scope.mountain[i].url, i);
+  }
+            
+           
+            /*
+            $scope.getMountainInfoWeb = function(){
+            var promise2 = Mountains.getMountainInfoWeb();
+            promise2.then(
+                          function(conditions){
+                          console.log("Received conditions.. potensially ") ;
+                          //newData.weather = conditions ;
+                          console.log(conditions.weather.snow_report[0].last_snow_date)
+                          },
+                          function(error){
+                          console.log("Failed to receive conditions info") ;
+                          })
+            }
+            
+            $scope.getMountainInfoWeb();
+*/
 
 })
 
@@ -288,26 +306,34 @@ angular.module('starter.controllers', ['ngCordova'])
 }
 })
 .controller('MntDetailCtrl', function($scope, $stateParams, Mountains, Results){
-  //$scope.mountain = Mountains.get($stateParams.mountainId);
+  $scope.mountain = Mountains.get($stateParams.mountainId);
   //FROM DATABASE
   $scope.info = Results.get($stateParams.mountainId) ;
   console.log("in mtndetailctrl");
 
 //  $scope.$on("$stateChangeSuccess", function() {  //changed from $ionicView.loaded to $stateChangeSuccess to get it to load new values each time
-      var mountainInfo = [];
-      mountainInfo = Mountains.getMountainInfo();
-      console.log(mountainInfo);
-      console.log("mountainid = " + $stateParams.mountainId)
+     
+     
 
       //variable declaration for displaying mountain details on the tab-home.html page
+      var a = Mountains.getMountainInfo();
+      //for(var i = 0; i < 5; i++){
+      //      console.log("in mtndet  :  last date :   " + a[i].weather.snow_report[0].last_snow_date);
+      //}
 
+            $scope.lastSnow = a[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
+            $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
+            $scope.tomorrow = a[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;
+            $scope.days2 = a[$scope.mountain.id - 1].weather.forecast[2].day[0].weather_text;
+            $scope.days3 = a[$scope.mountain.id - 1].weather.forecast[3].day[0].weather_text;
+            $scope.days4 = a[$scope.mountain.id - 1].weather.forecast[4].day[0].weather_text;
 
-      $scope.lastSnow = document.getElementById("lastSnow");
-      $scope.results = document.getElementById("results");
-      $scope.tomorrow = document.getElementById("tomorrow");
-      $scope.days2 = document.getElementById("days2");
-      $scope.days3 = document.getElementById("days3");
-      $scope.days4 = document.getElementById("days4");
+     // $scope.lastSnow = document.getElementById("lastSnow");
+      //$scope.results = document.getElementById("results");
+      //$scope.tomorrow = document.getElementById("tomorrow");
+      //$scope.days2 = document.getElementById("days2");
+      //$scope.days3 = document.getElementById("days3");
+      //$scope.days4 = document.getElementById("days4");
 
       //$scope.lastSnow = mountainInfo[($stateParams.mountainId) - 1].data.weather.snow_report[0].last_snow_date;
       //$scope.results = mountainInfo[($stateParams.mountainId) - 1].data.weather.forecast[0].day[0].weather_text;

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('HomeCtrl', function($scope) {
+.controller('HomeCtrl', function($scope, Mountains, Weather) {
   $scope.title = 'Home';
   console.log('HomeCtrl');
   // Geolocation.getCurrentLocation()
@@ -10,6 +10,37 @@ angular.module('starter.controllers', ['ngCordova'])
   //   }, function(err) {
   //   console.log('getCurrentPosition error: ' + angular.toJson(err));
   // });
+
+
+  //BENS ADDITIONS
+
+            //var mountainInfo = [];
+            //$scope.mountain = Mountains.get($stateParams.mountainId);
+  $scope.mountain = Mountains.all();
+            //for (var i = 0; i < Mountains.getNumMountains(); i++) {
+            //console.log("i in homectrl = "+ i);
+            //mountainInfo = Mountains.getMountainInfoWeb($scope.mountains[0].url, 0);
+            //console.log(mountainInfo[0].data.weather.snow_report[0].last_snow_date);
+            //}
+
+
+  $scope.getMountainInfoWeb = function(url1, mtnNum){
+      var promise2 = Mountains.getMountainInfoWeb(url1, mtnNum);
+      promise2.then(
+            function(conditions){
+                console.log("Received conditions.. potensially ") ;
+              //newData.weather = conditions ;
+                console.log("Index:  " + i + "   "  + conditions.weather.snow_report[0].last_snow_date)
+            },
+            function(error){
+                console.log("Failed to receive conditions info") ;
+            })
+  }
+  for(var i = 0; i < 5; i ++){
+      $scope.getMountainInfoWeb($scope.mountain[i].url, i);
+  }
+
+
 })
 
 .controller('WthrCtrl', function($scope) {
@@ -277,53 +308,20 @@ function addEntry(newData){
   //FROM DATABASE
   $scope.info = Results.get($stateParams.mountainId) ;
 
-  $scope.$on("$ionicView.loaded", function() {
-    //Put your script in here!ß
+  var a = Mountains.getMountainInfo();
+  //for(var i = 0; i < 5; i++){
+  //      console.log("in mtndet  :  last date :   " + a[i].weather.snow_report[0].last_snow_date);
+  //}
 
-    //set variables to use for storing information from myweather2
-    $scope.lastSnow = document.getElementById("lastSnow");
-    $scope.results = document.getElementById("results");
-    $scope.tomorrow = document.getElementById("tomorrow");
-    $scope.days2 = document.getElementById("days2");
-    $scope.days3 = document.getElementById("days3");
-    $scope.days4 = document.getElementById("days4");
 
-    var hr = new XMLHttpRequest();
-    //WHISTLER: http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json
-    //CYPRESS: http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json
-    //GROUSE: http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json
-    //SEYMOUR:
-    //BIG WHITE:
-    //$scope.mountain.url is the url hardcoded for each mountain in the service.js file
-    hr.open('GET', $scope.mountain.url);
-    hr.setRequestHeader("Content-type", "application/json");
+  $scope.lastSnow = a[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
+  $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
+  $scope.tomorrow = a[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;
+  $scope.days2 = a[$scope.mountain.id - 1].weather.forecast[2].day[0].weather_text;
+  $scope.days3 = a[$scope.mountain.id - 1].weather.forecast[3].day[0].weather_text;
+  $scope.days4 = a[$scope.mountain.id - 1].weather.forecast[4].day[0].weather_text;
 
-    hr.onreadystatechange = function() {
-      if(hr.readyState == 4 && hr.status == 200) {
-        var data = JSON.parse(hr.responseText);
-        //ben added a different font size and bolding
-        $scope.lastSnow = data.weather.snow_report[0].last_snow_date;
-        $scope.results = data.weather.forecast[0].day[0].weather_text;
-        $scope.tomorrow = data.weather.forecast[1].day[0].weather_text;
-        $scope.days2 = data.weather.forecast[2].day[0].weather_text;
-        $scope.days3 = data.weather.forecast[3].day[0].weather_text;
-        $scope.days4 = data.weather.forecast[4].day[0].weather_text;
-        $scope.$apply();
-
-      }
-    }
-
-    //show the requesting strings while it is retrieving data
-    hr.send(null);
-    lastSnow.innerHTML = "requesting...";
-    results.innerHTML = "requesting...";
-    tomorrow.innerHTML = "requesting...";
-    days2.innerHTML = "requesting...";
-    days3.innerHTML = "requesting...";
-    days4.innerHTML = "requesting...";
-});
-
-displayWeatherFC() ;
+  displayWeatherFC() ;
 
 
 $scope.navigate = function(){

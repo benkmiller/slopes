@@ -76,6 +76,7 @@
               <div class="row padding">
             <div class="col col-75">
               <p>{{entry.distance | number:0}} km away</p>
+              <p>Last Snow Date: {{entry.lastSnow}}</p>
               <ng-switch on="entry.difficulty">
                 <p ng-switch-when="1|2" ng-switch-when-separator="|">Difficulty: Easy</p>
                 <p ng-switch-when="3" ng-switch-when-separator="|">Difficulty: Medium</p>

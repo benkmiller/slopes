@@ -43,25 +43,16 @@ angular.module('starter.controllers', ['ngCordova'])
 
 })
 
-.controller('WthrCtrl', function($scope) {
-  $scope.title = 'Weather';
-  console.log('WthrCtrl');
-
-})
-
 .controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation, Weather, Results) {
   // variables for reading from table
   $scope.title = 'Mountains';
 
-      $scope.init = function(){
-        $scope.form = true ;
-        $scope.distance = 200 ;
-        $scope.difficulty = 0 ;
-        getLocation() ;
-        }
-
-
-
+  $scope.init = function(){
+    $scope.form = true ;
+    $scope.distance = 200 ;
+    $scope.difficulty = 0 ;
+    getLocation() ;
+  }
 
   $scope.showAll = function()
   {
@@ -115,6 +106,8 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
+
+           newData.lastSnow = getLastSnow(newData.id) ;
            getWeather(newData, newData.latitude, newData.longitude) ;
            console.log("weather" + newData.weather) ;
            $scope.$apply() ;
@@ -212,8 +205,10 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
+
+           newData.lastSnow = getLastSnow(newData.id) ;
            getWeather(newData, newData.latitude, newData.longitude) ;
-           console.log("weather" + newData.weather) ;
+          //  console.log("weather" + newData.weather) ;
            $scope.$apply() ;
            if($scope.gpsLat != null)
            {
@@ -266,6 +261,11 @@ function getLocation(){
 
 }
 
+function getLastSnow(id){
+  var a = Mountains.getMountainInfo() ;
+  return a[id - 1].weather.snow_report[0].last_snow_date
+
+}
 // get weather from OpenWeatherAPI
 function getWeather(newData, latitude, longitude){
   var promise = Weather.getWeather(latitude, longitude);
@@ -309,10 +309,6 @@ function addEntry(newData){
   $scope.info = Results.get($stateParams.mountainId) ;
 
   var a = Mountains.getMountainInfo();
-  //for(var i = 0; i < 5; i++){
-  //      console.log("in mtndet  :  last date :   " + a[i].weather.snow_report[0].last_snow_date);
-  //}
-
 
   $scope.lastSnow = a[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
   $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
@@ -349,13 +345,18 @@ $scope.navigate = function(){
 function displayWeatherFC(){
 
   var d = new Date() ;
+  document.getElementById("todayPNG").src = getIcon($scope.results) ;
   document.getElementById("tom").innerHTML = getDay(d.getDay() + 1) ;
   console.log("Tomorrow:" + (d.getDay() + 1)) ;
-  document.getElementById("tomPNG").src = getIcon($scope.results) ;
+  document.getElementById("tomPNG").src = getIcon($scope.tomorrow) ;
   console.log("URL : " + getIcon($scope.results)) ;
   document.getElementById("day2").innerHTML = getDay(d.getDay() + 2) ;
+  document.getElementById("day2PNG").src = getIcon($scope.days2) ;
   document.getElementById("day3").innerHTML = getDay(d.getDay() + 3) ;
+  document.getElementById("day3PNG").src = getIcon($scope.days3) ;
   document.getElementById("day4").innerHTML = getDay(d.getDay() + 4) ;
+  document.getElementById("day4PNG").src = getIcon($scope.days4) ;
+
 
 };
 
@@ -369,7 +370,7 @@ function getDay(num){
     weekday[5] = "Fri";
     weekday[6] = "Sat";
 
-    return weekday[(num - 1) % 6] ;
+    return weekday[num % 7] ;
 } ;
 
 function getIcon(weather){
@@ -379,11 +380,14 @@ function getIcon(weather){
     case "Patchy light snow":
       url = 'img/weather-icons-small/icon-light-snow.png' ;
       break ;
-    case "Heavy snow":
+    case ("Heavy snow" | "Patchy heavy snow"):
       url = 'img/weather-icons-small/icon-snowflake.png' ;
       break ;
     case "Mist":
       url = 'img/weather-icons-small/icon-light-rain.png' ;
+      break ;
+    case "Fog":
+      url = 'img/weather-icons-small/icon-fog.png' ;
       break ;
     case "Sunny skies":
     url = 'img/weather-icons-small/icon-sun.png' ;

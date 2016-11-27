@@ -105,6 +105,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     });
 
-  $urlRouterProvider.otherwise("/tab/mountains");
+  $urlRouterProvider.otherwise("/tab/home");
 
 })

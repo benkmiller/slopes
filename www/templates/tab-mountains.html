@@ -1,16 +1,12 @@
-<ion-view class="mountain" view-title="Mountains" ng-controller="MntCtrl">
-  <ion-nav-bar class="bar-dark">
-      <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
-  </ion-nav-bar>
-
-  <ion-content>
-    <div class="settings-button padding block">
+<ion-view class="mountain" view-title="Mountains" ng-controller="MntCtrl" ng-init="init()">
+  <ion-content class= "padding">
+    <div class="settings-button padding block" style="float:right">
       <button class="button button-light icon button-icon ion-gear-a" ng-click="form=!form"></button>
   </div>
     <div class ="padding block" ng-show="form">
       <ion-list>
         <!-- radius -->
-        <div class="item table-row">
+        <div class="item table-row row-grey">
           <div class="input label">
             <div class="row">
               <div class="col-50"><h2>Distance:</h2></div>
@@ -24,14 +20,15 @@
             <input type = "range" ng-model = "distance" min="0" max="200">
             <div class="input label">200</div>
           </div>
+
         </div>
 
-        <!-- Difficulty -->
-        <div class="item table-row">
+        <!--    Difficulty -->
+        <div class="item table-row row-grey">
           <div class="row">
             <div class="col-50"><h2>Difficulty:</h2></div>
             <!-- debug -->
-            <!-- <div class="col-50"><h2 align="right">{{difficulty}}</h2></div> -->
+            <div class="col-50"><h2 align="right">{{difficulty}}</h2></div>
           </div>
           <div class= "range">
             <div class="input label">Easy</div>
@@ -41,7 +38,7 @@
         </div>
 
         <!-- size -->
-        <div class="item table-row">
+        <div class="item table-row row-grey">
           <div class="row">
             <div class="col-50"><h2>Size:</h2></div>
             <div class="col-50" ng-switch="size">
@@ -67,38 +64,43 @@
     <!-- ng show -->
     </ion-list>
     </div>
-    <div class ="result padding block" ng-hide="form">
-      <h1>Top Slopes for you ...</h1>
+    <div class ="result block" ng-hide="form">
+      <h1 class="stable">Top Slopes for you ...</h1>
       <!-- <p>query: {{query}}</p> -->
-      <table class="results-table">
-        <tr class="table-row" ng-repeat="entry in collection">
-              <td class = "padding mountain-details">
-                <a href= "#/tab/mountains/{{entry.id}}">
-                  <h3>{{entry.name}}</h3>
-                  <div class= "row">
-                <div class= "col col-70">
-                  <!-- <ul>Size: {{entry.size}}</ul> -->
-                <ul ng-switch="entry.size">
-                  <ul ng-switch-when="1">Size: Small</ul>
-                  <ul ng-switch-when="2">Size: Medium</ul>
-                  <ul ng-switch-when="3">Size: Large</ul>
-                  <ul ng-switch-when="4">Size: XLarge</ul>
-                </ul>
-                <ul>Difficulty: {{entry.difficulty}}</ul>
-                <ul>{{entry.distance | number:0}} km away</ul>
-              </div>
-              <div class="col">
-                <img ng-src="{{entry.weather == 'Clouds' && 'img/weather-icons/cloudy.png'
-                    || entry.weather == 'Snow' && 'img/weather-icons/snowy.png'
-                    || entry.weather == 'Rain' && 'img/weather-icons/rainy.png'
-                    || entry.weather == 'Clear' && 'img/weather-icons/clear.png'}}" alt="Clouds" style="height:80px;width:auto"/>
-                <ul>{{entry.weather}}</ul>
-              </div>
+
+      <div class="results">
+          <div class="each-mountain" ng-repeat="entry in collection">
+            <div class="row-grey padding">
+            <a href= "#/tab/mountains/{{entry.id}}">
+              <h3>{{entry.name}}</h3>
+              <div class="row padding">
+            <div class="col col-75">
+              <p>{{entry.distance | number:0}} km away</p>
+              <ng-switch on="entry.difficulty">
+                <p ng-switch-when="1|2" ng-switch-when-separator="|">Difficulty: Easy</p>
+                <p ng-switch-when="3" ng-switch-when-separator="|">Difficulty: Medium</p>
+                <p ng-switch-when="4" ng-switch-when-separator="|">Difficulty: Difficult</p>
+              </ng-switch>
+              <ng-switch on="entry.size">
+                <p ng-switch-when="1">Size: Small</p>
+                <p ng-switch-when="2">Size: Medium</p>
+                <p ng-switch-when="3">Size: Large</p>
+                <p ng-switch-when="4">Size: XLarge</p>
+              </ng-switch>
             </div>
-            </a>
-              </td>
-        </tr>
-      </table>
+            <div class="col weather-icon">
+              <img ng-src="{{entry.weather == 'Clouds' && 'img/weather-icons/cloudy.png'
+                  || entry.weather == 'Snow' && 'img/weather-icons/snowy.png'
+                  || entry.weather == 'Rain' && 'img/weather-icons/rainy.png'
+                  || entry.weather == 'Clear' && 'img/weather-icons/clear.png'}}" alt="Clouds" style="height:85px;width:auto"/>
+              <!-- <p>{{entry.weather}}</p> -->
+            </div>
+          </div>
+          </a>
+        </div>
+      </div>
+      </div>
+
       <ion-class ng-hide="collection.length">Sorry, no matching mountains found.  Please try again.<ion-class>
     </div>
   </ion-content>

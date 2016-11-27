@@ -1,81 +1,36 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('HomeCtrl', function($scope,Weather) {
+.controller('HomeCtrl', function($scope) {
   $scope.title = 'Home';
   console.log('HomeCtrl');
+  // Geolocation.getCurrentLocation()
+  //   .then(function(position) {
+  //     $scope.gpsLat = position.coords.latitude;
+  //     $scope.gpsLong = position.coords.longitude ;
+  //   }, function(err) {
+  //   console.log('getCurrentPosition error: ' + angular.toJson(err));
+  // });
 })
 
 .controller('WthrCtrl', function($scope) {
   $scope.title = 'Weather';
   console.log('WthrCtrl');
+
 })
 
-.controller('MntCtrl',function($scope, Mountains, Geolocation, Weather, Results) {
+.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation, Weather, Results) {
   // variables for reading from table
   $scope.title = 'Mountains';
-  $scope.form = true ;
-  $scope.parks = true ;
-  $scope.distance = 200 ;
-  $scope.difficulty = 0 ;
-  $scope.size = 0 ;
 
-  // Start Geolocation code
-  // Test coordinates: 49.134690, -122.873986
+      $scope.init = function(){
+        $scope.form = true ;
+        $scope.distance = 200 ;
+        $scope.difficulty = 0 ;
+        getLocation() ;
+        }
 
-  $scope.getResults = function(){
-    $scope.collection = Results.getAll() ;
-  }
-  //Calls function to get current location of phone
-  Geolocation.getCurrentLocation()
-    .then(function(position) {
-      $scope.gpsLat = position.coords.latitude;
-      $scope.gpsLong = position.coords.longitude ;
-    }, function(err) {
-    console.log('getCurrentPosition error: ' + angular.toJson(err));
-  });
 
-  $scope.getWeather = function(newData, latitude, longitude){
-    var promise = Weather.getWeather(latitude, longitude);
-    promise.then(function(weather){
-      console.log("Received weather ... " + weather) ;
-      newData.weather = weather ;
-      }, function(error){
-      console.log("Failed to receive weather info") ;
-    })
-  }
 
-  $scope.filterFunction = function(element){
-    //console.log("Input distance: " + $scope.distance) ;
-    //console.log("Mountain distance: " + element.distance) ;
-    return element.distance <= $scope.distance ;
-  };
-
-  // Convert to distance
-  // lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
-  $scope.getDistance = function (lat1,lon1,lat2,lon2) {
-    var R = 6371; // Radius of the earth in km
-    var dLat = $scope.toRadians(lat2-lat1);  // toRadians defined below
-    var dLon = $scope.toRadians(lon2-lon1);
-    var a =
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos($scope.toRadians(lat1)) * Math.cos($scope.toRadians(lat2)) *
-        Math.sin(dLon/2) * Math.sin(dLon/2)
-      ;
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    var d = R * c; // Distance in km
-    return d;
-  };
-
-  $scope.toRadians = function(deg) {
-    return deg * (Math.PI/180)
-  };
-
-  $scope.mountains = Mountains.all();
-
-  //add entry to collection
-  $scope.addEntry = function(newData){
-    Results.push(newData) ;
-  };
 
   $scope.showAll = function()
   {
@@ -129,35 +84,38 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
-           $scope.getWeather(newData, newData.latitude, newData.longitude) ;
+           getWeather(newData, newData.latitude, newData.longitude) ;
            console.log("weather" + newData.weather) ;
            $scope.$apply() ;
 
            if($scope.gpsLat != null)
            {
-             newData.distance = $scope.getDistance($scope.gpsLat, $scope.gpsLong, newData.latitude, newData.longitude);
+             newData.distance = getDistance($scope.gpsLat, $scope.gpsLong, newData.latitude, newData.longitude);
            }
            else
            {
              newData.distance = "No valid GPS data"
            }
 
-           $scope.addEntry(newData) ;
+           addEntry(newData) ;
            $scope.$apply() ;
            //console.log(JSON.stringify(results.rows.item(i)));
          }
        });
      });
-     $scope.getResults() ;
+    getResults() ;
    }
    else
      console.error("db is null!");
 
   }
 
+  // Run at the onclick of the preferred mountains button
+  // Will send query to database based on user inputs and return mountains
+  // that meet preference
   $scope.submitForm = function()
   {
-    this.form = !this.form ;
+    this.form = !this.form ;        // hide the preference menu at click
     var size = this.size ;
     var distance = this.distance ;
     switch(this.difficulty)
@@ -223,19 +181,19 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
-           $scope.getWeather(newData, newData.latitude, newData.longitude) ;
+           getWeather(newData, newData.latitude, newData.longitude) ;
            console.log("weather" + newData.weather) ;
            $scope.$apply() ;
            if($scope.gpsLat != null)
            {
-             newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
+             newData.distance = getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
            }
            else
            {
              newData.distance = "No valid GPS data"
            }
            if(newData.distance <= distance)
-            $scope.addEntry(newData);
+            addEntry(newData);
            $scope.$apply() ;
 
            //console.log(JSON.stringify(results.rows.item(i)));
@@ -243,11 +201,76 @@ angular.module('starter.controllers', ['ngCordova'])
          }
        });
      });
-     $scope.getResults() ;
+     getResults() ;
    }
    else
      console.error("db is null!");
 }
+/*******************************************************
+* helper functions run by mountain controllers
+********************************************************/
+
+// return collection of results
+function getResults(){
+  $scope.collection = Results.getAll() ;
+}
+
+// get user's current location
+function getLocation(){
+  var options = {
+    timeout: 10000,           // maximum time for success function to result
+    enableHighAccuracy: true  // increase accuracy of data returned
+  } ;
+  console.log("getting location ...") ;
+  // Start Geolocation code
+  // Test coordinates: 49.134690, -122.873986
+  //Calls function to get current location of phone
+    var position = navigator.geolocation.getCurrentPosition(function(location) {
+      $scope.gpsLat = location.coords.latitude;
+      $scope.gpsLong = location.coords.longitude ;
+      console.log("Location: " + location) ;
+    }, function(error) {
+      console.log("Error getting location: " + error.code + "-" + error.message) ;
+    }, options );
+
+}
+
+// get weather from OpenWeatherAPI
+function getWeather(newData, latitude, longitude){
+  var promise = Weather.getWeather(latitude, longitude);
+  promise.then(function(weather){
+    console.log("Received weather ... " + weather) ;
+    newData.weather = weather ;
+    }, function(error){
+    console.log("Failed to receive weather info") ;
+  })
+}
+
+// Convert to distance
+// lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
+function getDistance(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = toRadians(lat2-lat1);  // toRadians defined below
+  var dLon = toRadians(lon2-lon1);
+  var a =
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var d = R * c; // Distance in km
+  return d;
+};
+
+function toRadians(deg) {
+  return deg * (Math.PI/180)
+};
+
+//add mountain entry to collection
+function addEntry(newData){
+  Results.push(newData) ;
+};
+
 })
 .controller('MntDetailCtrl', function($scope, $stateParams, Mountains, Results){
   $scope.mountain = Mountains.get($stateParams.mountainId);
@@ -300,6 +323,9 @@ angular.module('starter.controllers', ['ngCordova'])
     days4.innerHTML = "requesting...";
 });
 
+displayWeatherFC() ;
+
+
 $scope.navigate = function(){
   var lat = this.info.latitude ;
   var long = this.info.longitude ;
@@ -321,5 +347,55 @@ $scope.navigate = function(){
     window.alert("Your device is incompatible!") ;
   }
 };
+
+function displayWeatherFC(){
+
+  var d = new Date() ;
+  document.getElementById("tom").innerHTML = getDay(d.getDay() + 1) ;
+  console.log("Tomorrow:" + (d.getDay() + 1)) ;
+  document.getElementById("tomPNG").src = getIcon($scope.results) ;
+  console.log("URL : " + getIcon($scope.results)) ;
+  document.getElementById("day2").innerHTML = getDay(d.getDay() + 2) ;
+  document.getElementById("day3").innerHTML = getDay(d.getDay() + 3) ;
+  document.getElementById("day4").innerHTML = getDay(d.getDay() + 4) ;
+
+};
+
+function getDay(num){
+  var weekday = new Array(7);
+    weekday[0]=  "Sun";
+    weekday[1] = "Mon";
+    weekday[2] = "Tue";
+    weekday[3] = "Wed";
+    weekday[4] = "Thur";
+    weekday[5] = "Fri";
+    weekday[6] = "Sat";
+
+    return weekday[(num - 1) % 6] ;
+} ;
+
+function getIcon(weather){
+  console.log("Getting weather for " + weather) ;
+  var url;
+  switch(weather){
+    case "Patchy light snow":
+      url = 'img/weather-icons-small/icon-light-snow.png' ;
+      break ;
+    case "Heavy snow":
+      url = 'img/weather-icons-small/icon-snowflake.png' ;
+      break ;
+    case "Mist":
+      url = 'img/weather-icons-small/icon-light-rain.png' ;
+      break ;
+    case "Sunny skies":
+    url = 'img/weather-icons-small/icon-sun.png' ;
+      break ;
+    default:
+      url = 'img/weather-icons-small/icon-sun.png' ;
+      break ;
+  };
+
+  return url ;
+}
 
 });

@@ -1,18 +1,21 @@
 angular.module('starter.services', [])
-.factory('Geolocation', function($cordovaGeolocation) {
-  return {
-    getCurrentLocation: function() {
-      return $cordovaGeolocation.getCurrentPosition(function(location) {
-        q.resolve(location);
-      }, function(error) {
-        console.log("Error getting location: " + error.code + "-" + error.message) ;
-      }, {
-        timeout: 10000,           // maximum time for success function to result
-        enableHighAccuracy: true  // increase accuracy of data returned
-      });
-    }
-  }
-})
+// .factory('Geolocation', function($cordovaGeolocation, $q) {
+//   return {
+//     getCurrentLocation: function() {
+//       var def = $q.defer() ;
+//       return navigation.geolocation.getCurrentPosition(function(location) {
+//         def.resolve(location);
+//       }, function(error) {
+//         def.reject(error) ;
+//         console.log("Error getting location: " + error.code + "-" + error.message) ;
+//       }, {
+//         timeout: 10000,           // maximum time for success function to result
+//         enableHighAccuracy: true  // increase accuracy of data returned
+//       });
+//       return def ;
+//     }
+//   }
+// })
 
 .factory('Mountains', function() {
   // Might use a resource here that returns a JSON array

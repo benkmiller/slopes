@@ -384,7 +384,6 @@ function displayWeatherFC(){
   document.getElementById("day3PNG").src = getIcon($scope.days3) ;
   document.getElementById("day4").innerHTML = getDay(d.getDay() + 4) ;
   document.getElementById("day4PNG").src = getIcon($scope.days4) ;
-
 };
 
 function getDay(num){
@@ -402,19 +401,27 @@ function getDay(num){
 
 function getIcon(data){
   weather = data.toString() ;
-
-  if(weather.includes('snow') || weather.includes('Snow'))
+  if(weather.includes('thunder') || weather.includes('Thundery'))
+    return 'img/weather-icon-small/icon-thunder.png' ;
+  else if(weather.includes('snow') || weather.includes('Snow'))
     return 'img/weather-icons-small/icon-light-snow.png' ;
-  else if(weather.includes('Mist'))
+  else if(weather.includes('sleet') || weather.includes('Sleet'))
+    return 'img/weather-icons-small/icon-sleet.png' ;
+  else if(weather.includes('Heavy rain') || weather.includes('heavy rain'))
+    return 'img/weather-icons-small/icon-heavyrain.png' ;
+  else if(weather.includes('rain') || weather.includes('shower'))
+    return 'img/weather-icons-small/icon-showers.png' ;
+  else if(weather.includes('Mist') || weather.includes('drizzle'))
     return 'img/weather-icons-small/icon-light-rain.png' ;
   else if(weather.includes('Fog'))
     return 'img/weather-icons-small/icon-fog.png' ;
+  else if(weather.includes('ice') || weather.includes('Ice'))
+    return 'img/weather-icons-small/icon-hail.png';
   else if(weather.includes('Sunny') || weather.includes('sunny'))
     return 'img/weather-icons-small/icon_sun.png' ;
   else if(weather.includes('Overcast'))
     return 'img/weather-icons-small/icon-cloudy.png' ;
   else return '' ;
-
 };
 
 });

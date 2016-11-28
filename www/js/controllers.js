@@ -3,14 +3,6 @@ angular.module('starter.controllers', ['ngCordova'])
 .controller('HomeCtrl', function($scope, Mountains, Weather) {
   $scope.title = 'Home';
   console.log('HomeCtrl');
-  // Geolocation.getCurrentLocation()
-  //   .then(function(position) {
-  //     $scope.gpsLat = position.coords.latitude;
-  //     $scope.gpsLong = position.coords.longitude ;
-  //   }, function(err) {
-  //   console.log('getCurrentPosition error: ' + angular.toJson(err));
-  // });
-
 
   //BENS ADDITIONS
 
@@ -28,9 +20,9 @@ angular.module('starter.controllers', ['ngCordova'])
       var promise2 = Mountains.getMountainInfoWeb(url1, mtnNum);
       promise2.then(
             function(conditions){
-                console.log("Received conditions.. potensially ") ;
+                // console.log("Received conditions.. potensially ") ;
               //newData.weather = conditions ;
-                console.log("Index:  " + i + "   "  + conditions.weather.snow_report[0].last_snow_date)
+                // console.log("Index:  " + i + "   "  + conditions.weather.snow_report[0].last_snow_date)
             },
             function(error){
                 console.log("Failed to receive conditions info") ;
@@ -39,16 +31,16 @@ angular.module('starter.controllers', ['ngCordova'])
   for(var i = 0; i < 5; i ++){
       $scope.getMountainInfoWeb($scope.mountain[i].url, i);
   }
-            
+
   $scope.a = Mountains.getScrapedUrls();
-            
+
   $scope.getScrapedInfoWeb = function(url2, numData){
   var promise2 = Mountains.getScrapedInfoWeb(url2, numData);
   promise2.then(
         function(conditions){
-            console.log("Received conditions.. potensially ") ;
+            // console.log("Received conditions.. potensially ") ;
             //newData.weather = conditions ;
-            console.log("NEW SNOW???:   " + conditions)
+            // console.log("NEW SNOW???:   " + conditions)
         },
         function(error){
             console.log("Failed to receive conditions info") ;
@@ -56,7 +48,7 @@ angular.module('starter.controllers', ['ngCordova'])
   }
   for(var i = 0; i < 10; i ++){
             $scope.getScrapedInfoWeb($scope.a[i], i);
-            
+
   }
 
 
@@ -144,7 +136,9 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
+
            newData.lastSnow = getLastSnow(newData.id) ;
+           newData.newSnow = getNewSnow(newData.id) ;
 
            newData.difficulty = getDifficulty(newData.green, newData.blue, newData.black, newData.dblack) ;
            newData.size = getSize(newData.green, newData.blue, newData.black, newData.dblack) ;
@@ -250,6 +244,7 @@ angular.module('starter.controllers', ['ngCordova'])
            newData.longitude = results.rows.item(i)['longitude'];
 
            newData.lastSnow = getLastSnow(newData.id) ;
+           newData.newSnow = getNewSnow(newData.id) ;
            getWeather(newData, newData.latitude, newData.longitude) ;
           //  console.log("weather" + newData.weather) ;
            $scope.$apply() ;
@@ -290,14 +285,13 @@ function getLocation(){
     timeout: 10000,           // maximum time for success function to result
     enableHighAccuracy: true  // increase accuracy of data returned
   } ;
-  console.log("getting location ...") ;
   // Start Geolocation code
   // Test coordinates: 49.134690, -122.873986
   //Calls function to get current location of phone
     var position = navigator.geolocation.getCurrentPosition(function(location) {
       $scope.gpsLat = location.coords.latitude;
       $scope.gpsLong = location.coords.longitude ;
-      console.log("Location: " + location) ;
+      // console.log("Location: " + location) ;
     }, function(error) {
       console.log("Error getting location: " + error.code + "-" + error.message) ;
     }, options );
@@ -309,11 +303,15 @@ function getLastSnow(id){
   return a[id - 1].weather.snow_report[0].last_snow_date
 
 }
+
+function getNewSnow(id){
+  var a = Mountains.getScrapedInfo() ;
+  return a[(id - 1)*2];
+}
 // get weather from OpenWeatherAPI
 function getWeather(newData, latitude, longitude){
   var promise = Weather.getWeather(latitude, longitude);
   promise.then(function(weather){
-    console.log("Received weather ... " + weather) ;
     newData.weather = weather ;
     }, function(error){
     console.log("Failed to receive weather info") ;
@@ -377,11 +375,11 @@ function getSize(green, blue, black, dblack){
   $scope.info = Results.get($stateParams.mountainId) ;
 
   var a = Mountains.getMountainInfo();
-  //var b = Mountains.getScrapedInfo();
+  var b = Mountains.getScrapedInfo();
 
   $scope.lastSnow = a[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
-  //$scope.newSnow = b[($scope.mountain.id - 1)*2];
-            
+  $scope.newSnow = b[($scope.mountain.id - 1)*2];
+
   $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
   $scope.tomorrow = a[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;
   $scope.days2 = a[$scope.mountain.id - 1].weather.forecast[2].day[0].weather_text;
@@ -397,8 +395,8 @@ $scope.navigate = function(){
   var devicePlatform = device.platform ;
 
   console.log("Device Platform: " + device.platform) ;
-  console.log("Latitude: " + this.info.latitude) ;
-  console.log("Longitude:" + this.info.longitude) ;
+  // console.log("Latitude: " + this.info.latitude) ;
+  // console.log("Longitude:" + this.info.longitude) ;
 
   if(devicePlatform == 'iOS')
   {

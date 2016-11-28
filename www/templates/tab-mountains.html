@@ -75,8 +75,9 @@
               <h3>{{entry.name}}</h3>
               <div class="row padding">
             <div class="col col-75">
+              <p ng-if="entry.newSnow > 0"><b>{{entry.newSnow}} cm within last 24 hours</b></p>
+              <p ng-if="entry.newSnow <= 0">Last Snow Date: {{entry.lastSnow}}</p>
               <p>{{entry.distance | number:0}} km away</p>
-              <p>Last Snow Date: {{entry.lastSnow}}</p>
               <p>Difficulty: {{entry.difficulty}}</p>
               <p>Size: {{entry.size}}</p>
             </div>

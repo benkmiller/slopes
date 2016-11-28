@@ -7,6 +7,7 @@
      beforeEach(function() {
          
          module('starter.controllers');
+         module('ngCordova');
 
          // mock the Mountains service
          inject(function($q) {
@@ -38,6 +39,57 @@
          });
      });
      
+     describe('Geolocation.getCurrentLocaation', function() {
+         var testPosition;
+         beforeEach(function() {
+             //test position
+             testPosition = new Object();
+             testPosition.coords = new Object();
+             testPosition.coords.latitude = 100;
+             testPosition.coords.longitude = 50;
+             //call the function
+             geolocationMock.getCurrentLocation();
+         });
+         
+         it('successful geolocation', function() {
+             deferredGeolocation.resolve(testPosition);
+             $scope.$digest();
+             expect($scope.gpsLat == testPosition.coords.latitude).toBe(true);
+             expect($scope.gpsLong == testPosition.coords.longitude).toBe(true);
+         });
+     });
+     
+     describe('$scope.filterFunction', function() {
+         it('properly compares distance fields', function() {
+             //set controller var to default
+             $scope.distance = 200;
+             //tester object to pass in
+             var testObj = new Object();
+             testObj.distance = 199;
+             expect($scope.filterFunction(testObj)).toBe(true);
+             testObj.distance = 200;
+             expect($scope.filterFunction(testObj)).toBe(true);
+             testObj.distance = 201;
+             expect($scope.filterFunction(testObj)).toBe(false);
+         });
+     });
+     
+     /*
+     describe('$scope.getDistance', function() {
+         it('known distance computation', function() {
+             // distance from 49.193827, -123.184263 to 51.115329, -114.021494 should be 675
+             expect($scope.getDistance(49, -123, 51, -114)).toBe(0);
+         });
+     });
+     */
+     
+     describe('$scope.toRadians', function() {
+         it('proper output values', function() {
+
+             for(var testDeg = 0; testDeg<=360; testDeg+=5)
+                expect(($scope.toRadians(testDeg)-(Math.PI*testDeg/180)) < 0.0001).toBe(true);
+         });
+     });
 
      describe('$scope.getMountain', function() {
          //call the function
@@ -72,5 +124,26 @@
              // TODO: how to check for this?
          });
      });
+     
+     describe('$scope.addEntry', function() {
+         it('proplerly adds to collection', function() {
+             var testObj = 1;
+             $scope.addEntry(testObj);
+             expect($scope.collection.indexOf(testObj)).toBe(0);
+         });
+     });
+     
+     // TODO: database calls do not work on browser, how to get around this?
+     describe('$scope.submitForm', function() {
+         beforeEach(function() {
+             $scope.submitForm();
+         });
+         
+         it('a', function() {
+             expect($scope.collection.length >0 ).toBe(true);
+         });
+     });
+     
+     
      
  });

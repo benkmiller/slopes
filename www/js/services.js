@@ -14,6 +14,28 @@ angular.module('starter.services', [])
          {}
          ];
 
+         var scrapedData = [0,0,0,0,0,0,0,0,0,0];
+        // var scrapedData.length = 10;
+         
+         var scrapedDataUrls = [//WHISTLER
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=ESGLK9PAW2ZXV5LK',
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=E7INJNQP9MMO7C1T',
+                                //CYPRESS
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=WDB84S2RF0OO4SO2',
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=7DUBW9JGHEPIOKX5',
+                                
+                                //GROUSE
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=889RM4DDHQ37BITN',
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=I842EISFS3PRAWMV',
+                                //Seymour
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=WDB84S2RF0OO4SO2',
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=7DUBW9JGHEPIOKX5',
+                                //BIGWHIT
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=DBU29PJO8EXD5YMZ',
+                                'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=8TRRZGMCP6SIZPE6'
+                                ];
+
+         
          // Some fake testing data
          var mountains = [{
                           id: 1,
@@ -64,6 +86,20 @@ angular.module('starter.services', [])
          mountain.oldWeather.lastSnow = updatedWeather;
          return null;
          },
+         getScrapedInfoWeb: function(url2, numData){
+         var def1 = $q.defer()
+         $http.get(url2)
+         .then(function (response1) {
+               scrapedData[numData] = response1.data;   // successfully executed http request
+               def1.resolve(scrapedData[numData]);
+               }).catch(function(err1){
+                        def1.reject(err1) ;
+                        console.log("Error getting conditions.") ;
+                        }) ;
+         return def1.promise ;                                // because http request might be delayed
+         } ,
+         
+
          getMountainInfoWeb: function(url1, mtnNum){
          var defs = $q.defer()
          $http.get(url1)
@@ -79,7 +115,15 @@ angular.module('starter.services', [])
 
          getMountainInfo: function(){ //paramerter: index
          return sean;
+         },
+         getScrapedInfo: function(){ //paramerter: index
+         return scrapedData;
+         } ,
+         getScrapedUrls: function(){
+         return scrapedDataUrls;
          }
+         
+
     };
 })
 

@@ -39,6 +39,25 @@ angular.module('starter.controllers', ['ngCordova'])
   for(var i = 0; i < 5; i ++){
       $scope.getMountainInfoWeb($scope.mountain[i].url, i);
   }
+            
+  $scope.a = Mountains.getScrapedUrls();
+            
+  $scope.getScrapedInfoWeb = function(url2, numData){
+  var promise2 = Mountains.getScrapedInfoWeb(url2, numData);
+  promise2.then(
+        function(conditions){
+            console.log("Received conditions.. potensially ") ;
+            //newData.weather = conditions ;
+            console.log("NEW SNOW???:   " + conditions)
+        },
+        function(error){
+            console.log("Failed to receive conditions info") ;
+        })
+  }
+  for(var i = 0; i < 10; i ++){
+            $scope.getScrapedInfoWeb($scope.a[i], i);
+            
+  }
 
 
 })
@@ -358,8 +377,11 @@ function getSize(green, blue, black, dblack){
   $scope.info = Results.get($stateParams.mountainId) ;
 
   var a = Mountains.getMountainInfo();
+  //var b = Mountains.getScrapedInfo();
 
   $scope.lastSnow = a[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
+  //$scope.newSnow = b[($scope.mountain.id - 1)*2];
+            
   $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
   $scope.tomorrow = a[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;
   $scope.days2 = a[$scope.mountain.id - 1].weather.forecast[2].day[0].weather_text;

@@ -92,22 +92,25 @@ angular.module('starter.controllers', ['ngCordova'])
            newData.id = results.rows.item(i)['id'] ;
            newData.name = results.rows.item(i)['name'] ;
 
-           newData.size = results.rows.item(i)['size'] ;
+          //  newData.size = results.rows.item(i)['size'] ;
            newData.park = results.rows.item(i)['park'] ;
-           newData.difficulty = results.rows.item(i)['difficulty'] ;
+          //  newData.difficulty = results.rows.item(i)['difficulty'] ;
 
            newData.lifts = results.rows.item(i)['lifts'] ;
            newData.green = results.rows.item(i)['green'] ;
            newData.blue = results.rows.item(i)['blue'] ;
            newData.black = results.rows.item(i)['black'] ;
-           newData.dblack = results.rows.item(i)['dblack'] ;
+           newData.dblack = results.rows.item(i)['dblblack'] ;
 
            newData.shuttle = results.rows.item(i)['shuttle'] ;
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
-
            newData.lastSnow = getLastSnow(newData.id) ;
+
+           newData.difficulty = getDifficulty(newData.green, newData.blue, newData.black, newData.dblack) ;
+           newData.size = getSize(newData.green, newData.blue, newData.black, newData.dblack) ;
+
            getWeather(newData, newData.latitude, newData.longitude) ;
            console.log("weather" + newData.weather) ;
            $scope.$apply() ;
@@ -191,16 +194,18 @@ angular.module('starter.controllers', ['ngCordova'])
            newData.id = results.rows.item(i)['id'] ;
            newData.name = results.rows.item(i)['name'] ;
 
-           newData.size = results.rows.item(i)['size'] ;
+          //  newData.size = results.rows.item(i)['size'] ;
            newData.park = results.rows.item(i)['park'] ;
-           newData.difficulty = results.rows.item(i)['difficulty'] ;
+           //newData.difficulty = results.rows.item(i)['difficulty'] ;
 
            newData.lifts = results.rows.item(i)['lifts'] ;
            newData.green = results.rows.item(i)['green'] ;
            newData.blue = results.rows.item(i)['blue'] ;
            newData.black = results.rows.item(i)['black'] ;
-           newData.dblack = results.rows.item(i)['dblack'] ;
+           newData.dblack = results.rows.item(i)['dblblack'] ;
 
+           newData.difficulty = getDifficulty(newData.green, newData.blue, newData.black, newData.dblack) ;
+           newData.size = getSize(newData.green, newData.blue, newData.black, newData.dblack) ;
            newData.shuttle = results.rows.item(i)['shuttle'] ;
 
            newData.latitude = results.rows.item(i)['latitude'];
@@ -300,6 +305,31 @@ function toRadians(deg) {
 //add mountain entry to collection
 function addEntry(newData){
   Results.push(newData) ;
+};
+
+function getDifficulty(green, blue, black, dblack){
+  var ratio = parseFloat(green) / parseFloat(green + blue + black + dblack) ;
+  console.log("Difficulty Ratio: " + ratio ) ;
+
+  if( ratio > 0.17)
+    return "Difficult" ;
+  else if (ratio > 0.14)
+    return "Medium" ;
+  else
+    return "Easy" ;
+};
+
+function getSize(green, blue, black, dblack){
+  console.log(green + blue + black + dblack) ;
+  var total = parseFloat(green) + parseFloat(blue) + parseFloat(black) + parseFloat(dblack) ;
+
+  console.log("Total number of runs: " + total) ;
+  if(total > 100)
+    return "Large" ;
+  else if (total > 50)
+    return "Medium" ;
+  else
+    return "Small" ;
 };
 
 })

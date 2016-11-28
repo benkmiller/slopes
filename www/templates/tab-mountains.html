@@ -77,17 +77,19 @@
             <div class="col col-75">
               <p>{{entry.distance | number:0}} km away</p>
               <p>Last Snow Date: {{entry.lastSnow}}</p>
-              <ng-switch on="entry.difficulty">
+              <!-- <ng-switch on="entry.difficulty">
                 <p ng-switch-when="1|2" ng-switch-when-separator="|">Difficulty: Easy</p>
                 <p ng-switch-when="3" ng-switch-when-separator="|">Difficulty: Medium</p>
                 <p ng-switch-when="4" ng-switch-when-separator="|">Difficulty: Difficult</p>
-              </ng-switch>
-              <ng-switch on="entry.size">
+              </ng-switch> -->
+              <p>Difficulty: {{entry.difficulty}}</p>
+              <!-- <ng-switch on="entry.size">
                 <p ng-switch-when="1">Size: Small</p>
                 <p ng-switch-when="2">Size: Medium</p>
                 <p ng-switch-when="3">Size: Large</p>
                 <p ng-switch-when="4">Size: XLarge</p>
-              </ng-switch>
+              </ng-switch> -->
+              <p>Size: {{entry.size}}</p>
             </div>
             <div class="col weather-icon">
               <img ng-src="{{entry.weather == 'Clouds' && 'img/weather-icons/cloudy.png'

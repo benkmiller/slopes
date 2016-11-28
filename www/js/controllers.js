@@ -441,7 +441,7 @@ function getDay(num){
 function getIcon(data){
   weather = data.toString() ;
   if(weather.includes('thunder') || weather.includes('Thundery'))
-    return 'img/weather-icon-small/icon-thunder.png' ;
+    return 'img/weather-icons-small/icon-thunder.png' ;
   else if(weather.includes('snow') || weather.includes('Snow'))
     return 'img/weather-icons-small/icon-light-snow.png' ;
   else if(weather.includes('sleet') || weather.includes('Sleet'))

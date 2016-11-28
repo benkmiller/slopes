@@ -377,16 +377,13 @@ function displayWeatherFC(){
   var d = new Date() ;
   document.getElementById("todayPNG").src = getIcon($scope.results) ;
   document.getElementById("tom").innerHTML = getDay(d.getDay() + 1) ;
-  console.log("Tomorrow:" + (d.getDay() + 1)) ;
   document.getElementById("tomPNG").src = getIcon($scope.tomorrow) ;
-  console.log("URL : " + getIcon($scope.results)) ;
   document.getElementById("day2").innerHTML = getDay(d.getDay() + 2) ;
   document.getElementById("day2PNG").src = getIcon($scope.days2) ;
   document.getElementById("day3").innerHTML = getDay(d.getDay() + 3) ;
   document.getElementById("day3PNG").src = getIcon($scope.days3) ;
   document.getElementById("day4").innerHTML = getDay(d.getDay() + 4) ;
   document.getElementById("day4PNG").src = getIcon($scope.days4) ;
-
 
 };
 
@@ -403,31 +400,21 @@ function getDay(num){
     return weekday[num % 7] ;
 } ;
 
-function getIcon(weather){
-  console.log("Getting weather for " + weather) ;
-  var url;
-  switch(weather){
-    case "Patchy light snow":
-      url = 'img/weather-icons-small/icon-light-snow.png' ;
-      break ;
-    case ("Heavy snow" | "Patchy heavy snow"):
-      url = 'img/weather-icons-small/icon-snowflake.png' ;
-      break ;
-    case "Mist":
-      url = 'img/weather-icons-small/icon-light-rain.png' ;
-      break ;
-    case "Fog":
-      url = 'img/weather-icons-small/icon-fog.png' ;
-      break ;
-    case "Sunny skies":
-    url = 'img/weather-icons-small/icon-sun.png' ;
-      break ;
-    default:
-      url = 'img/weather-icons-small/icon-sun.png' ;
-      break ;
-  };
+function getIcon(data){
+  weather = data.toString() ;
 
-  return url ;
-}
+  if(weather.includes('snow') || weather.includes('Snow'))
+    return 'img/weather-icons-small/icon-light-snow.png' ;
+  else if(weather.includes('Mist'))
+    return 'img/weather-icons-small/icon-light-rain.png' ;
+  else if(weather.includes('Fog'))
+    return 'img/weather-icons-small/icon-fog.png' ;
+  else if(weather.includes('Sunny') || weather.includes('sunny'))
+    return 'img/weather-icons-small/icon_sun.png' ;
+  else if(weather.includes('Overcast'))
+    return 'img/weather-icons-small/icon-cloudy.png' ;
+  else return '' ;
+
+};
 
 });

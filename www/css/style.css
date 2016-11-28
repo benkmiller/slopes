@@ -49,6 +49,10 @@ h4{
   opacity: 0.8 ;
 }
 
+i.mountain.ion-help {
+  font-size: 5px;
+}
+
 .table-row{
   border: 1px solid #D3D3D3 !important ;
   font: #38434C !important ;

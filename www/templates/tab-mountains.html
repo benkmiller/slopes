@@ -40,7 +40,7 @@
         <!-- size -->
         <div class="item table-row row-grey">
           <div class="row">
-            <div class="col-50"><h2>Size:</h2></div>
+            <div class="col-50" ng-click='openPopover($event)'><h2>Size:  <i class="icon ion-help"></i></h2></div>
             <div class="col-50" ng-switch="size">
               <h2 ng-switch-when= "1" align="right">Small</h2>
               <h2 ng-switch-when= "2" align="right">Medium</h2>

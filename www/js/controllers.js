@@ -43,7 +43,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
 })
 
-.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation, Weather, Results) {
+.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation, $ionicPopover, Weather, Results) {
   // variables for reading from table
   $scope.title = 'Mountains';
 
@@ -53,6 +53,25 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.difficulty = 0 ;
     getLocation() ;
   }
+
+  var popoverSize = '<ion-popover-view style="height:200px">' +
+          '<ion-content class="padding" style="color:#38434C"> Size is calculated by total number of runs. A Small mountain has under 40 mountains'+
+          ' whereas a Large mountain has over 100 runs. </ion-content></ion-popover-view>';
+
+  $scope.popover = $ionicPopover.fromTemplate(popoverSize, {
+  scope: $scope
+  });
+
+  $scope.openPopover = function($event) {
+    $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
+  //Cleanup the popover when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.popover.remove();
+  });
 
   $scope.showAll = function()
   {

@@ -25,7 +25,8 @@
     "cordova-plugin-file@~4.3.0",
     "cordova-plugin-sqlite-2@~1.0.4",
     "cordova-plugin-geolocation",
-    "cordova-sqlite-storage"
+    "cordova-sqlite-storage",
+    "cordova-sqlite-storage@~1.4.8"
   ],
   "cordovaPlatforms": [
     "ios",

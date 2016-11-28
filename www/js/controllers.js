@@ -5,9 +5,34 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('HomeCtrl');
 })
 
+
 .controller('WthrCtrl', function($scope) {
   $scope.title = 'Weather';
   console.log('WthrCtrl');
+})
+
+.controller("DataController", function($scope, Mountains){
+
+  $scope.id = window.localStorage.getItem("id");
+  $scope.name = window.localStorage.getItem("name");
+  $scope.face = window.localStorage.getItem("face");
+  $scope.url = window.localStorage.getItem("url");
+  $scope.lasts = window.localStorage.getItem("lasts");
+  $scope.mountain = Mountains.get(window.localStorage.getItem("id"));
+
+  $scope.saveData = function(i, n, f, u, ls){
+      window.localStorage.setItem("id", i);
+      window.localStorage.setItem("name", n);
+      window.localStorage.setItem("face", f);
+      window.localStorage.setItem("url", u);
+      window.localStorage.setItem("lasts", ls);
+
+  }
+
+  $scope.loadData = function(){
+      alert(Mountains.get(window.localStorage.getItem("id")));
+
+  }
 })
 
 .controller('MntCtrl',function($scope, Mountains, Geolocation, Weather, Results) {

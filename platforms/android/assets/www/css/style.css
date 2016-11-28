@@ -26,7 +26,7 @@ a{
 .settings-button{
   float:right ;
 }
-.strokeme
+.mountainname
 {
   position:absolute;
   top: 120px;
@@ -41,6 +41,30 @@ a{
   -1px 1px 0 #FFFFFF,
   1px 1px 0 #FFFFFF;
 }
+.mountainpic
+{
+  position: absolute;;
+  top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+.ListTitle
+{
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  color: white;
+  text-shadow:
+  -1px -1px 0 black,
+  1px -1px 0 black,
+  -1px 1px 0 black,
+  1px 1px 0 black;
+}
+
 .results-table{
   margin-left: 5% ;
   margin-right: 5% ;
@@ -63,7 +87,7 @@ a{
 }
 
 .each-mountain{
-  background-color: rgba(0,0,0,0.6) ;
+  background-color: rgba(0,0,0,0.8) ;
   border-radius: 5px ;
   border: 1px solid grey ;
 }

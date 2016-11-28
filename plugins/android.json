@@ -13,12 +13,6 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.slopes"
         },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.ionicframework.slopes"
-        },
-        "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.ionicframework.slopes"
-        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.slopes"
         },
@@ -31,10 +25,16 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.slopes"
         },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.ionicframework.slopes"
+        },
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.ionicframework.slopes"
         },
         "cordova-plugin-sqlite-2": {
+            "PACKAGE_NAME": "com.ionicframework.slopes"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.slopes"
         }
     },

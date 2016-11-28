@@ -1,16 +1,41 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('HomeCtrl', function($scope) {
+.controller('HomeCtrl', function($scope,Weather) {
   $scope.title = 'Home';
   console.log('HomeCtrl');
 })
+
 
 .controller('WthrCtrl', function($scope) {
   $scope.title = 'Weather';
   console.log('WthrCtrl');
 })
 
-.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation) {
+.controller("DataController", function($scope, Mountains){
+
+  $scope.id = window.localStorage.getItem("id");
+  $scope.name = window.localStorage.getItem("name");
+  $scope.face = window.localStorage.getItem("face");
+  $scope.url = window.localStorage.getItem("url");
+  $scope.lasts = window.localStorage.getItem("lasts");
+  $scope.mountain = Mountains.get(window.localStorage.getItem("id"));
+
+  $scope.saveData = function(i, n, f, u, ls){
+      window.localStorage.setItem("id", i);
+      window.localStorage.setItem("name", n);
+      window.localStorage.setItem("face", f);
+      window.localStorage.setItem("url", u);
+      window.localStorage.setItem("lasts", ls);
+
+  }
+
+  $scope.loadData = function(){
+      alert(Mountains.get(window.localStorage.getItem("id")));
+
+  }
+})
+
+.controller('MntCtrl',function($scope, Mountains, Geolocation, Weather, Results) {
   // variables for reading from table
   $scope.title = 'Mountains';
   $scope.form = true ;
@@ -18,36 +43,37 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.distance = 200 ;
   $scope.difficulty = 0 ;
   $scope.size = 0 ;
-  $scope.collection = [] ;
-  // $scope.query = 'empty' ;
 
   // Start Geolocation code
   // Test coordinates: 49.134690, -122.873986
 
-  //$scope.gpsLat = 49.134690;
-  //$scope.gpsLong = -122.873986;
+  $scope.getResults = function(){
+    $scope.collection = Results.getAll() ;
+  }
+  //Calls function to get current location of phone
+  Geolocation.getCurrentLocation()
+    .then(function(position) {
+      $scope.gpsLat = position.coords.latitude;
+      $scope.gpsLong = position.coords.longitude ;
+    }, function(err) {
+    console.log('getCurrentPosition error: ' + angular.toJson(err));
+  });
+
+  $scope.getWeather = function(newData, latitude, longitude){
+    var promise = Weather.getWeather(latitude, longitude);
+    promise.then(function(weather){
+      console.log("Received weather ... " + weather) ;
+      newData.weather = weather ;
+      }, function(error){
+      console.log("Failed to receive weather info") ;
+    })
+  }
 
   $scope.filterFunction = function(element){
     //console.log("Input distance: " + $scope.distance) ;
     //console.log("Mountain distance: " + element.distance) ;
     return element.distance <= $scope.distance ;
   };
-
-  // GPS options, set to use GPS
-  var posOptions = {timeout: 1000, enableHighAccuracy: true};
-
-  // Get location data
-  var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
-
-  function onSuccess(position) {
-    $scope.gpsLat = position.coords.latitude;
-    $scope.gpsLong = position.coords.longitude;
-    console.log("latitude" + $scope.gpsLat) ;
-  }
-
-  function onError(error) {
-    console.error("getCurrentPosition Error: " + error);
-  }
 
   // Convert to distance
   // lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
@@ -69,36 +95,18 @@ angular.module('starter.controllers', ['ngCordova'])
     return deg * (Math.PI/180)
   };
 
-  // End Geolocation
-
   $scope.mountains = Mountains.all();
-
-  $scope.getMountain = function(mountainId){
-    Mountains.get(mountainId) ;
-  };
-
-  $scope.remove = function(mountain){
-    Mountains.remove(mountain);
-  };
 
   //add entry to collection
   $scope.addEntry = function(newData){
-    $scope.collection.push(newData) ;
-
-    console.log("Size of collection: " + $scope.collection.length) ;
+    Results.push(newData) ;
   };
 
   $scope.showAll = function()
   {
     this.form = !this.form ;
 
-    //Delete everything from collection before inserting
-    var j = 0 ;
-    while($scope.collection.length > 0)
-    {
-      $scope.collection.splice(j, 1) ;
-    }
-    console.log("Size of collection:" + $scope.collection.length) ;
+    Results.clearAll() ;
 
     if(db != null)
    {
@@ -125,9 +133,9 @@ angular.module('starter.controllers', ['ngCordova'])
                shuttle:'',
              latitude:'',
              longitude:'',
-             distance:''
+             distance:'',
+             weather:''
              } ;
-             var newMountain ;
 
            newData.id = results.rows.item(i)['id'] ;
            newData.name = results.rows.item(i)['name'] ;
@@ -146,10 +154,13 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
+           $scope.getWeather(newData, newData.latitude, newData.longitude) ;
+           console.log("weather" + newData.weather) ;
+           $scope.$apply() ;
 
            if($scope.gpsLat != null)
            {
-             newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
+             newData.distance = $scope.getDistance($scope.gpsLat, $scope.gpsLong, newData.latitude, newData.longitude);
            }
            else
            {
@@ -158,10 +169,11 @@ angular.module('starter.controllers', ['ngCordova'])
 
            $scope.addEntry(newData) ;
            $scope.$apply() ;
-           console.log(JSON.stringify(results.rows.item(i)));
+           //console.log(JSON.stringify(results.rows.item(i)));
          }
        });
      });
+     $scope.getResults() ;
    }
    else
      console.error("db is null!");
@@ -188,14 +200,7 @@ angular.module('starter.controllers', ['ngCordova'])
         diff = " between 1 and 3 " ;
         break;
     }
-
-    //Delete everything from collection before inserting
-    var j = 0 ;
-    while($scope.collection.length > 0)
-    {
-      $scope.collection.splice(j, 1) ;
-    }
-    console.log("Size of collection:" + $scope.collection.length) ;
+    Results.clearAll() ;
 
     if(db != null)
    {
@@ -225,7 +230,6 @@ angular.module('starter.controllers', ['ngCordova'])
                 distance:'',
                 weather:''
              } ;
-             var newMountain;
 
            newData.id = results.rows.item(i)['id'] ;
            newData.name = results.rows.item(i)['name'] ;
@@ -244,9 +248,9 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.latitude = results.rows.item(i)['latitude'];
            newData.longitude = results.rows.item(i)['longitude'];
-           newData.weather = getWeather(newData.id) ;
+           $scope.getWeather(newData, newData.latitude, newData.longitude) ;
            console.log("weather" + newData.weather) ;
-
+           $scope.$apply() ;
            if($scope.gpsLat != null)
            {
              newData.distance = $scope.getDistance($scope.gpsLat,$scope.gpsLong, newData.latitude, newData.longitude);
@@ -264,51 +268,16 @@ angular.module('starter.controllers', ['ngCordova'])
          }
        });
      });
+     $scope.getResults() ;
    }
    else
      console.error("db is null!");
 }
-
-// $scope.getWeather = function(id){
-//      var mountain = getMountain(id) ;
-//        //Put your script in here!ß
-//
-//        //set variables to use for storing information from myweather2
-//       //  newData.lastSnow = document.getElementById("lastSnow");
-//       results = document.getElementById("results");
-//       //  newData.tomorrow = document.getElementById("tomorrow");
-//       //  $scope.days2 = document.getElementById("days2");
-//       //  $scope.days3 = document.getElementById("days3");
-//       //  $scope.days4 = document.getElementById("days4");
-//
-//        var hr = new XMLHttpRequest();
-//        //WHISTLER: http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json
-//        //CYPRESS: http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json
-//        //GROUSE: http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json
-//        //SEYMOUR:
-//        //BIG WHITE:
-//        //$scope.mountain.url is the url hardcoded for each mountain in the service.js file
-//        hr.open('GET', mountain.url);
-//        console.log("URL:" + mountain.url) ;
-//        hr.setRequestHeader("Content-type", "application/json");
-//
-//        hr.onreadystatechange = function() {
-//          if(hr.readyState == 4 && hr.status == 200) {
-//            var data = JSON.parse(hr.responseText);
-//            //ben added a different font size and bolding
-//           //  $scope.lastSnow = data.weather.snow_report[0].last_snow_date;
-//            results = data.weather.forecast[0].day[0].weather_text;
-//           //  $scope.tomorrow = data.weather.forecast[1].day[0].weather_text;
-//           //  $scope.days2 = data.weather.forecast[2].day[0].weather_text;
-//           //  $scope.days3 = data.weather.forecast[3].day[0].weather_text;
-//           //  $scope.days4 = data.weather.forecast[4].day[0].weather_text;
-//          }
-//        }
-//        return results ;
-//  };
 })
-.controller('MntDetailCtrl', function($scope, $stateParams, Mountains){
+.controller('MntDetailCtrl', function($scope, $stateParams, Mountains, Results){
   $scope.mountain = Mountains.get($stateParams.mountainId);
+  //FROM DATABASE
+  $scope.info = Results.get($stateParams.mountainId) ;
 
   $scope.$on("$ionicView.loaded", function() {
     //Put your script in here!ß
@@ -355,5 +324,27 @@ angular.module('starter.controllers', ['ngCordova'])
     days3.innerHTML = "requesting...";
     days4.innerHTML = "requesting...";
 });
+
+$scope.navigate = function(){
+  var lat = this.info.latitude ;
+  var long = this.info.longitude ;
+  var devicePlatform = device.platform ;
+
+  console.log("Device Platform: " + device.platform) ;
+  console.log("Latitude: " + this.info.latitude) ;
+  console.log("Longitude:" + this.info.longitude) ;
+
+  if(devicePlatform == 'iOS')
+  {
+    window.open("maps://maps.apple.com/?q=" + lat + "," + long);
+  }
+  else if (devicePlatform == 'Android')
+  {
+    window.open("geo:"+ lat + "," + long);
+  }
+  else {
+    window.alert("Your device is incompatible!") ;
+  }
+};
 
 });

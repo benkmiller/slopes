@@ -1,11 +1,13 @@
 <ion-view class="mountain" view-title="Mountains" ng-controller="MntCtrl">
+
   <ion-nav-bar class="bar-dark">
       <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
   </ion-nav-bar>
 
+
   <ion-content>
     <div class="settings-button padding block">
-      <button class="button button-light icon button-icon ion-gear-a" ng-click="form=!form"></button>
+      <button class="button button-dark icon button-icon ion-gear-a" ng-click="form=!form"></button>
   </div>
     <div class ="padding block" ng-show="form">
       <ion-list>
@@ -68,7 +70,7 @@
     </ion-list>
     </div>
     <div class ="result padding block" ng-hide="form">
-      <h1>Top Slopes for you ...</h1>
+      <h1> <div class="ListTitle"> Top slopes for you... </div> </h1>
       <!-- <p>query: {{query}}</p> -->
       <table class="results-table">
         <tr class="table-row" ng-repeat="entry in collection">
@@ -76,7 +78,7 @@
                 <a href= "#/tab/mountains/{{entry.id}}">
                   <h3>{{entry.name}}</h3>
                   <div class= "row">
-                <div class= "col col-70">
+                <div class= "col col-80">
                   <!-- <ul>Size: {{entry.size}}</ul> -->
                 <ul ng-switch="entry.size">
                   <ul ng-switch-when="1">Size: Small</ul>
@@ -87,12 +89,19 @@
                 <ul>Difficulty: {{entry.difficulty}}</ul>
                 <ul>{{entry.distance | number:0}} km away</ul>
               </div>
-              <div class="col">
+
+
+
+              <div class="col col-70">
+<!--
                 <img ng-src="{{entry.weather == 'Clouds' && 'img/weather-icons/cloudy.png'
                     || entry.weather == 'Snow' && 'img/weather-icons/snowy.png'
                     || entry.weather == 'Rain' && 'img/weather-icons/rainy.png'
                     || entry.weather == 'Clear' && 'img/weather-icons/clear.png'}}" alt="Clouds" style="height:80px;width:auto"/>
+
                 <ul>{{entry.weather}}</ul>
+-->
+
               </div>
             </div>
             </a>
@@ -102,4 +111,5 @@
       <ion-class ng-hide="collection.length">Sorry, no matching mountains found.  Please try again.<ion-class>
     </div>
   </ion-content>
+
 </ion-view>

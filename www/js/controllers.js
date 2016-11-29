@@ -11,6 +11,8 @@ angular.module('starter.controllers', ['ngCordova'])
   console.log('WthrCtrl');
 })
 
+
+
 .controller("DataController", function($scope, Mountains){
 
   $scope.id = window.localStorage.getItem("id");
@@ -18,7 +20,7 @@ angular.module('starter.controllers', ['ngCordova'])
   $scope.face = window.localStorage.getItem("face");
   $scope.url = window.localStorage.getItem("url");
   $scope.lasts = window.localStorage.getItem("lasts");
-  $scope.mountain = Mountains.get(window.localStorage.getItem("id"));
+  //$scope.mountain = Mountains.get(window.localStorage.getItem("id"));
 
   $scope.saveData = function(i, n, f, u, ls){
       window.localStorage.setItem("id", i);
@@ -30,7 +32,7 @@ angular.module('starter.controllers', ['ngCordova'])
   }
 
   $scope.loadData = function(){
-      alert(Mountains.get(window.localStorage.getItem("id")));
+      alert(window.localStorage.getItem("id"));
 
   }
 })

@@ -8,7 +8,8 @@ background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat
 }
 
 .mountain{
-background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat center center fixed;
+/*background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat center center fixed;*/
+  background:url('../img/slopes-wallpaper.png') no-repeat center center fixed ;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         background-size: cover;
@@ -18,14 +19,15 @@ a{
   text-decoration: none ;
 }
 
-.mountaindetail{
-  background-color: #444444;
-
+h2,h3,ul,p{
+  color: #38434C !important;
 }
 
-.settings-button{
-  float:right ;
+h4{
+  color: white !important ;
+  font-size: 15px !important;
 }
+
 .strokeme
 {
   position:absolute;
@@ -41,37 +43,38 @@ a{
   -1px 1px 0 #FFFFFF,
   1px 1px 0 #FFFFFF;
 }
-.results-table{
-  margin-left: 5% ;
-  margin-right: 5% ;
-  width: 90% ;
+
+.row-grey{
+  background-color: #C0C0C0 ;
+  opacity: 0.8 ;
 }
+
+i.mountain.ion-help {
+  font-size: 5px;
+}
+
 .table-row{
-  background-color: rgba(148,147,148,0.8) !important;
   border: 1px solid #D3D3D3 !important ;
   font: #38434C !important ;
 }
 
-.table-row h3,ul{
-  color: #38434C !important;
+.results{
+  padding-top: 5% ;
 }
-.result{
-  color: white ;
-}
-.result h1{
-  color: white ;
+.each-mountain{
+  padding-top: 5px ;
+  padding-bottom: 5px ;
 }
 
-.each-mountain{
-  background-color: rgba(0,0,0,0.6) ;
-  border-radius: 5px ;
-  border: 1px solid grey ;
+.weather-icon{
+  margin-right: 2% ;
+  padding-right: 15px ;
 }
 /*
 .item .item-content{
   background-color: rgba(0, 0, 0, 0) !important ;
   filter: alpha(opacity=50) !important;
-}*/
+}
 
 
 /*ion-list.card-background{
@@ -85,3 +88,29 @@ a{
     background-color: rgba(0, 0, 0, 0);
     color: white;
    } */
+
+ .mountain-details{
+   background-image:url('../img/slopes-wallpaper.png') ;
+   background-repeat: no-repeat ;
+   background-position: center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   background-size: cover;
+
+   text-align: center ;
+ }
+
+ .details-header{
+   display: block ;
+   max-height: 300px ;
+   width: 100% ;
+
+   margin-top: 3% ;
+  }
+
+  .weather-forecast{
+    margin: 0 0 0 0 ;
+  }
+
+  .mountain-info{
+  }

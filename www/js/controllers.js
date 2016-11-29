@@ -386,6 +386,15 @@ function getSize(green, blue, black, dblack){
   $scope.days3 = a[$scope.mountain.id - 1].weather.forecast[3].day[0].weather_text;
   $scope.days4 = a[$scope.mountain.id - 1].weather.forecast[4].day[0].weather_text;
 
+  //------------------------------------------
+  // Added to add more detail on weather page
+  //------------------------------------------
+  $scope.maxTemp = a[$scope.mountain.id - 1].weather.forecast[0].day_max_temp;
+  $scope.windSpeed = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].speed;
+  $scope.windUnit = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].wind_unit;
+  $scope.upperDepth = a[$scope.mountain.id - 1].weather.snow_report[0].upper_snow_depth;
+  $scope.snowConditions = a[$scope.mountain.id - 1].weather.snow_report[0].conditions;
+
   displayWeatherFC() ;
 
 
@@ -414,6 +423,7 @@ $scope.navigate = function(){
 function displayWeatherFC(){
 
   var d = new Date() ;
+
   document.getElementById("todayPNG").src = getIcon($scope.results) ;
   document.getElementById("tom").innerHTML = getDay(d.getDay() + 1) ;
   document.getElementById("tomPNG").src = getIcon($scope.tomorrow) ;

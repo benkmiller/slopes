@@ -30,7 +30,7 @@
     <div class="mountain-info padding">
       <!-- <h4 class="light">Last Snow: {{lastSnow}}</h4> -->
       <h4 class="light" ng-if="newSnow > 0"><b>{{newSnow}} cm within last 24 hours</b></h4>
-      <h4 class="light" ng-if="newSnow <= 0">Last Snow Date: {{entry.lastSnow}}</h4>
+      <h4 class="light" ng-if="newSnow <= 0">Last Snow Date: {{lastSnow}}</h4>
       <h4>Difficulty: {{info.difficulty}}</h4>
       <h4>Number of lifts: {{info.lifts}}</h4>
       <ng-switch on="info.park">

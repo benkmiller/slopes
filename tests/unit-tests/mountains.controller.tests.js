@@ -1,8 +1,8 @@
  describe('MntCtrl', function() {
-     var $scope, ctrl;
+     var $scope, ctrl, $ionicPopover;
      
-     // mountains service mock
-     var mountainsMock;
+     // mock declarations
+     var mountainsMock, weatherMock, resultsMock;
      
      beforeEach(function() {
          
@@ -17,28 +17,37 @@
              all: jasmine.createSpy('all spy').and.returnValue(deferredMountainsService.promise),
              remove: jasmine.createSpy('remove spy').and.returnValue(deferredMountainsService.promise),
              get: jasmine.createSpy('get spy').and.returnValue(deferredMountainsService.promise)
-         }
+             }
+             // mock the Weather service
+             weatherMock = {
+                 
+             }
+             
+             // mock the Results service
+             resultsMock = {
+                 
+             }
          });
          
-         // mock the geolocation
+         // mock the geolocation, no longer necessary
          inject(function($q) {
              deferredGeolocation = $q.defer();
              geolocationMock = {
                  getCurrentLocation: jasmine.createSpy('getCurrentLocationSpy').and.returnValue(deferredGeolocation.promise)
              }
          });
-         
+
          
          // create a scope and initialize the controller with our mock and scope
-         inject(function($rootScope, $controller, $q) {
+         inject(function($rootScope, $controller, _$cordovaGeolocation_, _$ionicPopover_) {
              $scope = $rootScope.$new();
-             
-             ctrl = $controller('MntCtrl', {$scope: $scope, Mountains: mountainsMock, Geolocation: geolocationMock}); 
+             $ionicPopover = _$ionicPopover_;
+             ctrl = $controller('MntCtrl', {$scope: $scope, Mountains: mountainsMock, $cordovaGeolocation: _$cordovaGeolocation_, $ionicPopover: $ionicPopover, Weather: weatherMock, Results: resultsMock}); 
 
              
          });
      });
-     
+     /*
      describe('Geolocation.getCurrentLocaation', function() {
          var testPosition;
          beforeEach(function() {
@@ -73,6 +82,7 @@
              expect($scope.filterFunction(testObj)).toBe(false);
          });
      });
+     */
      
      /*
      describe('$scope.getDistance', function() {

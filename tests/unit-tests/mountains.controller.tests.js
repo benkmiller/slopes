@@ -9,7 +9,7 @@
          module('starter.controllers');
          module('ngCordova');
 
-         // mock the Mountains service
+         // mock the Mountains service ALISFHGALEIFUAFEIUAOIFD
          inject(function($q) {
              
              deferredMountainsService = $q.defer();

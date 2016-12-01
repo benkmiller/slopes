@@ -19,7 +19,6 @@ describe('services testing:', function() {
                 
                 expect(testMountain.id).toBe(1);
                 expect(testMountain.name).toBe('Whistler');
-                expect(testMountain.lastText).toBe('New Snow!!!');
                 expect(testMountain.face).toBe('img/clouds.jpg');
                 expect(testMountain.url).toBe("http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json");
             });
@@ -65,6 +64,12 @@ describe('services testing:', function() {
              expect(Mountains.all().length).toBe(4);
              // TODO: the test reports that we have not shifter over the remaining mountains, is this intended?
            });
+        });
+        
+        describe('getNumMountains function', function() {
+            it('default mountain number is 5', function() {
+                expect(Mountains.getNumMountains()).toBe(5);
+            });
         });
     });
 

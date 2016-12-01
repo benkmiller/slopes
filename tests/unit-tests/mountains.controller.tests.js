@@ -1,4 +1,4 @@
- describe('MntCtrl', function() {
+ xdescribe('MntCtrl', function() {
      var $scope, ctrl, $ionicPopover;
      
      // mock declarations

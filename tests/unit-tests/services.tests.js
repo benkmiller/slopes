@@ -66,9 +66,46 @@ describe('services testing:', function() {
            });
         });
         
-        describe('getNumMountains function', function() {
+        describe('getNumMountains function:', function() {
             it('default mountain number is 5', function() {
                 expect(Mountains.getNumMountains()).toBe(5);
+            });
+        });
+        
+        describe('getScrapedInfoWeb:', function() {
+            // use whistler url for scraping test
+            var testURL = 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=ESGLK9PAW2ZXV5LK';
+            var testNumData = 0; // place in array index 0 for testing
+            var scrapedTestData; // 
+
+            it('url returns defined data', function() {
+                console.log("Running scraping test");
+                Mountains.getScrapedInfoWeb(testURL, testNumData).then(function() {
+                    // TODO: what tests to run on dcrapedData to ensure it is valid?
+                    scrapedTestData = Mountains.getScrapedInfo();
+                    expect(scrapedTestData).toBeDefined();
+                }, function(error) {
+                    expect(true).toBe(false);
+                    console.log("Error scraping data");
+                });
+            })
+        });
+        
+        describe('getMountainInfoWeb:', function() {
+            // use whistler link for info grabbing test
+            var testURL = "http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json";
+            var testMountainNumber = 0; // place in array index 0 for testing
+            var mountainInfo;
+            
+            it('url returns defined data', function() {
+                console.log("Running mountain info grab test");
+                Mountains.getMountainInfoWeb(testURL, testMountainNumber).then(function() {
+                    mountainInfo = Mountains.getMountainInfo();
+                    expect(mountainInfo).toBeDefined();
+                }, function(error) {
+                    expect(true).toBe(false);
+                    console.log("Error getting mountain info");
+                });
             });
         });
     });
@@ -135,8 +172,8 @@ describe('services testing:', function() {
         });
         
         describe('getWeather:', function() {
-            console.log("Running getWeather test");
             it('API returns defined weather data', function() {
+                console.log("Running getWeather test");
                 Weather.getWeather(100, 50).then(function (weather) {
                     expect(weather).toBeDefined();
                     console.log("Worked!");

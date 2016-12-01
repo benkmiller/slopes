@@ -1,4 +1,4 @@
- xdescribe('MntCtrl', function() {
+ describe('MntCtrl', function() {
      var $scope, ctrl, $ionicPopover;
      
      // mock declarations
@@ -6,8 +6,7 @@
      
      beforeEach(function() {
          
-         module('starter.controllers');
-         module('ngCordova');
+         module('starter.controllers', ['ngCordova']);
 
          // mock the Mountains service ALISFHGALEIFUAFEIUAOIFD
          inject(function($q) {

@@ -3,18 +3,18 @@
     <div class="details-header padding block">
       <!--<p>Today</p>-->
       <h1 class="light" style="font-size:52px">{{mountain.name}}</h1>
-      
+
       <div class="row">
       <div class="col">
       <img id="todayPNG" style="height:110px;width:auto">
       <h3>{{results}}</h3>
       </div>
       <div class="col">
-       <h3>Temp: {{maxTemp}} &deg;C</h3>
-       <h3>Wind: {{windSpeed}} {{windUnit}}</h3>
+       <h3>Temp: <br> {{maxTemp}} &deg;C</h3>
+       <h3>Wind: <br> {{windSpeed}} {{windUnit}}</h3>
       </div>
     </div>
-      
+
 
     </div>
 
@@ -44,7 +44,7 @@
       <h4 class="light" ng-if="newSnow > 0"><b>{{newSnow}} cm within last 24 hours</b></h4>
       <h4 class="light" ng-if="newSnow <= 0">Last Snow Date: {{lastSnow}}</h4>
       <h4>Difficulty: {{info.difficulty}}</h4>
-      
+
       <div class="row">
         <div class="col">
            <ng-switch on="info.park">
@@ -62,13 +62,13 @@
 <div class="col">Black Runs</div>
 <div class="col">Double Black Runs</div>
 </div>
-      
-      
-      
-      
+
+
+
+
       <div class="row">
-          
-          
+
+
           <div class="col">{{info.green}}</div>
           <div class="col">{{info.blue}}</div>
           <div class="col">{{info.black}}</div>

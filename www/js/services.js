@@ -150,6 +150,10 @@ angular.module('starter.services', [])
         collection.splice(j, 1) ;
       }
       console.log("Size of collection:" + collection.length) ;
+    },
+    test_getCollection: function(){
+        // for test purposes
+        return collection;
     }
   };
 })

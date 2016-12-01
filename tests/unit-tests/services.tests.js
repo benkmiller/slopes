@@ -1,10 +1,10 @@
 describe('services testing:', function() {
-    var Mountains;
-    var allMountains;
+    var Mountains, Results, Weather;
+    var allMountains, collection;
     
     beforeEach(module('starter.services'));
     
-    describe('Mountains service', function() {
+    describe('Mountains service:', function() {
         beforeEach(inject(function(_Mountains_) {
             Mountains = _Mountains_;
         }));
@@ -13,7 +13,7 @@ describe('services testing:', function() {
             expect(Mountains).toBeDefined();
         });
         
-        describe('get function', function() {
+        describe('get function:', function() {
             it('properly fetch mountainId 1', function() {
                 var testMountain = Mountains.get(1);
                 
@@ -36,7 +36,7 @@ describe('services testing:', function() {
             });
         });
         
-        describe('all function', function() {
+        describe('all function:', function() {
             beforeEach(function() {
                 allMountains = Mountains.all();
             });
@@ -55,7 +55,7 @@ describe('services testing:', function() {
             });
         });
         
-        describe('remove function', function() {
+        describe('remove function:', function() {
            it('removed mountain no longer in array', function() {
              var toRemove = Mountains.get(1);
              Mountains.remove(toRemove);
@@ -73,5 +73,70 @@ describe('services testing:', function() {
         });
     });
 
-
+    describe('Results service:', function() {
+        beforeEach(inject(function(_Results_) {
+            Results = _Results_;
+            collection = Results.test_getCollection();
+        }));
+        
+        it('Results object should be defined', function() {
+            expect(Results).toBeDefined();
+        });
+        
+        describe('push:', function() {
+            it('properly push to collection', function() {
+                Results.push(1);
+                Results.push(2);
+                
+                expect(collection.length).toBe(3);// TODO: why is there a blank element at the beginning of the array
+                expect(collection.indexOf(1)).toBe(1);
+                expect(collection.indexOf(2)).toBe(2);
+            });
+        });
+        
+        describe('get:', function() {
+            it('properly fetch an element by id', function() {
+                var testObj = new Object();
+                testObj.id = 2;
+                testObj.key = 'testing object';
+                Results.push(testObj);
+                
+                expect(Results.get(2).key).toBe('testing object');
+                expect(Results.get(1)).toBe(undefined);
+            });
+        });
+        
+        describe('getAll:', function() {
+            it('properly returns collection', function() {
+                expect(Results.getAll().toString()).toBe(collection.toString());
+            });
+        });
+        
+        describe('clerAll:', function() {
+            it('properly clears all elements', function() {
+                 Results.push(new Object()); 
+                 Results.push(1);
+                 
+                 Results.clearAll();
+                 
+                 expect(collection.length).toBe(0);                
+            });
+        });
+    });
+    
+    describe('Weather service', function() {
+        
+        beforeEach(inject(function(_Weather_) {
+            Weather = _Weather_;
+        }));
+        
+        it('Weather object should be defined', function() {
+            expect(Weather).toBeDefined();
+        });
+        
+        describe('getWeather:', function() {
+            
+        });
+        
+    });
 });

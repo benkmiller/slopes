@@ -386,6 +386,15 @@ function getSize(green, blue, black, dblack){
   $scope.days3 = a[$scope.mountain.id - 1].weather.forecast[3].day[0].weather_text;
   $scope.days4 = a[$scope.mountain.id - 1].weather.forecast[4].day[0].weather_text;
 
+            //------------------------------------------
+            // Added to add more detail on weather page
+            //------------------------------------------
+            $scope.maxTemp = a[$scope.mountain.id - 1].weather.forecast[0].day_max_temp;
+            $scope.windSpeed = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].speed;
+            $scope.windUnit = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].wind_unit;
+            $scope.upperDepth = a[$scope.mountain.id - 1].weather.snow_report[0].upper_snow_depth;
+            $scope.snowConditions = a[$scope.mountain.id - 1].weather.snow_report[0].conditions;
+
   displayWeatherFC() ;
 
 
@@ -425,6 +434,7 @@ function displayWeatherFC(){
   document.getElementById("day4PNG").src = getIcon($scope.days4) ;
 };
 
+
 function getDay(num){
   var weekday = new Array(7);
     weekday[0]=  "Sun";
@@ -437,6 +447,7 @@ function getDay(num){
 
     return weekday[num % 7] ;
 } ;
+
 
 function getIcon(data){
   weather = data.toString() ;
@@ -452,15 +463,20 @@ function getIcon(data){
     return 'img/weather-icons-small/icon-showers.png' ;
   else if(weather.includes('Mist') || weather.includes('drizzle'))
     return 'img/weather-icons-small/icon-light-rain.png' ;
-  else if(weather.includes('Fog'))
+  else if(weather.includes('Fog') || weather.includes('fog'))
     return 'img/weather-icons-small/icon-fog.png' ;
   else if(weather.includes('ice') || weather.includes('Ice'))
     return 'img/weather-icons-small/icon-hail.png';
   else if(weather.includes('Sunny') || weather.includes('sunny'))
     return 'img/weather-icons-small/icon_sun.png' ;
+  else if(weather.includes('Partly cloudy'))
+    return 'img/weather-icons-small/icon-sun-clouds.png' ;
   else if(weather.includes('Overcast'))
     return 'img/weather-icons-small/icon-cloudy.png' ;
   else return '' ;
+            
 };
 
+            
+            
 });

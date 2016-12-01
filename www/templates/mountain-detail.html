@@ -1,17 +1,27 @@
 <ion-view view-title="{{mountain.name}}">
   <ion-content class="mountain-details light padding">
     <div class="details-header padding block">
-      <p>Today</p>
+      <!--<p>Today</p>-->
       <h1 class="light" style="font-size:52px">{{mountain.name}}</h1>
-      <!-- <h1>{{results}}</h1> -->
-      <img id="todayPNG" style="height:110px;width:auto"></img>
+      
+      <div class="row">
+      <div class="col">
+      <img id="todayPNG" style="height:110px;width:auto">
+      <h3>{{results}}</h3>
+      </div>
+      <div class="col">
+       <h3>Temp: {{maxTemp}} &deg;C</h3>
+       <h3>Wind: {{windSpeed}} {{windUnit}}</h3>
+      </div>
+    </div>
+      
 
     </div>
 
     <div class="weather-forecast row padding">
       <div class="col block">
         <p id="tom"></p>
-        <img id="tomPNG" style="height:20px;width:auto"></img>
+        <img id="tomPNG" style="height:20px;width:auto">
       </div>
       <div class="col block">
         <p id="day2"></p>
@@ -29,19 +39,40 @@
 
     <div class="mountain-info padding">
       <!-- <h4 class="light">Last Snow: {{lastSnow}}</h4> -->
+      <h4>Base Depth: {{upperDepth}}</h4>
+      <h4>Base Conditions: {{snowConditions}}</h4>
       <h4 class="light" ng-if="newSnow > 0"><b>{{newSnow}} cm within last 24 hours</b></h4>
       <h4 class="light" ng-if="newSnow <= 0">Last Snow Date: {{lastSnow}}</h4>
       <h4>Difficulty: {{info.difficulty}}</h4>
-      <h4>Number of lifts: {{info.lifts}}</h4>
-      <ng-switch on="info.park">
-        <h4 ng-switch-when="1">Has Park: Yes</h4>
-        <h4 ng-switch-when="0">Has Park: No</h4>
-      </ng-switch>
+      
       <div class="row">
-        <div class="col"># of green runs: {{info.green}}</div>
-        <div class="col"># of blue runs: {{info.blue}}</div>
-        <div class="col"># of black runs: {{info.black}}</div>
-        <div class="col"># of double black runs: {{info.dblack}}</div>
+        <div class="col">
+           <ng-switch on="info.park">
+           <h4 ng-switch-when="1">Has Park: Yes</h4>
+           <h4 ng-switch-when="0">Has Park: No</h4>
+           </ng-switch>
+        </div>
+      <div class="col">
+      <h4>Number of lifts: {{info.lifts}}</h4>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col">Green Runs</div>
+<div class="col">Blue Runs</div>
+<div class="col">Black Runs</div>
+<div class="col">Double Black Runs</div>
+</div>
+      
+      
+      
+      
+      <div class="row">
+          
+          
+          <div class="col">{{info.green}}</div>
+          <div class="col">{{info.blue}}</div>
+          <div class="col">{{info.black}}</div>
+          <div class="col">{{info.dblack}}</div>
       </div>
     </div>
 

@@ -135,7 +135,16 @@ describe('services testing:', function() {
         });
         
         describe('getWeather:', function() {
-            
+            console.log("Running getWeather test");
+            it('API returns defined weather data', function() {
+                Weather.getWeather(100, 50).then(function (weather) {
+                    expect(weather).toBeDefined();
+                    console.log("Worked!");
+                }, function(error) {
+                    expect(true).toBe(false);
+                    console.log("Error getting weather");
+                });
+            });
         });
         
     });

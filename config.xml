@@ -81,4 +81,5 @@
     </platform>
     <plugin name="cordova-sqlite-storage" spec="~1.4.8" />
     <allow-navigation href="*" />
+  <access origin="geo:*" launch-external="yes" />
 </widget>

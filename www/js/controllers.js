@@ -455,7 +455,9 @@ function getIcon(data){
     return 'img/weather-icons-small/icon-thunder.png' ;
   else if(weather.includes('snow') || weather.includes('Snow'))
     return 'img/weather-icons-small/icon-light-snow.png' ;
-  else if(weather.includes('sleet') || weather.includes('Sleet'))
+  else if(weather.includes('Heavy snow'))
+    return 'img/weather-icons-small/icon-snow.png' ;
+  else if(weather.includes('sleet') || weather.includes('Sleet')|| weather.includes('Moderate or heavy sleet') )
     return 'img/weather-icons-small/icon-sleet.png' ;
   else if(weather.includes('Heavy rain') || weather.includes('heavy rain'))
     return 'img/weather-icons-small/icon-heavyrain.png' ;
@@ -471,7 +473,7 @@ function getIcon(data){
     return 'img/weather-icons-small/icon_sun.png' ;
   else if(weather.includes('Partly cloudy'))
     return 'img/weather-icons-small/icon-sun-clouds.png' ;
-  else if(weather.includes('Overcast'))
+  else if(weather.includes('Overcast') || weather.includes('Cloudy skies'))
     return 'img/weather-icons-small/icon-cloudy.png' ;
   else return '' ;
             

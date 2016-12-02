@@ -4,7 +4,7 @@
       <button
       style="float:left; color:white"
       class="button button-light icon button-icon ion-chevron-left"
-      ui-sref="tab.mountains"></button>
+      ng-click="goBackOneView()"></button>
     </div>
     <div class="details-header padding block">
       <!--<p>Today</p>-->
@@ -70,37 +70,35 @@
         </div>
       </div>
 
-
-
-    <div class="row">
-      <div class="col">
-        <h4 style="font-weight:bold">Green Runs</h4>
+      <div class="row">
+        <div class="col">
+          <h4 style="font-weight:bold">Green Runs</h4>
+        </div>
+        <div class="col">
+          <h4 style="font-weight:bold">Blue Runs</h4>
+        </div>
+        <div class="col">
+          <h4 style="font-weight:bold">Black Runs</h4>
+        </div>
+        <div class="col">
+          <h4 style="font-weight:bold">Double Black Runs</h4>
+        </div>
       </div>
-      <div class="col">
-        <h4 style="font-weight:bold">Blue Runs</h4>
-      </div>
-      <div class="col">
-        <h4 style="font-weight:bold">Black Runs</h4>
-      </div>
-      <div class="col">
-        <h4 style="font-weight:bold">Double Black Runs</h4>
+      <div class="row">
+        <div class="col">
+          <h4>{{info.green}}</h4>
+        </div>
+        <div class="col">
+          <h4>{{info.blue}}</h4>
+        </div>
+        <div class="col">
+          <h4>{{info.black}}</h4>
+        </div>
+        <div class="col">
+          <h4>{{info.dblack}}</h4>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <h4>{{info.green}}</h4>
-      </div>
-      <div class="col">
-        <h4>{{info.blue}}</h4>
-      </div>
-      <div class="col">
-        <h4>{{info.black}}</h4>
-      </div>
-      <div class="col">
-        <h4>{{info.dblack}}</h4>
-      </div>
-    </div>
-  </div>
 
     <button class = "button button-stable button-block" ng-click="navigate()">Get Directions</button>
     <button class = "button button-stable button-block" ng-if="setFaveId == mountain.id">{{mountain.name}} is your Favorite</button>

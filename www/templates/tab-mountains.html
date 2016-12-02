@@ -29,7 +29,11 @@
           <div class="row">
             <div class="col-50"><h2>Difficulty:</h2></div>
             <!-- debug -->
-            <div class="col-50"><h2 align="right">{{difficulty}}</h2></div>
+            <div class="col-50" ng-switch="difficulty">
+              <h2 ng-switch-when= "0" align="right">Easy</h2>
+              <h2 ng-switch-when= "1" align="right">Medium</h2>
+              <h2 ng-switch-when= "2" align="right">Difficult</h2>
+            </div>
           </div>
           <div class= "range">
             <div class="input label">Easy</div>
@@ -46,13 +50,13 @@
               <h2 ng-switch-when= "1" align="right">Small</h2>
               <h2 ng-switch-when= "2" align="right">Medium</h2>
               <h2 ng-switch-when= "3" align="right">Large</h2>
-              <h2 ng-switch-when= "4" align="right">Xlarge</h2>
+              <h2 ng-switch-when= "4" align="right">X-Large</h2>
             </div>
           </div>
           <div class= "range">
             <div class="input label">Small</div>
             <input type = "range" ng-model = "size" min="1" max="4" step="1" snap="true">
-            <div class="input label">Large</div>
+            <div class="input label">X-Large</div>
           </div>
         </div>
 

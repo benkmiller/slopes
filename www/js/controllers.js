@@ -351,7 +351,7 @@ function getSize(green, blue, black, dblack){
 };
 
 })
-.controller('MntDetailCtrl', function($scope, $stateParams, Mountains, Results, Favorite){
+.controller('MntDetailCtrl', function($ionicHistory, $scope, $stateParams, Mountains, Results, Favorite){
 
   $scope.setFaveId = Favorite.getFave();
 
@@ -382,6 +382,9 @@ function getSize(green, blue, black, dblack){
 
   displayWeatherFC() ;
 
+$scope.goBackOneView = function(){
+  $ionicHistory.goBack(-1);
+}
 
 $scope.navigate = function(){
   var lat = this.info.latitude ;

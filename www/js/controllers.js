@@ -454,7 +454,7 @@ function getIcon(data){
     return 'img/weather-icons-small/icon-showers.png' ;
   else if(weather.includes('Mist') || weather.includes('drizzle'))
     return 'img/weather-icons-small/icon-light-rain.png' ;
-  else if(weather.includes('Fog'))
+  else if(weather.includes('Fog') || weather.includes('fog'))
     return 'img/weather-icons-small/icon-fog.png' ;
   else if(weather.includes('ice') || weather.includes('Ice'))
     return 'img/weather-icons-small/icon-hail.png';

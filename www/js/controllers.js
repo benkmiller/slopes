@@ -1,57 +1,39 @@
 angular.module('starter.controllers', ['ngCordova'])
 
-.controller('HomeCtrl', function($scope, Mountains, Weather) {
+.controller('HomeCtrl', function($state, $scope, Mountains, Weather, Favorite) {
   $scope.title = 'Home';
   console.log('HomeCtrl');
 
-  //BENS ADDITIONS
+  //----------------------------------------------
+  // Favorites code
+  //----------------------------------------------
+  $scope.homeMntId = Favorite.getFave();
+  $scope.homeMnt = Mountains.get($scope.homeMntId);
+  $scope.homelink = "#/tab/mountains/"+$scope.homeMntId;
 
-            //var mountainInfo = [];
-            //$scope.mountain = Mountains.get($stateParams.mountainId);
-  $scope.mountain = Mountains.all();
-            //for (var i = 0; i < Mountains.getNumMountains(); i++) {
-            //console.log("i in homectrl = "+ i);
-            //mountainInfo = Mountains.getMountainInfoWeb($scope.mountains[0].url, 0);
-            //console.log(mountainInfo[0].data.weather.snow_report[0].last_snow_date);
-            //}
-
-
-  $scope.getMountainInfoWeb = function(url1, mtnNum){
-      var promise2 = Mountains.getMountainInfoWeb(url1, mtnNum);
-      promise2.then(
-            function(conditions){
-                // console.log("Received conditions.. potensially ") ;
-              //newData.weather = conditions ;
-                // console.log("Index:  " + i + "   "  + conditions.weather.snow_report[0].last_snow_date)
-            },
-            function(error){
-                console.log("Failed to receive conditions info") ;
-            })
+  $scope.alertUser = function(){
+    alert("No Favorite Mountain Set - Go to a mountain and set it as favorite to use this feature.");
   }
+
+  $scope.removeFave = function(){
+    Favorite.remFave();
+    $scope.homeMntId = 0;
+    $window.location.reload(true);
+    alert("Favorite mountain cleared!");
+  }
+
+  //BENS ADDITIONS
+  $scope.mountain = Mountains.all();
+
   for(var i = 0; i < 5; i ++){
-      $scope.getMountainInfoWeb($scope.mountain[i].url, i);
+      Mountains.getMountainInfoWeb($scope.mountain[i].url, i);
   }
 
   $scope.a = Mountains.getScrapedUrls();
 
-  $scope.getScrapedInfoWeb = function(url2, numData){
-  var promise2 = Mountains.getScrapedInfoWeb(url2, numData);
-  promise2.then(
-        function(conditions){
-            // console.log("Received conditions.. potensially ") ;
-            //newData.weather = conditions ;
-            // console.log("NEW SNOW???:   " + conditions)
-        },
-        function(error){
-            console.log("Failed to receive conditions info") ;
-        })
-  }
   for(var i = 0; i < 10; i ++){
-            $scope.getScrapedInfoWeb($scope.a[i], i);
-
+    Mountains.getScrapedInfoWeb($scope.a[i], i);
   }
-
-
 })
 
 .controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation, $ionicPopover, Weather, Results) {
@@ -66,7 +48,7 @@ angular.module('starter.controllers', ['ngCordova'])
   }
 
   var popoverSize = '<ion-popover-view style="height:200px">' +
-          '<ion-content class="padding" style="color:#38434C"> Size is calculated by total number of runs. A Small mountain has under 40 mountains'+
+          '<ion-content class="padding" style="color:#38434C"> Size is calculated by total number of runs. A Small mountain has under 40 runs'+
           ' whereas a Large mountain has over 100 runs. </ion-content></ion-popover-view>';
 
   $scope.popover = $ionicPopover.fromTemplate(popoverSize, {
@@ -369,7 +351,10 @@ function getSize(green, blue, black, dblack){
 };
 
 })
-.controller('MntDetailCtrl', function($scope, $stateParams, Mountains, Results){
+.controller('MntDetailCtrl', function($scope, $stateParams, Mountains, Results, Favorite){
+
+  $scope.setFaveId = Favorite.getFave();
+
   $scope.mountain = Mountains.get($stateParams.mountainId);
   //FROM DATABASE
   $scope.info = Results.get($stateParams.mountainId) ;
@@ -386,14 +371,14 @@ function getSize(green, blue, black, dblack){
   $scope.days3 = a[$scope.mountain.id - 1].weather.forecast[3].day[0].weather_text;
   $scope.days4 = a[$scope.mountain.id - 1].weather.forecast[4].day[0].weather_text;
 
-            //------------------------------------------
-            // Added to add more detail on weather page
-            //------------------------------------------
-            $scope.maxTemp = a[$scope.mountain.id - 1].weather.forecast[0].day_max_temp;
-            $scope.windSpeed = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].speed;
-            $scope.windUnit = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].wind_unit;
-            $scope.upperDepth = a[$scope.mountain.id - 1].weather.snow_report[0].upper_snow_depth;
-            $scope.snowConditions = a[$scope.mountain.id - 1].weather.snow_report[0].conditions;
+  //------------------------------------------
+  // Added to add more detail on weather page
+  //------------------------------------------
+  $scope.maxTemp = a[$scope.mountain.id - 1].weather.forecast[0].day_max_temp;
+  $scope.windSpeed = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].speed;
+  $scope.windUnit = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].wind_unit;
+  $scope.upperDepth = a[$scope.mountain.id - 1].weather.snow_report[0].upper_snow_depth;
+  $scope.snowConditions = a[$scope.mountain.id - 1].weather.snow_report[0].conditions;
 
   displayWeatherFC() ;
 
@@ -420,6 +405,14 @@ $scope.navigate = function(){
   }
 };
 
+$scope.setFave = function(){
+  Favorite.setFave($scope.mountain.id);
+  alert($scope.mountain.name+" set as favorite!");
+
+  $scope.setFaveId = Favorite.getFave();
+  $window.location.reload(true);
+}
+
 function displayWeatherFC(){
 
   var d = new Date() ;
@@ -434,7 +427,6 @@ function displayWeatherFC(){
   document.getElementById("day4PNG").src = getIcon($scope.days4) ;
 };
 
-
 function getDay(num){
   var weekday = new Array(7);
     weekday[0]=  "Sun";
@@ -448,16 +440,13 @@ function getDay(num){
     return weekday[num % 7] ;
 } ;
 
-
 function getIcon(data){
   weather = data.toString() ;
   if(weather.includes('thunder') || weather.includes('Thundery'))
     return 'img/weather-icons-small/icon-thunder.png' ;
   else if(weather.includes('snow') || weather.includes('Snow'))
     return 'img/weather-icons-small/icon-light-snow.png' ;
-  else if(weather.includes('Heavy snow'))
-    return 'img/weather-icons-small/icon-snow.png' ;
-  else if(weather.includes('sleet') || weather.includes('Sleet')|| weather.includes('Moderate or heavy sleet') )
+  else if(weather.includes('sleet') || weather.includes('Sleet'))
     return 'img/weather-icons-small/icon-sleet.png' ;
   else if(weather.includes('Heavy rain') || weather.includes('heavy rain'))
     return 'img/weather-icons-small/icon-heavyrain.png' ;
@@ -465,20 +454,15 @@ function getIcon(data){
     return 'img/weather-icons-small/icon-showers.png' ;
   else if(weather.includes('Mist') || weather.includes('drizzle'))
     return 'img/weather-icons-small/icon-light-rain.png' ;
-  else if(weather.includes('Fog') || weather.includes('fog'))
+  else if(weather.includes('Fog'))
     return 'img/weather-icons-small/icon-fog.png' ;
   else if(weather.includes('ice') || weather.includes('Ice'))
     return 'img/weather-icons-small/icon-hail.png';
   else if(weather.includes('Sunny') || weather.includes('sunny'))
     return 'img/weather-icons-small/icon_sun.png' ;
-  else if(weather.includes('Partly cloudy'))
-    return 'img/weather-icons-small/icon-sun-clouds.png' ;
-  else if(weather.includes('Overcast') || weather.includes('Cloudy skies'))
+  else if(weather.includes('Overcast'))
     return 'img/weather-icons-small/icon-cloudy.png' ;
   else return '' ;
-            
 };
 
-            
-            
 });

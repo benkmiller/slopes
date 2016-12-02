@@ -16,14 +16,14 @@ angular.module('starter.services', [])
 
          var scrapedData = [0,0,0,0,0,0,0,0,0,0];
         // var scrapedData.length = 10;
-         
+
          var scrapedDataUrls = [//WHISTLER
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=ESGLK9PAW2ZXV5LK',
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=E7INJNQP9MMO7C1T',
                                 //CYPRESS
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=WDB84S2RF0OO4SO2',
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=7DUBW9JGHEPIOKX5',
-                                
+
                                 //GROUSE
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=889RM4DDHQ37BITN',
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=I842EISFS3PRAWMV',
@@ -35,7 +35,7 @@ angular.module('starter.services', [])
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=8TRRZGMCP6SIZPE6'
                                 ];
 
-         
+
          // Some fake testing data
          var mountains = [{
                           id: 1,
@@ -98,7 +98,7 @@ angular.module('starter.services', [])
                         }) ;
          return def1.promise ;                                // because http request might be delayed
          } ,
-         
+
 
          getMountainInfoWeb: function(url1, mtnNum){
          var defs = $q.defer()
@@ -122,7 +122,7 @@ angular.module('starter.services', [])
          getScrapedUrls: function(){
          return scrapedDataUrls;
          }
-         
+
 
     };
 })
@@ -150,10 +150,6 @@ angular.module('starter.services', [])
         collection.splice(j, 1) ;
       }
       console.log("Size of collection:" + collection.length) ;
-    },
-    test_getCollection: function(){
-        // for test purposes
-        return collection;
     }
   };
 })
@@ -176,5 +172,31 @@ angular.module('starter.services', [])
       }) ;
       return def.promise ;                                // because http request might be delayed
     }                                                     // return a "promise"
+  }
+})
+.factory('Favorite',function(){
+  var faveID = 0;
+
+  return{
+    setFave: function(id){
+      localStorage.setItem("id", id);
+    },
+
+    getFave: function(){
+      faveID = localStorage.getItem("id");
+
+      if(faveID == null)
+      {
+        return 0;
+      }
+      else
+      {
+        return faveID;
+      }
+    },
+
+    remFave: function(){
+      localStorage.removeItem("id");
+    }
   }
 })

@@ -1,7 +1,11 @@
 
 /* Empty. Add your own CSS if you like */
 .home{
-background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat center center fixed;
+/*background:url('https://i.ytimg.com/vi/iktuVPzp1hc/maxresdefault.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;*/
+  background:url('../img/slopes-wallpaper.png') no-repeat center center fixed ;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         background-size: cover;

@@ -4,9 +4,11 @@
      // mock declarations
      var mountainsMock, weatherMock, resultsMock;
      
+     beforeEach(module('starter.controllers', ['ngCordova']));
+     
      beforeEach(function() {
          
-         module('starter.controllers', ['ngCordova']);
+         
 
          // mock the Mountains service
          inject(function($q) {

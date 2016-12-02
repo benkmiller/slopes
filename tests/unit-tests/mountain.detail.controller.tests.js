@@ -3,7 +3,7 @@ describe('MntDetailCtrl', function() {
     var $scope, ctrl;
 
     // mocks
-    var moutnainsMock, resultsMock;
+    var moutnainsMock, resultsMock, testStateParams;
 
     beforeEach(function() {
 
@@ -27,7 +27,7 @@ describe('MntDetailCtrl', function() {
                  var fakeArray = [1,2,3,4,5,6,7,8,9,10];
                  return fakeArray;
              })
-             }
+             };
 
              // mock the Results service
              resultsMock = {
@@ -35,19 +35,19 @@ describe('MntDetailCtrl', function() {
                  get: jasmine.createSpy('get spy'),
                  getAll: jasmine.createSpy('getAll spy'),
                  clearAll: jasmine.createSpy('clearAll spy')
-             }
+             };
 
              // state params for testing:
              testStateParams = {
                  // testing with mountain 1
                  mountainId: 1
-             }
+             };
          });
 
          // create a scope and initialize controllers
          inject(function($rootscope, $controller) {
              $scope = $rootscope.$new();
-             ctrl = $controller('MntDetailCtrl', {$scope: $scope, $stateParams: testStateParams, Mountains: mountainsMock, Results: resultsMock})
+             ctrl = $controller('MntDetailCtrl', {$scope: $scope, $stateParams: testStateParams, Mountains: mountainsMock, Results: resultsMock});
          });
     });
 

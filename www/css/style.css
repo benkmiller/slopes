@@ -24,7 +24,7 @@ a{
 }
 
 h2,h3,ul,p{
-  color: #38434C !important;
+  color: #38434C; /* Removed !important so the color can be overridden */
 }
 
 h4{

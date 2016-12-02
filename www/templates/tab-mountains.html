@@ -1,8 +1,9 @@
 <ion-view class="mountain" view-title="Mountains" ng-controller="MntCtrl" ng-init="init()">
   <ion-content class= "padding">
-    <div class="settings-button padding block" style="float:right">
-      <button class="button button-light icon button-icon ion-gear-a" ng-click="form=!form"></button>
-  </div>
+    <div class="settings-button padding block" >
+      <button style="float:right; color:white" class="button button-light icon button-icon ion-gear-a" ng-click="form=!form"></button>
+      <button style="float:left; color:white" class="button button-light icon button-icon ion-chevron-left" ui-sref="tab.home"></button>
+    </div>
     <div class ="padding block" ng-show="form">
       <ion-list>
         <!-- radius -->

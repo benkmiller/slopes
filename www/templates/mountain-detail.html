@@ -1,38 +1,42 @@
 <ion-view view-title="{{mountain.name}}" cache-view="false">
   <ion-content class="mountain-details light padding">
+    <div class="settings-button padding block" >
+      <button
+      style="float:left; color:white"
+      class="button button-light icon button-icon ion-chevron-left"
+      ui-sref="tab.mountains"></button>
+    </div>
     <div class="details-header padding block">
       <!--<p>Today</p>-->
       <h1 class="light" style="font-size:52px">{{mountain.name}}</h1>
 
       <div class="row">
-      <div class="col">
-      <img id="todayPNG" style="height:110px;width:auto">
-      <h3>{{results}}</h3>
+        <div class="col">
+          <img id="todayPNG" style="height:110px;width:auto">
+          <h4>{{results}}</h4>
+        </div>
+        <div class="col">
+         <h3 style="color:white">Temp: <br> {{maxTemp}} &deg;C</h3>
+         <h3 style="color:white">Wind: <br> {{windSpeed}} {{windUnit}}</h3>
+        </div>
       </div>
-      <div class="col">
-       <h3>Temp: <br> {{maxTemp}} &deg;C</h3>
-       <h3>Wind: <br> {{windSpeed}} {{windUnit}}</h3>
-      </div>
-    </div>
-
-
     </div>
 
     <div class="weather-forecast row padding">
       <div class="col block">
-        <p id="tom"></p>
+        <h4 id="tom"></h4>
         <img id="tomPNG" style="height:20px;width:auto">
       </div>
       <div class="col block">
-        <p id="day2"></p>
+        <h4 id="day2"></h4>
         <img id="day2PNG" style="height:20px;width:auto">
       </div>
       <div class="col block">
-        <p id="day3"></p>
+        <h4 id="day3"></h4>
         <img id="day3PNG" style="height:20px;width:auto">
       </div>
       <div class="col block">
-        <p id="day4"></p>
+        <h4 id="day4"></h4>
         <img id="day4PNG" style="height:20px;width:auto">
       </div>
     </div>
@@ -66,7 +70,7 @@
         </div>
       </div>
 
-      <div style="position:absolute;left:5%;right:5%;border-top:1px solid white"></div>
+
 
     <div class="row">
       <div class="col">

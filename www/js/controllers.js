@@ -467,7 +467,9 @@ function getIcon(data){
     return 'img/weather-icons-small/icon-hail.png';
   else if(weather.includes('Sunny') || weather.includes('sunny'))
     return 'img/weather-icons-small/icon_sun.png' ;
-  else if(weather.includes('Overcast'))
+  else if(weather.includes('Partly cloudy'))
+    return 'img/weather-icons-small/icon-sun-clouds.png' ;
+  else if(weather.includes('Overcast') || weather.includes('Cloudy'))
     return 'img/weather-icons-small/icon-cloudy.png' ;
   else return '' ;
 };

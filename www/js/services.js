@@ -1,12 +1,16 @@
 angular.module('starter.services', [])
 
 .factory('Mountains', function($http, $q) {
-         // Might use a resource here that returns a JSON array
 
+         //total number of mountains in our database
          var numMountains = 5;
-         var mountainInfo = [];
 
-         var sean = [
+         //array with 5 objects to hold all mountain information from myweather2
+         //each object in the array represents one mountain's information
+         //mountain information is stored in the same order as ID so for
+         //example, whistler is the first ID so allWeatherData[0] contains
+         //whistler's data from myweather2
+         var allWeatherData = [
          {},
          {},
          {},
@@ -15,7 +19,6 @@ angular.module('starter.services', [])
          ];
 
          var scrapedData = [0,0,0,0,0,0,0,0,0,0];
-        // var scrapedData.length = 10;
 
          var scrapedDataUrls = [//WHISTLER
                                 'https://api.thingspeak.com/apps/thinghttp/send_request?api_key=ESGLK9PAW2ZXV5LK',
@@ -36,44 +39,46 @@ angular.module('starter.services', [])
                                 ];
 
 
-         // Some fake testing data
+         //An array to store all of our mountains in JSON format
+         //each mountain contains an ID, name and a url
+         //the url is for grabbing data from myWeather2
          var mountains = [{
                           id: 1,
                           name: 'Whistler',
-                          face: 'img/clouds.jpg',
                           url: "http://www.myweather2.com/developer/weather.ashx?uac=EqOGCVvbG-&uref=b3fa171b-af31-4a63-87dc-d79f1cbed54d&output=json",
                           }, {
                           id: 2,
                           name: 'Cypress',
-                          face: 'img/sunandclouds.jpg',
                           url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json",
                           }, {
                           id: 3,
                           name: 'Grouse',
-                          face: 'img/sunandclouds.jpg',
                           url: "http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json",
                           }, {
                           id: 4,
                           name: 'Seymour',
-                          face: 'img/clouds.jpg',
                           url: "http://www.myweather2.com/developer/weather.ashx?uac=aY-aygU21j&uref=bf2e39b0-a66e-4ccd-813c-b8f731bc12e6&output=json",
                           },{
                           id: 5,
                           name: 'Big White',
-                          face: 'img/clouds.jpg',
                           url: "http://www.myweather2.com/developer/weather.ashx?uac=8OK8Qsa/Hb&uref=02830405-f52e-48bf-9b0d-b4127b45a600&output=json",
                           }];
 
       return {
+        //function that returns all the objects in the mountain array
          all: function() {
          return mountains;
          },
+
+         //function that returns the total number of mountains in the database
          getNumMountains: function() {
          return numMountains;
          },
-         remove: function(mountain) {
-         mountains.splice(mountains.indexOf(mountain), 1);
-         },
+
+         /*
+         returns a specific object containing a mountains information from the
+          parameter: mountainID - the ID of the mountain you want
+         */
          get: function(mountainId) {
          for (var i = 0; i < mountains.length; i++) {
          if (mountains[i].id === parseInt(mountainId)) {
@@ -82,10 +87,13 @@ angular.module('starter.services', [])
          }
          return null;
          },
-         set: function(mountain, updatedWeather){
-         mountain.oldWeather.lastSnow = updatedWeather;
-         return null;
-         },
+
+         /*
+         function for grabbing information from the url provided
+         parameters:  url2 - the url the data is retrieved from
+                      numData - position where the data retrieved should be
+                                storred within scrapedData array
+         */
          getScrapedInfoWeb: function(url2, numData){
          var def1 = $q.defer()
          $http.get(url2)
@@ -99,13 +107,19 @@ angular.module('starter.services', [])
          return def1.promise ;                                // because http request might be delayed
          } ,
 
+         /*
+         function for grabbing information from the url provided
+         parameters:  url1 - the url the data is retrieved from
+                      mtnNum - position where the data retrieved should be
+                                storred within allWeatherData array
+         */
 
          getMountainInfoWeb: function(url1, mtnNum){
          var defs = $q.defer()
          $http.get(url1)
          .then(function (response) {
-               sean[mtnNum] = response.data;   // successfully executed http request
-               defs.resolve(sean[mtnNum]);
+               allWeatherData[mtnNum] = response.data;   // successfully executed http request
+               defs.resolve(allWeatherData[mtnNum]);
                }).catch(function(err){                             // error in connecting, return error
                         defs.reject(err) ;
                         console.log("Error getting conditions.") ;
@@ -113,12 +127,17 @@ angular.module('starter.services', [])
          return defs.promise ;                                // because http request might be delayed
          } ,
 
+         //returns allWeatherData array
          getMountainInfo: function(){ //paramerter: index
-         return sean;
+         return allWeatherData;
          },
+
+         //returns scrapedData array
          getScrapedInfo: function(){ //paramerter: index
          return scrapedData;
          } ,
+
+         //returns scrapedDataUrls
          getScrapedUrls: function(){
          return scrapedDataUrls;
          }

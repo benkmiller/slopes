@@ -22,15 +22,19 @@ angular.module('starter.controllers', ['ngCordova'])
     alert("Favorite mountain cleared!");
   }
 
-  //BENS ADDITIONS
   $scope.mountain = Mountains.all();
+  var numMtns = Mountains.getNumMountains();
 
-  for(var i = 0; i < 5; i ++){
+  //First grab all the data from each myWeather2 url
+  for(var i = 0; i < numMtns; i ++){
       Mountains.getMountainInfoWeb($scope.mountain[i].url, i);
   }
 
+  //get the Weather Underground scraping urls
   $scope.a = Mountains.getScrapedUrls();
 
+  //Next grab all the data from each url from scrapedDataUrls to get the
+  //Weather Underground info
   for(var i = 0; i < 10; i ++){
     Mountains.getScrapedInfoWeb($scope.a[i], i);
   }

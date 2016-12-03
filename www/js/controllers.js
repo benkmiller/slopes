@@ -367,7 +367,7 @@ function getSize(green, blue, black, dblack){
   $scope.newSnow = b[($scope.mountain.id - 1)*2];
   //snow in the last 48 hours
   $scope.newSnow48 = b[(($scope.mountain.id - 1)*2)+1];
-            
+
 
   $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
   $scope.tomorrow = a[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;
@@ -468,6 +468,8 @@ function getIcon(data){
   else if(weather.includes('Sunny') || weather.includes('sunny'))
     return 'img/weather-icons-small/icon_sun.png' ;
   else if(weather.includes('Overcast'))
+    return 'img/weather-icons-small/icon-cloudy.png' ;
+  else if(weather.includes('Cloud') || weather.includes('Cloudy'))
     return 'img/weather-icons-small/icon-cloudy.png' ;
   else return '' ;
 };

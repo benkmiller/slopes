@@ -87,8 +87,9 @@
               <p>Size: {{entry.size}}</p>
             </div>
             <div class="col weather-icon">
-              <img ng-src="{{entry.weather == 'Clouds' && 'img/weather-icons/cloudy.png'
-                  || entry.weather == 'Snow' && 'img/weather-icons/snowy.png'
+              <img ng-src="{{entry.weather == 'Snow' && 'img/weather-icons/snowy.png'
+                  || entry.weather == 'Clouds' && 'img/weather-icons/cloudy.png'
+                  || entry.weather == 'Clouds skies' && 'img/weather-icons/cloudy.png'
                   || entry.weather == 'Rain' && 'img/weather-icons/rainy.png'
                   || entry.weather == 'Clear' && 'img/weather-icons/clear.png'}}" alt="Clouds" style="height:85px;width:auto"/>
               <!-- <p>{{entry.weather}}</p> -->

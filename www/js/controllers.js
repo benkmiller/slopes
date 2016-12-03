@@ -363,7 +363,11 @@ function getSize(green, blue, black, dblack){
   var b = Mountains.getScrapedInfo();
 
   $scope.lastSnow = a[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
+  //snow in the last 24 hours
   $scope.newSnow = b[($scope.mountain.id - 1)*2];
+  //snow in the last 48 hours
+  $scope.newSnow48 = b[(($scope.mountain.id - 1)*2)+1];
+            
 
   $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
   $scope.tomorrow = a[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;

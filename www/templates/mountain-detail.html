@@ -48,6 +48,7 @@
       <h4 style="font-weight:bold">Base Depth:</h4><h4> {{upperDepth}} cm</h4>
       <h4 style="font-weight:bold">Base Conditions:</h4><h4> {{snowConditions}}</h4>
       <h4 class="light" ng-if="newSnow > 0"><b>{{newSnow}} cm within last 24 hours</b></h4>
+      <h4 class="light" ng-if="newSnow48 > 0"><b>{{newSnow48}} cm within last 48 hours</b></h4>
       <h4 style="font-weight:bold" class="light" ng-if="newSnow <= 0">Last Snow Date: {{lastSnow}}</h4>
 
       <div style="position:absolute;left:5%;right:5%;border-top:1px solid white"></div>

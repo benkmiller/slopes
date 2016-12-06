@@ -363,31 +363,33 @@ function getSize(green, blue, black, dblack){
   //FROM DATABASE
   $scope.info = Results.get($stateParams.mountainId) ;
 
-  var a = Mountains.getMountainInfo();
-  var b = Mountains.getScrapedInfo();
+  //Get data from factory
+  var mountainData = Mountains.getMountainInfo();
+  var scrapedData = Mountains.getScrapedInfo();
 
-  $scope.lastSnow = a[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
+  $scope.lastSnow = mountainData[$scope.mountain.id - 1].weather.snow_report[0].last_snow_date;
   //snow in the last 24 hours
-  $scope.newSnow = b[($scope.mountain.id - 1)*2];
+  $scope.newSnow = scrapedData[($scope.mountain.id - 1)*2];
   //snow in the last 48 hours
-  $scope.newSnow48 = b[(($scope.mountain.id - 1)*2)+1];
+  $scope.newSnow48 = scrapedData[(($scope.mountain.id - 1)*2)+1];
 
 
-  $scope.results = a[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
-  $scope.tomorrow = a[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;
-  $scope.days2 = a[$scope.mountain.id - 1].weather.forecast[2].day[0].weather_text;
-  $scope.days3 = a[$scope.mountain.id - 1].weather.forecast[3].day[0].weather_text;
-  $scope.days4 = a[$scope.mountain.id - 1].weather.forecast[4].day[0].weather_text;
+  $scope.results = mountainData[$scope.mountain.id - 1].weather.forecast[0].day[0].weather_text;
+  $scope.tomorrow = mountainData[$scope.mountain.id - 1].weather.forecast[1].day[0].weather_text;
+  $scope.days2 = mountainData[$scope.mountain.id - 1].weather.forecast[2].day[0].weather_text;
+  $scope.days3 = mountainData[$scope.mountain.id - 1].weather.forecast[3].day[0].weather_text;
+  $scope.days4 = mountainData[$scope.mountain.id - 1].weather.forecast[4].day[0].weather_text;
 
   //------------------------------------------
   // Added to add more detail on weather page
   //------------------------------------------
-  $scope.maxTemp = a[$scope.mountain.id - 1].weather.forecast[0].day_max_temp;
-  $scope.windSpeed = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].speed;
-  $scope.windUnit = a[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].wind_unit;
-  $scope.upperDepth = a[$scope.mountain.id - 1].weather.snow_report[0].upper_snow_depth;
-  $scope.snowConditions = a[$scope.mountain.id - 1].weather.snow_report[0].conditions;
+  $scope.maxTemp = mountainData[$scope.mountain.id - 1].weather.forecast[0].day_max_temp;
+  $scope.windSpeed = mountainData[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].speed;
+  $scope.windUnit = mountainData[$scope.mountain.id - 1].weather.forecast[0].day[0].wind[0].wind_unit;
+  $scope.upperDepth = mountainData[$scope.mountain.id - 1].weather.snow_report[0].upper_snow_depth;
+  $scope.snowConditions = mountainData[$scope.mountain.id - 1].weather.snow_report[0].conditions;
 
+  //Display correct icons on page
   displayWeatherFC() ;
 
 $scope.goBackOneView = function(){
@@ -451,6 +453,7 @@ function getDay(num){
     return weekday[num % 7] ;
 } ;
 
+//Helper function for providing the correct weather icon
 function getIcon(data){
   weather = data.toString() ;
   if(weather.includes('thunder') || weather.includes('Thundery'))

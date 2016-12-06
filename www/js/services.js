@@ -220,7 +220,9 @@ angular.module('starter.services', [])
   }
 })
 
-
+//
+//Factory dedicated to providing the right icon given some weather
+//
 .factory('Icons',function(){
   return{
     getIcon: function(data){
@@ -248,9 +250,6 @@ angular.module('starter.services', [])
       else if(weather.includes('Cloud') || weather.includes('Cloudy'))
         return 'img/weather-icons-small/icon-cloudy.png' ;
       else return '' ;
-    };
-
+    }
   }
-
-
 })

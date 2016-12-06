@@ -40,7 +40,7 @@ angular.module('starter.controllers', ['ngCordova'])
   }
 })
 
-.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation, $ionicPopover, Weather, Results) {
+.controller('MntCtrl',function($scope, Mountains, $cordovaGeolocation, $ionicPopover, Weather, Results, Icons) {
   // variables for reading from table
   $scope.title = 'Mountains';
 
@@ -87,7 +87,7 @@ angular.module('starter.controllers', ['ngCordova'])
        console.log("Query: " + q) ;
        query.executeSql(q, [], function(tx, results){
 
-      //ben add
+      //weather info for displaying
       var mountainData = Mountains.getMountainInfo();
 
          // Iterate through all of the results, output rows into console
@@ -131,9 +131,11 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.difficulty = getDifficulty(newData.green, newData.blue, newData.black, newData.dblack) ;
            newData.size = getSize(newData.green, newData.blue, newData.black, newData.dblack) ;
-           
-           newData.weather = Icons.getIcon(mountainData[newData.id - 1].weather.forecast[0].day[0].weather_text)
-           //getWeather(newData, newData.latitude, newData.longitude) ;
+
+           //Recently updated new weather icons
+           newData.weather = Icons.getIcon(mountainData[newData.id - 1].weather.forecast[0].day[0].weather_text);
+           //getWeather(newData, newData.latitude, newData.longitude);
+
            console.log("weather" + newData.weather) ;
            $scope.$apply() ;
 
@@ -235,8 +237,10 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.lastSnow = getLastSnow(newData.id) ;
            newData.newSnow = getNewSnow(newData.id) ;
-           getWeather(newData, newData.latitude, newData.longitude) ;
-          //  console.log("weather" + newData.weather) ;
+           //Recently added weather icons
+           newData.weather = Icons.getIcon(mountainData[newData.id - 1].weather.forecast[0].day[0].weather_text);
+           //getWeather(newData, newData.latitude, newData.longitude) ;
+           //  console.log("weather" + newData.weather) ;
            $scope.$apply() ;
            if($scope.gpsLat != null)
            {
@@ -298,8 +302,9 @@ function getNewSnow(id){
   var a = Mountains.getScrapedInfo() ;
   return a[(id - 1)*2];
 }
-// get weather from OpenWeatherAPI
 
+// get weather from OpenWeatherAPI
+// no longer needed
 /*
 function getWeather(newData, latitude, longitude){
   var promise = Weather.getWeather(latitude, longitude);
@@ -310,6 +315,7 @@ function getWeather(newData, latitude, longitude){
   })
 }
 */
+
 // Convert to distance
 // lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
 function getDistance(lat1,lon1,lat2,lon2) {
@@ -361,7 +367,7 @@ function getSize(green, blue, black, dblack){
 };
 
 })
-.controller('MntDetailCtrl', function($ionicHistory, $scope, $stateParams, Mountains, Results, Favorite){
+.controller('MntDetailCtrl', function($ionicHistory, $scope, $stateParams, Mountains, Results, Favorite, Icons){
 
   $scope.setFaveId = Favorite.getFave();
 
@@ -435,15 +441,15 @@ $scope.setFave = function(){
 function displayWeatherFC(){
 
   var d = new Date() ;
-  document.getElementById("todayPNG").src = getIcon($scope.results) ;
+  document.getElementById("todayPNG").src = Icons.getIcon($scope.results) ;
   document.getElementById("tom").innerHTML = getDay(d.getDay() + 1) ;
-  document.getElementById("tomPNG").src = getIcon($scope.tomorrow) ;
+  document.getElementById("tomPNG").src = Icons.getIcon($scope.tomorrow) ;
   document.getElementById("day2").innerHTML = getDay(d.getDay() + 2) ;
-  document.getElementById("day2PNG").src = getIcon($scope.days2) ;
+  document.getElementById("day2PNG").src = Icons.getIcon($scope.days2) ;
   document.getElementById("day3").innerHTML = getDay(d.getDay() + 3) ;
-  document.getElementById("day3PNG").src = getIcon($scope.days3) ;
+  document.getElementById("day3PNG").src = Icons.getIcon($scope.days3) ;
   document.getElementById("day4").innerHTML = getDay(d.getDay() + 4) ;
-  document.getElementById("day4PNG").src = getIcon($scope.days4) ;
+  document.getElementById("day4PNG").src = Icons.getIcon($scope.days4) ;
 };
 
 function getDay(num){
@@ -456,10 +462,12 @@ function getDay(num){
     weekday[5] = "Fri";
     weekday[6] = "Sat";
 
-    return weekday[num % 7] ;
+    return weekday[num % 7];
 } ;
 
 //Helper function for providing the correct weather icon
+//MOVED INTO A FACTORY
+/*
 function getIcon(data){
   weather = data.toString() ;
   if(weather.includes('thunder') || weather.includes('Thundery'))
@@ -486,5 +494,6 @@ function getIcon(data){
     return 'img/weather-icons-small/icon-cloudy.png' ;
   else return '' ;
 };
+*/
 
 });

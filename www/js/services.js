@@ -219,3 +219,38 @@ angular.module('starter.services', [])
     }
   }
 })
+
+
+.factory('Icons',function(){
+  return{
+    getIcon: function(data){
+      weather = data.toString() ;
+      if(weather.includes('thunder') || weather.includes('Thundery'))
+        return 'img/weather-icons-small/icon-thunder.png' ;
+      else if(weather.includes('snow') || weather.includes('Snow'))
+        return 'img/weather-icons-small/icon-light-snow.png' ;
+      else if(weather.includes('sleet') || weather.includes('Sleet'))
+        return 'img/weather-icons-small/icon-sleet.png' ;
+      else if(weather.includes('Heavy rain') || weather.includes('heavy rain'))
+        return 'img/weather-icons-small/icon-heavyrain.png' ;
+      else if(weather.includes('rain') || weather.includes('shower'))
+        return 'img/weather-icons-small/icon-showers.png' ;
+      else if(weather.includes('Mist') || weather.includes('drizzle'))
+        return 'img/weather-icons-small/icon-light-rain.png' ;
+      else if(weather.includes('Fog') || weather.includes('fog'))
+        return 'img/weather-icons-small/icon-fog.png' ;
+      else if(weather.includes('ice') || weather.includes('Ice'))
+        return 'img/weather-icons-small/icon-hail.png';
+      else if(weather.includes('Sunny') || weather.includes('sunny'))
+        return 'img/weather-icons-small/icon_sun.png' ;
+      else if(weather.includes('Overcast'))
+        return 'img/weather-icons-small/icon-cloudy.png' ;
+      else if(weather.includes('Cloud') || weather.includes('Cloudy'))
+        return 'img/weather-icons-small/icon-cloudy.png' ;
+      else return '' ;
+    };
+
+  }
+
+
+})

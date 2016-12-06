@@ -87,6 +87,9 @@ angular.module('starter.controllers', ['ngCordova'])
        console.log("Query: " + q) ;
        query.executeSql(q, [], function(tx, results){
 
+      //ben add
+      var mountainData = Mountains.getMountainInfo();
+
          // Iterate through all of the results, output rows into console
          for(var i=0; i < results.rows.length; i++)
          {
@@ -128,8 +131,9 @@ angular.module('starter.controllers', ['ngCordova'])
 
            newData.difficulty = getDifficulty(newData.green, newData.blue, newData.black, newData.dblack) ;
            newData.size = getSize(newData.green, newData.blue, newData.black, newData.dblack) ;
-
-           getWeather(newData, newData.latitude, newData.longitude) ;
+           
+           newData.weather = Icons.getIcon(mountainData[newData.id - 1].weather.forecast[0].day[0].weather_text)
+           //getWeather(newData, newData.latitude, newData.longitude) ;
            console.log("weather" + newData.weather) ;
            $scope.$apply() ;
 
@@ -295,6 +299,8 @@ function getNewSnow(id){
   return a[(id - 1)*2];
 }
 // get weather from OpenWeatherAPI
+
+/*
 function getWeather(newData, latitude, longitude){
   var promise = Weather.getWeather(latitude, longitude);
   promise.then(function(weather){
@@ -303,7 +309,7 @@ function getWeather(newData, latitude, longitude){
     console.log("Failed to receive weather info") ;
   })
 }
-
+*/
 // Convert to distance
 // lat1, lon1 = GPS Coords, lat2, lon2 = Mountain Coords
 function getDistance(lat1,lon1,lat2,lon2) {

@@ -247,9 +247,11 @@ angular.module('starter.services', [])
         return 'img/weather-icons-small/icon_sun.png' ;
       else if(weather.includes('Overcast'))
         return 'img/weather-icons-small/icon-cloudy.png' ;
-      else if(weather.includes('Cloud') || weather.includes('Cloudy'))
+      else if(weather.includes('Cloud') || weather.includes('Cloudy') || weather.includes('Clouds') )
         return 'img/weather-icons-small/icon-cloudy.png' ;
-      else return '' ;
+      else if(weather.includes('Partly cloudy')  )
+        return 'img/weather-icons-small/icon-sun-clouds.png' ;
+      else return 'no results for ' + data ;
     }
   }
 })

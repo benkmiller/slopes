@@ -135,7 +135,7 @@ angular.module('starter.controllers', ['ngCordova'])
            //Recently updated new weather icons
            newData.weather = Icons.getIcon(mountainData[newData.id - 1].weather.forecast[0].day[0].weather_text);
            //getWeather(newData, newData.latitude, newData.longitude);
-
+           console.log("apidata:  " + mountainData[newData.id - 1].weather.forecast[0].day[0].weather_text);
            console.log("weather" + newData.weather) ;
            $scope.$apply() ;
 
@@ -185,6 +185,7 @@ angular.module('starter.controllers', ['ngCordova'])
         break;
     }
     Results.clearAll() ;
+    var mountainData = Mountains.getMountainInfo();
 
     if(db != null)
    {

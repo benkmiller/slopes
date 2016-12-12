@@ -88,7 +88,8 @@
             </div>
             <div class="col weather-icon">
               <!--  THIS WAS MODIFIED TO WORK WITH ONE WEATHER API -->
-              <img ng-src="{{entry.weather}}" alt="Clouds" style="height:85px;width:auto"/>
+              <!-- Changed height of icon from 85px to 65px in order to fit the bounding box -->
+              <img ng-src="{{entry.weather}}" alt="Clouds" style="height:65px;width:auto"/>
               <!-- <p>{{entry.weather}}</p> -->
             </div>
           </div>
